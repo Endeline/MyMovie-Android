@@ -20,3 +20,4 @@ Used:
 
 Feature
  - Save data on server side if i will make spring backend app for this
+ - Recommendation for other user
