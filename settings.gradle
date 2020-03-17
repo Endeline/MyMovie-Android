@@ -1,0 +1,4 @@
+rootProject.name='MyMovie'
+include ':app'
+include ':domain'
+include ':data'
