@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation_graph.xml"
+    app:startDestination="@id/nowPlaying">
+
+    <fragment
+        android:id="@+id/nowPlaying"
+        android:name="com.endeline.mymovie.fragments.NowPlayingFragment"
+        android:label="NowPlayingFragment" />
+    <fragment
+        android:id="@+id/latest"
+        android:name="com.endeline.mymovie.fragments.LatestFragment"
+        android:label="LatestFragment" />
+    <fragment
+        android:id="@+id/popular"
+        android:name="com.endeline.mymovie.fragments.PopularFragment"
+        android:label="PopularFragment" />
+    <fragment
+        android:id="@+id/upcoming"
+        android:name="com.endeline.mymovie.fragments.UpcomingFragment"
+        android:label="UpcomingFragment" />
+    <fragment
+        android:id="@+id/topRated"
+        android:name="com.endeline.mymovie.fragments.TopRatedFragment"
+        android:label="TopRatedFragment" />
+    <fragment
+        android:id="@+id/searchFragment"
+        android:name="com.endeline.mymovie.fragments.SearchFragment"
+        android:label="SearchFragment" />
+</navigation>
