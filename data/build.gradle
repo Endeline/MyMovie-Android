@@ -20,11 +20,13 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
             buildConfigField "String", "MOVIE_DB_BASE_URL", "\"https://api.themoviedb.org\""
             buildConfigField "String", "MOVIE_API_KEY", "\"893eec905cedf61581617ff8fda6a7bc\""
+            buildConfigField "String", "API_VERSION", "\"3\""
         }
 
         debug {
             buildConfigField "String", "MOVIE_DB_BASE_URL", "\"https://api.themoviedb.org\""
             buildConfigField "String", "MOVIE_API_KEY", "\"893eec905cedf61581617ff8fda6a7bc\""
+            buildConfigField "String", "API_VERSION", "\"3\""
         }
     }
 
