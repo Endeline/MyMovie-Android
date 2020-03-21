@@ -1,5 +1,6 @@
-package com.endeline.mymovie.di.modules
+package com.endeline.domain.di.modules
 
+import com.endeline.domain.usecase.GetLatestUseCase
 import com.endeline.domain.dummy.SaveDummyUseCase
 import dagger.Module
 import dagger.Provides
@@ -10,4 +11,7 @@ class UseCaseModules {
     @Provides
     fun provideSaveDummyUseCase() = SaveDummyUseCase()
 
+    @Provides
+    fun provideGetLatestUseCase() =
+        GetLatestUseCase()
 }
