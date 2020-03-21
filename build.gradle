@@ -5,7 +5,9 @@ buildscript {
     repositories {
         google()
         jcenter()
-        
+        maven {
+            url "https://jitpack.io"
+        }
     }
 
 
@@ -45,8 +47,11 @@ allprojects {
         rxJava = "2.2.18"
         rxKotlin = "2.4.0"
         lifecycle = "2.2.0"
+        okHttpLoggin = "3.14.1"
+        rxJavaAdapter = "1.0.0"
 
         dagger2 = "2.24"
+        retrofit2 = "2.6.2"
     }
 }
 

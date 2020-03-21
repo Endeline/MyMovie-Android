@@ -1,7 +1,7 @@
 package com.endeline.domain.dummy
 
 import com.endeline.data.dummy.DummyRepository
-import com.endeline.domain.di.components.DaggerRepositoryComponent
+import com.endeline.domain.di.components.DaggerUseCaseComponent
 import io.reactivex.Completable
 import timber.log.Timber
 import javax.inject.Inject
@@ -12,7 +12,7 @@ class SaveDummyUseCase: CompletableUseCase<DummyUiModel> {
     protected lateinit var dummyRepository: DummyRepository
 
     init {
-        DaggerRepositoryComponent.builder().build().inject(this)
+        DaggerUseCaseComponent.builder().build().inject(this)
     }
 
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")

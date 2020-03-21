@@ -18,6 +18,13 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "MOVIE_DB_BASE_URL", "\"https://api.themoviedb.org\""
+            buildConfigField "String", "MOVIE_API_KEY", "\"893eec905cedf61581617ff8fda6a7bc\""
+        }
+
+        debug {
+            buildConfigField "String", "MOVIE_DB_BASE_URL", "\"https://api.themoviedb.org\""
+            buildConfigField "String", "MOVIE_API_KEY", "\"893eec905cedf61581617ff8fda6a7bc\""
         }
     }
 
@@ -46,4 +53,10 @@ dependencies {
     implementation "com.google.dagger:dagger-android-support:$project.ext.dagger2"
     kapt "com.google.dagger:dagger-android-processor:$project.ext.dagger2"
     kapt "com.google.dagger:dagger-compiler:$project.ext.dagger2"
+
+    implementation "com.squareup.retrofit2:retrofit:$project.ext.retrofit2"
+    implementation "com.squareup.retrofit2:converter-gson:$project.ext.retrofit2"
+    implementation "com.squareup.retrofit2:adapter-rxjava:$project.ext.retrofit2"
+    implementation "com.squareup.okhttp3:logging-interceptor:$project.ext.okHttpLoggin"
+    implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$project.ext.rxJavaAdapter"
 }
