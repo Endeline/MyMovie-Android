@@ -6,9 +6,7 @@ import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.endeline.domain.dummy.DummyUiModel
 import com.endeline.domain.usecase.GetLatestUseCase
-import com.endeline.domain.dummy.SaveDummyUseCase
 import com.endeline.mymovie.databinding.ActivityMainBinding
 import com.endeline.mymovie.databinding.ToolbarBinding
 import com.endeline.mymovie.di.components.DaggerAppComponent
@@ -18,9 +16,6 @@ import timber.log.Timber.DebugTree
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
-
-    @Inject
-    protected lateinit var saveDummyUseCase: SaveDummyUseCase
 
     @Inject
     protected lateinit var getLatestUseCase: GetLatestUseCase
@@ -39,8 +34,6 @@ class MainActivity : AppCompatActivity() {
         init()
 
         DaggerAppComponent.builder().build().inject(this)
-
-        saveDummyUseCase(DummyUiModel("test", 0))
 
         getLatestUseCase()
             .subscribeOn(Schedulers.io())

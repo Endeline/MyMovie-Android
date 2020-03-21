@@ -1,4 +1,4 @@
-package com.endeline.domain.dummy
+package com.endeline.domain.types
 
 import io.reactivex.Completable
 

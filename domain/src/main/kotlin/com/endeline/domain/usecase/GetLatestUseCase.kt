@@ -1,9 +1,8 @@
 package com.endeline.domain.usecase
 
-import com.endeline.data.pojos.MovieLatestPojo
 import com.endeline.data.repositories.MovieDbRepository
 import com.endeline.domain.di.components.DaggerUseCaseComponent
-import com.endeline.domain.dummy.ObservableUseCase
+import com.endeline.domain.types.ObservableUseCase
 import com.endeline.domain.extensions.toUiModel
 import com.endeline.domain.uimodels.MovieLatestUiModel
 import io.reactivex.Observable
