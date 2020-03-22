@@ -1,8 +1,8 @@
-package com.endeline.data.pojos
+package com.endeline.data.models
 
 import com.google.gson.annotations.SerializedName
 
-data class DatesPojo (
+data class Dates (
     @SerializedName("maximum")
     val maximum: String? = null,
 

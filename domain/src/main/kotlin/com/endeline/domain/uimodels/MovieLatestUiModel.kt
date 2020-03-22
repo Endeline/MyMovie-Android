@@ -14,7 +14,7 @@ data class MovieLatestUiModel(
     var overview: String? = null,
     var popularity: Int? = null,
     var posterPath: String? = null,
-    var productionCompanies: List<String>? = null,
+//    var productionCompanies: List<String>? = null,
 //    var productionCountries: List<String>? = null,
     var releaseDate: String? = null,
     var revenue: Int? = null,

@@ -6,21 +6,40 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.endeline.mymovie.R
+import com.endeline.mymovie.databinding.LatestFragmentBinding
+import com.endeline.mymovie.di.components.DaggerViewModelComponent
 import com.endeline.mymovie.viewmodels.LatestViewModel
+import io.reactivex.schedulers.Schedulers
+import timber.log.Timber
+import javax.inject.Inject
 
 class LatestFragment : Fragment() {
 
-    private lateinit var viewModel: LatestViewModel
+    @Inject
+    protected lateinit var viewModel: LatestViewModel
+
+    private lateinit var binding: LatestFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.latest_fragment, container, false)
+        binding = LatestFragmentBinding.inflate(inflater)
+
+        DaggerViewModelComponent.builder().build().inject(this)
+
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        viewModel.getLatest()
+            .subscribeOn(Schedulers.io())
+            .subscribe({
+                    Timber.d("$it")
+                }, Timber::e
+            )
     }
 
 }

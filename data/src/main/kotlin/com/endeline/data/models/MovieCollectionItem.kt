@@ -1,8 +1,8 @@
-package com.endeline.data.pojos
+package com.endeline.data.models
 
 import com.google.gson.annotations.SerializedName
 
-class MovieCollectionItemPojo (
+data class MovieCollectionItem (
     @SerializedName("poster_path")
     val posterPath: String? = null,
 

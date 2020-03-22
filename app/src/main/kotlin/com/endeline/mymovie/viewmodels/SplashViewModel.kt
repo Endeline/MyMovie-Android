@@ -1,18 +1,18 @@
 package com.endeline.mymovie.viewmodels
 
-import androidx.lifecycle.ViewModel
-import com.endeline.domain.usecase.GetLatestUseCase
+import com.endeline.domain.usecase.LoadAllDataUseCase
 import com.endeline.mymovie.di.components.DaggerUseCaseComponent
 import javax.inject.Inject
 
-class LatestViewModel : ViewModel() {
+class SplashViewModel {
 
     @Inject
-    protected lateinit var getLatestUseCase: GetLatestUseCase
+    protected lateinit var loadAllDataUseCase: LoadAllDataUseCase
 
     init {
         DaggerUseCaseComponent.builder().build().inject(this)
     }
 
-    fun getLatest() = getLatestUseCase()
+    fun loadData() = loadAllDataUseCase()
+
 }

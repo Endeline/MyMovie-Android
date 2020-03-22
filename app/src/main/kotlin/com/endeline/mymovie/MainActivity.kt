@@ -1,24 +1,25 @@
 package com.endeline.mymovie
 
+import android.content.Context
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.ActionBar
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import com.endeline.domain.usecase.GetLatestUseCase
 import com.endeline.mymovie.databinding.ActivityMainBinding
 import com.endeline.mymovie.databinding.ToolbarBinding
-import com.endeline.mymovie.di.components.DaggerAppComponent
-import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import timber.log.Timber.DebugTree
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
 
-    @Inject
-    protected lateinit var getLatestUseCase: GetLatestUseCase
+    companion object {
+        fun start(context: Context) {
+            context.startActivity(Intent(context, MainActivity::class.java))
+        }
+    }
 
     private lateinit var layoutBinding: ActivityMainBinding
     private lateinit var toolbarBinding: ToolbarBinding
@@ -32,15 +33,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(layoutBinding.root)
 
         init()
-
-        DaggerAppComponent.builder().build().inject(this)
-
-        getLatestUseCase()
-            .subscribeOn(Schedulers.io())
-            .subscribe( {
-                Timber.d("$it")
-            }, Timber::e)
-
     }
 
     private fun init() {
