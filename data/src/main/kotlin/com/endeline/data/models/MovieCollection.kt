@@ -1,16 +1,16 @@
-package com.endeline.data.pojos
+package com.endeline.data.models
 
 import com.google.gson.annotations.SerializedName
 
-class MovieCollectionPojo (
+data class MovieCollection (
     @SerializedName("page")
     val page: Int? = null,
 
     @SerializedName("results")
-    val results: List<MovieCollectionItemPojo>? = null,
+    val results: List<MovieCollectionItem>? = null,
 
     @SerializedName("dates")
-    val dates: DatesPojo? = null,
+    val dates: Dates? = null,
 
     @SerializedName("total_pages")
     val totalPages: Int? = null,

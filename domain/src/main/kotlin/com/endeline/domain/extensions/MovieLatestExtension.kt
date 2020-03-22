@@ -1,9 +1,9 @@
 package com.endeline.domain.extensions
 
-import com.endeline.data.pojos.MovieLatestPojo
+import com.endeline.data.models.MovieLatest
 import com.endeline.domain.uimodels.MovieLatestUiModel
 
-fun MovieLatestPojo.toUiModel(): MovieLatestUiModel =
+fun MovieLatest.toUiModel(): MovieLatestUiModel =
     MovieLatestUiModel().apply {
         adult = this@toUiModel.adult
         backdropPath = this@toUiModel.backdropPath
@@ -18,7 +18,7 @@ fun MovieLatestPojo.toUiModel(): MovieLatestUiModel =
         overview = this@toUiModel.overview
         popularity = this@toUiModel.popularity
         posterPath = this@toUiModel.posterPath
-        productionCompanies = this@toUiModel.productionCompanies
+//        productionCompanies = this@toUiModel.productionCompanies
 //        productionCountries = this@toUiModel.productionCountries
         releaseDate = this@toUiModel.releaseDate
         revenue = this@toUiModel.revenue

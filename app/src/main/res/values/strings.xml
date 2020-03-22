@@ -5,4 +5,7 @@
     <string name="menu_popular">Popular</string>
     <string name="menu_top_rated">Top Rated</string>
     <string name="menu_upcoming">Upcoming</string>
+    <string name="loading_data">Loading data please wait</string>
+    <string name="loading_error">Cannot load data</string>
+    <string name="refresh">Refresh</string>
 </resources>

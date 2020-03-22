@@ -52,6 +52,8 @@ allprojects {
 
         dagger2 = "2.24"
         retrofit2 = "2.6.2"
+
+        multidex = "1.0.3"
     }
 }
 

@@ -41,6 +41,7 @@ dependencies {
     implementation "androidx.core:core-ktx:$project.ext.coreKtx"
 
     implementation "io.reactivex.rxjava2:rxjava:$project.ext.rxJava"
+    implementation "io.reactivex.rxjava2:rxkotlin:$project.ext.rxKotlin"
 
     implementation "com.jakewharton.timber:timber:4.7.1"
 

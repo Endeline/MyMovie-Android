@@ -1,8 +1,8 @@
-package com.endeline.data.pojos
+package com.endeline.data.models
 
 import com.google.gson.annotations.SerializedName
 
-data class GenresPojo (
+data class Genres (
     @SerializedName("id")
     val id: Int? = null,
 

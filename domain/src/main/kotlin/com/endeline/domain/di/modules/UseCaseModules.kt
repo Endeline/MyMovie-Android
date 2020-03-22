@@ -1,6 +1,6 @@
 package com.endeline.domain.di.modules
 
-import com.endeline.domain.usecase.GetLatestUseCase
+import com.endeline.domain.usecase.*
 import dagger.Module
 import dagger.Provides
 
@@ -8,7 +8,20 @@ import dagger.Provides
 class UseCaseModules {
 
     @Provides
-    fun provideGetLatestUseCase() =
-        GetLatestUseCase()
+    fun provideGetLatestUseCase() = GetLatestUseCase()
 
+    @Provides
+    fun provideGetNowPlayingUseCase() = GetNowPlayingUseCase()
+
+    @Provides
+    fun provideGetPopularUseCase() = GetPopularUseCase()
+
+    @Provides
+    fun providesTopRatedUseCase() = GetTopRatedUseCase()
+
+    @Provides
+    fun providesUpcomingUseCase() = GetUpcomingUseCase()
+
+    @Provides
+    fun providesLoadAllDataUseCase() = LoadAllDataUseCase()
 }

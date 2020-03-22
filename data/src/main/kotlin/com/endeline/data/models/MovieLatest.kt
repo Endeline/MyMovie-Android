@@ -1,8 +1,8 @@
-package com.endeline.data.pojos
+package com.endeline.data.models
 
 import com.google.gson.annotations.SerializedName
 
-class MovieLatestPojo (
+data class MovieLatest (
     @SerializedName("adult")
     val adult: Boolean? = null,
 
@@ -16,7 +16,7 @@ class MovieLatestPojo (
     val budget: Int? = null,
 
     @SerializedName("genres")
-    val genres: List<GenresPojo>? = null,
+    val genres: List<Genres>? = null,
 
     @SerializedName("homepage")
     val homepage: String? = null,
@@ -42,8 +42,9 @@ class MovieLatestPojo (
     @SerializedName("poster_path")
     val posterPath: String? = null,
 
-    @SerializedName("production_companies")
-    val productionCompanies: List<String>? = null,
+    //todo find object in doc
+//    @SerializedName("production_companies")
+//    val productionCompanies: List<String>? = null,
 
     //todo find this in doc
 //    @SerializedName("production_countries")
