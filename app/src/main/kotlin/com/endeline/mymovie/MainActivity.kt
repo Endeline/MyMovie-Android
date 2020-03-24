@@ -1,15 +1,18 @@
 package com.endeline.mymovie
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.view.View
-import androidx.appcompat.app.ActionBar
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.navigation.NavController
 import androidx.navigation.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.endeline.mymovie.databinding.ActivityMainBinding
-import com.endeline.mymovie.databinding.ToolbarBinding
+import com.endeline.mymovie.fragments.nowplaying.NowPlayingFragmentDirections
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
@@ -21,47 +24,49 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private lateinit var layoutBinding: ActivityMainBinding
-    private lateinit var toolbarBinding: ToolbarBinding
+    private lateinit var binding: ActivityMainBinding
+
+    private lateinit var navigationController: NavController
+    private lateinit var appBarConfiguration: AppBarConfiguration
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        layoutBinding = ActivityMainBinding.inflate(layoutInflater)
-        toolbarBinding = ToolbarBinding.inflate(layoutInflater)
+        binding = ActivityMainBinding.inflate(layoutInflater)
 
-        setContentView(layoutBinding.root)
+        setContentView(binding.root)
 
         init()
     }
 
+    override fun onSupportNavigateUp(): Boolean {
+        return navigationController.navigateUp() || super.onSupportNavigateUp()
+    }
+
+    @SuppressLint("CheckResult")
     private fun init() {
         Timber.plant(DebugTree())
 
-        val navigationController = findNavController(R.id.navigation_host)
+        setSupportActionBar(binding.customToolbar)
 
-        layoutBinding.navigationView.setupWithNavController(navigationController)
-
-        with(supportActionBar) {
-            this?.setCustomView(
-                toolbarBinding.root,
-                ActionBar.LayoutParams(
-                    ActionBar.LayoutParams.MATCH_PARENT,
-                    ActionBar.LayoutParams.WRAP_CONTENT
-                )
+        navigationController = findNavController(R.id.navigation_host)
+        appBarConfiguration = AppBarConfiguration(
+            topLevelDestinationIds = setOf(
+                R.id.nowPlaying,
+                R.id.latest,
+                R.id.popular,
+                R.id.topRated,
+                R.id.upcoming
             )
-            this?.setDisplayShowCustomEnabled(true)
+        )
+        setupActionBarWithNavController(navigationController, appBarConfiguration)
 
-            with(toolbarBinding) {
-                icSearch.setOnClickListener {
-                    navigationController.navigate(R.id.searchFragment)
-                    icBack.visibility = View.VISIBLE
-                }
-                icBack.setOnClickListener {
-                    navigationController.popBackStack()
-                    icBack.visibility = View.GONE
-                }
+        with(binding) {
+            navigationView.setupWithNavController(navigationController)
+            findViewById<ImageView>(R.id.ic_search).setOnClickListener {
+                navigationController.navigate(NowPlayingFragmentDirections.toSearch())
             }
         }
     }
+
 }
