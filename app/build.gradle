@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: "kotlin-kapt"
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion project.ext.compileSdkVersion
@@ -83,4 +84,8 @@ dependencies {
     kapt "com.google.dagger:dagger-compiler:$project.ext.dagger2"
 
     implementation "com.android.support:multidex:$project.ext.multidex"
+
+    implementation "com.github.bumptech.glide:glide:$project.ext.glide"
+    kapt "com.github.bumptech.glide:compiler:$project.ext.glide"
+
 }

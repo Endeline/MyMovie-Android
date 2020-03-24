@@ -1,30 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto" android:id="@+id/navigation_graph.xml"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/navigation_graph.xml"
     app:startDestination="@id/nowPlaying">
 
     <fragment
         android:id="@+id/nowPlaying"
-        android:name="com.endeline.mymovie.fragments.NowPlayingFragment"
-        android:label="NowPlayingFragment" />
+        android:name="com.endeline.mymovie.fragments.nowplaying.NowPlayingFragment"
+        android:label="NowPlayingFragment">
+        <action
+            android:id="@+id/toSearch"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/toDetails"
+            app:destination="@id/detailsFragment">
+            <argument
+                android:name="movie_id"
+                android:defaultValue="-1L"
+                app:argType="long" />
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/latest"
         android:name="com.endeline.mymovie.fragments.LatestFragment"
-        android:label="LatestFragment" />
+        android:label="LatestFragment">
+        <action
+            android:id="@+id/toSearch"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/toDetails"
+            app:destination="@id/detailsFragment">
+            <argument
+                android:name="movie_id"
+                android:defaultValue="-1L"
+                app:argType="long" />
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/popular"
         android:name="com.endeline.mymovie.fragments.PopularFragment"
-        android:label="PopularFragment" />
+        android:label="PopularFragment">
+        <action
+            android:id="@+id/toSearch"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/toDetails"
+            app:destination="@id/detailsFragment">
+            <argument
+                android:name="movie_id"
+                android:defaultValue="-1L"
+                app:argType="long" />
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/upcoming"
         android:name="com.endeline.mymovie.fragments.UpcomingFragment"
-        android:label="UpcomingFragment" />
+        android:label="UpcomingFragment">
+        <action
+            android:id="@+id/toSearch"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/toDetails"
+            app:destination="@id/detailsFragment">
+            <argument
+                android:name="movie_id"
+                android:defaultValue="-1L"
+                app:argType="long" />
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/topRated"
         android:name="com.endeline.mymovie.fragments.TopRatedFragment"
-        android:label="TopRatedFragment" />
+        android:label="TopRatedFragment">
+        <action
+            android:id="@+id/toSearch"
+            app:destination="@id/searchFragment" />
+        <action
+            android:id="@+id/toDetails"
+            app:destination="@id/detailsFragment">
+            <argument
+                android:name="movie_id"
+                android:defaultValue="-1L"
+                app:argType="long" />
+        </action>
+    </fragment>
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.endeline.mymovie.fragments.SearchFragment"
-        android:label="SearchFragment" />
+        android:label="SearchFragment">
+        <action
+            android:id="@+id/toDetails"
+            app:destination="@id/detailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/detailsFragment"
+        android:name="com.endeline.mymovie.fragments.DetailsFragment"
+        android:label="DetailsFragment" />
 </navigation>
