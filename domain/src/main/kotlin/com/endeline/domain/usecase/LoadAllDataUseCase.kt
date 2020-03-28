@@ -1,7 +1,7 @@
 package com.endeline.domain.usecase
 
 import com.endeline.data.models.MovieCollection
-import com.endeline.data.models.MovieLatest
+import com.endeline.data.models.MovieDetails
 import com.endeline.data.repositories.MovieDbRepository
 import com.endeline.domain.di.components.DaggerRepositoryComponent
 import com.endeline.domain.types.ObservableUseCase
@@ -14,7 +14,7 @@ import javax.inject.Inject
 class LoadAllDataUseCase : ObservableUseCase<Boolean> {
     private data class ResultMapper(
         var nowPlaying: MovieCollection,
-        var latest: MovieLatest,
+        var latest: MovieDetails,
         var popular: MovieCollection,
         var topRated: MovieCollection,
         var upcoming: MovieCollection
