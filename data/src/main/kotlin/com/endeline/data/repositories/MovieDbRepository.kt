@@ -3,9 +3,11 @@ package com.endeline.data.repositories
 import com.endeline.data.BuildConfig
 import com.endeline.data.connectors.MovieDbConnector
 import com.endeline.data.models.MovieCollection
-import com.endeline.data.models.MovieLatest
+import com.endeline.data.models.MovieDetails
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Observable
+import io.reactivex.Scheduler
+import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -45,15 +47,16 @@ class MovieDbRepository {
         private val service = retrofit.create(MovieDbConnector::class.java)
     }
 
-    private lateinit var latestCache: MovieLatest
+    private lateinit var movieDetailsCache: MovieDetails
     private lateinit var nowPlayingCache: MovieCollection
     private lateinit var popularCache: MovieCollection
     private lateinit var topRatedCache: MovieCollection
     private lateinit var upcomingCache: MovieCollection
+    private lateinit var movieDetailsListCached: MutableList<MovieDetails>
 
     fun getLatest() =
-        if (::latestCache.isInitialized) {
-            Observable.just(latestCache)
+        if (::movieDetailsCache.isInitialized) {
+            Observable.just(movieDetailsCache)
         } else {
             service.getLatest()
         }
@@ -86,12 +89,25 @@ class MovieDbRepository {
             service.getUpcoming()
         }
 
+    fun getMovieDetails(id: Int) =
+        if (::movieDetailsListCached.isInitialized) {
+            val movie = movieDetailsListCached.filter { it.id == id }
+
+            if (movie.isEmpty()) {
+                service.getMovieDetails(id)
+            } else {
+                Observable.just(movie[0])
+            }
+        } else {
+            service.getMovieDetails(id)
+        }
+
     fun setCacheNowPlaying(cached: MovieCollection) {
         nowPlayingCache = cached
     }
 
-    fun setCachedLatest(cached: MovieLatest) {
-        latestCache = cached
+    fun setCachedLatest(cached: MovieDetails) {
+        movieDetailsCache = cached
     }
 
     fun setCachedPopular(cached: MovieCollection) {
@@ -104,6 +120,16 @@ class MovieDbRepository {
 
     fun setCachedUpcoming(cached: MovieCollection) {
         upcomingCache = cached
+    }
+
+    fun addCachedMovieDetails(cached: MovieDetails) {
+        if (!::movieDetailsListCached.isInitialized) {
+            movieDetailsListCached = mutableListOf()
+        }
+
+        if (!movieDetailsListCached.contains(cached)) {
+            movieDetailsListCached.add(cached)
+        }
     }
 
 }

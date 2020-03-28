@@ -2,7 +2,7 @@ package com.endeline.data.models
 
 import com.google.gson.annotations.SerializedName
 
-data class MovieLatest (
+data class MovieDetails (
     @SerializedName("adult")
     val adult: Boolean? = null,
 
@@ -37,18 +37,16 @@ data class MovieLatest (
     val overview: String? = null,
 
     @SerializedName("popularity")
-    val popularity: Int? = null,
+    val popularity: Double? = null,
 
     @SerializedName("poster_path")
     val posterPath: String? = null,
 
-    //todo find object in doc
-//    @SerializedName("production_companies")
-//    val productionCompanies: List<String>? = null,
+    @SerializedName("production_companies")
+    val productionCompanies: List<ProductionCompanies>? = null,
 
-    //todo find this in doc
-//    @SerializedName("production_countries")
-//    val productionCountries: List<String>? = null,
+    @SerializedName("production_countries")
+    val productionCountries: List<ProductionCountries>? = null,
 
     @SerializedName("release_date")
     val releaseDate: String? = null,
@@ -59,9 +57,8 @@ data class MovieLatest (
     @SerializedName("runtime")
     val runtime: Int? = null,
 
-    //todo find this object in doc
-//    @SerializedName("spoken_languages")
-//    val spokenLanguages: List<String>? = null,
+    @SerializedName("spoken_languages")
+    val spokenLanguages: List<SpokenLanguages>? = null,
 
     @SerializedName("status")
     val status: String? = null,
@@ -76,7 +73,7 @@ data class MovieLatest (
     val video: Boolean? = null,
 
     @SerializedName("vote_average")
-    val voteAverage: Int? = null,
+    val voteAverage: Double? = null,
 
     @SerializedName("vote_count")
     val voteCount: Int? = null

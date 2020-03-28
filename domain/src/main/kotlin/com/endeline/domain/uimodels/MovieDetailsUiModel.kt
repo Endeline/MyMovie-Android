@@ -1,6 +1,6 @@
 package com.endeline.domain.uimodels
 
-data class MovieLatestUiModel(
+data class MovieDetailsUiModel(
     var adult: Boolean? = null,
     var backdropPath: String? = null,
     var belongsToCollection: String? = null,
@@ -12,18 +12,18 @@ data class MovieLatestUiModel(
     var originalLanguage: String? = null,
     var originalTitle: String? = null,
     var overview: String? = null,
-    var popularity: Int? = null,
+    var popularity: Double? = null,
     var posterPath: String? = null,
-//    var productionCompanies: List<String>? = null,
-//    var productionCountries: List<String>? = null,
+    var productionCompanies: List<ProductionCompaniesUiModel>? = null,
+    var productionCountries: List<ProductionCountriesUiModel>? = null,
     var releaseDate: String? = null,
     var revenue: Int? = null,
     var runtime: Int? = null,
-//    var spokenLanguages: List<String>? = null,
+    var spokenLanguages: List<SpokenLanguagesUiModel>? = null,
     var status: String? = null,
     var tagline: String? = null,
     var title: String? = null,
     var video: Boolean? = null,
-    var voteAverage: Int? = null,
+    var voteAverage: Double? = null,
     var voteCount: Int? = null
 )

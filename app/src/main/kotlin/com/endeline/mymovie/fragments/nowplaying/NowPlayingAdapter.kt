@@ -38,7 +38,9 @@ class NowPlayingAdapter(
             }
 
             itemView.setOnClickListener {
-                it.findNavController().navigate(NowPlayingFragmentDirections.toDetails())
+                it.findNavController().navigate(
+                    NowPlayingFragmentDirections.toDetails(movieUiModel.id ?: -1)
+                )
             }
         }
     }

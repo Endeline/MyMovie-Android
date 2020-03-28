@@ -8,4 +8,9 @@
     <string name="loading_data">Loading data please wait</string>
     <string name="loading_error">Cannot load data</string>
     <string name="refresh">Refresh</string>
+    <string name="popularity">Popularity</string>
+    <string name="genres">Genres</string>
+    <string name="countries">Countries</string>
+    <string name="language">Language</string>
+    <string name="companies">Companies</string>
 </resources>

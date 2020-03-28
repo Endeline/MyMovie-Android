@@ -16,8 +16,8 @@
             app:destination="@id/detailsFragment">
             <argument
                 android:name="movie_id"
-                android:defaultValue="-1L"
-                app:argType="long" />
+                android:defaultValue="-1"
+                app:argType="integer" />
         </action>
     </fragment>
     <fragment
@@ -32,8 +32,8 @@
             app:destination="@id/detailsFragment">
             <argument
                 android:name="movie_id"
-                android:defaultValue="-1L"
-                app:argType="long" />
+                android:defaultValue="-1"
+                app:argType="integer" />
         </action>
     </fragment>
     <fragment
@@ -48,8 +48,8 @@
             app:destination="@id/detailsFragment">
             <argument
                 android:name="movie_id"
-                android:defaultValue="-1L"
-                app:argType="long" />
+                android:defaultValue="-1"
+                app:argType="integer" />
         </action>
     </fragment>
     <fragment
@@ -64,8 +64,8 @@
             app:destination="@id/detailsFragment">
             <argument
                 android:name="movie_id"
-                android:defaultValue="-1L"
-                app:argType="long" />
+                android:defaultValue="-1"
+                app:argType="integer" />
         </action>
     </fragment>
     <fragment
@@ -80,8 +80,8 @@
             app:destination="@id/detailsFragment">
             <argument
                 android:name="movie_id"
-                android:defaultValue="-1L"
-                app:argType="long" />
+                android:defaultValue="-1"
+                app:argType="integer" />
         </action>
     </fragment>
     <fragment
@@ -90,7 +90,12 @@
         android:label="SearchFragment">
         <action
             android:id="@+id/toDetails"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment">
+            <argument
+                android:name="movie_id"
+                android:defaultValue="-1"
+                app:argType="integer" />
+        </action>
     </fragment>
     <fragment
         android:id="@+id/detailsFragment"

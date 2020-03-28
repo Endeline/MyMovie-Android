@@ -28,4 +28,7 @@ class ViewModelModules {
     @Provides
     fun provideUpcomingViewModel() = UpcomingViewModel()
 
+    @Provides
+    fun provideDetailsViewModel() = DetailsViewModel()
+
 }

@@ -15,3 +15,16 @@ fun List<Genres>.toUiModel(): List<GenresUiModel> =
             add(it.toUiModel())
         }
     }
+
+fun GenresUiModel.toEntity(): Genres =
+    Genres(
+        id = this.id,
+        name = this.name
+    )
+
+fun List<GenresUiModel>.toEntity(): List<Genres> =
+    mutableListOf<Genres>().apply {
+        this@toEntity.forEach {
+            add(it.toEntity())
+        }
+    }
