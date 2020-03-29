@@ -3,11 +3,11 @@ package com.endeline.domain.extensions
 import com.endeline.data.models.MovieDetails
 import com.endeline.domain.uimodels.MovieDetailsUiModel
 
-fun MovieDetails.toUiModel(): MovieDetailsUiModel =
+fun MovieDetails.toUiModel() =
     MovieDetailsUiModel().apply {
         adult = this@toUiModel.adult
         backdropPath = this@toUiModel.backdropPath
-        belongsToCollection = this@toUiModel.belongsToCollection
+        belongsToCollection = this@toUiModel.belongsToCollection?.toUiModel()
         budget = this@toUiModel.budget
         genres = this@toUiModel.genres?.toUiModel() ?: emptyList()
         homepage = this@toUiModel.homepage
@@ -31,32 +31,3 @@ fun MovieDetails.toUiModel(): MovieDetailsUiModel =
         voteAverage = this@toUiModel.voteAverage
         voteCount = this@toUiModel.voteCount
     }
-
-fun MovieDetailsUiModel.toEntity(): MovieDetails =
-    MovieDetails(
-        adult = this.adult,
-        backdropPath = this.backdropPath,
-        belongsToCollection = this.belongsToCollection,
-        budget = this.budget,
-        genres = this.genres?.toEntity() ?: emptyList(),
-        homepage = this.homepage,
-        id = this.id,
-        imdbId = this.imdbId,
-        originalLanguage = this.originalLanguage,
-        originalTitle = this.originalTitle,
-        overview = this.overview,
-        popularity = this.popularity,
-        posterPath = this.posterPath,
-        productionCompanies = this.productionCompanies?.toEntity(),
-        productionCountries = this.productionCountries?.toEntity(),
-        releaseDate = this.releaseDate,
-        revenue = this.revenue,
-        runtime = this.runtime,
-        spokenLanguages = this.spokenLanguages?.toEntity(),
-        status = this.status,
-        tagline = this.tagline,
-        title = this.title,
-        video = this.video,
-        voteAverage = this.voteAverage,
-        voteCount = this.voteCount
-    )

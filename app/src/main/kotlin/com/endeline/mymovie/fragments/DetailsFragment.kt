@@ -8,10 +8,15 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.endeline.domain.uimodels.MovieCollectionUiModel
 import com.endeline.domain.uimodels.MovieDetailsUiModel
+import com.endeline.domain.uimodels.VideoLinkCollectionUiModel
 import com.endeline.mymovie.databinding.DetailsFragmentBinding
 import com.endeline.mymovie.di.components.DaggerViewModelComponent
 import com.endeline.mymovie.extensions.loadPosterImage
+import com.endeline.mymovie.ui.adapters.SimilarRecommendationMovieAdapter
+import com.endeline.mymovie.ui.adapters.VideoAdapter
 import com.endeline.mymovie.viewmodels.DetailsViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
@@ -25,9 +30,6 @@ class DetailsFragment : Fragment() {
     }
 
     //todo section ->
-    // videos
-    // recommendations
-    // similar movies
     // reviews -> opinion
     // person -> find in api!!!
 
@@ -51,18 +53,42 @@ class DetailsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.loadMovieDetails(arguments?.getInt(MOVIE_ID_KEY, -1)!!)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe(
-                this::onDataLoaded,
-                Timber::e
-            )
+        with(arguments?.getInt(MOVIE_ID_KEY, -1)!!) {
+            viewModel.loadMovieDetails(this)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    this@DetailsFragment::onDataLoaded,
+                    Timber::e
+                )
+
+            viewModel.loadSimilarMovies(this)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    this@DetailsFragment::onSimilarLoaded,
+                    Timber::e
+                )
+
+            viewModel.loadRecommendedMovies(this)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    this@DetailsFragment::onRecommendedLoaded,
+                    Timber::e
+                )
+
+            viewModel.loadVideoLinks(this)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                    this@DetailsFragment::onVideoLinksLoaded,
+                    Timber::e
+                )
+        }
     }
 
     private fun onDataLoaded(uiModel: MovieDetailsUiModel) {
-        Timber.d("$uiModel")
-
         with(binding) {
             title.text = uiModel.title
             poster.loadPosterImage(uiModel.posterPath ?: "")
@@ -81,10 +107,14 @@ class DetailsFragment : Fragment() {
                     }
                 }
                 voteAverage.text = it.toInt().toString()
+                voteAverage.visibility = View.VISIBLE
+
+                rating.visibility = View.VISIBLE
             }
 
             with(uiModel.popularity) {
                 popularity.text = this.toString()
+                popularityTitle.visibility = View.VISIBLE
             }
 
             uiModel.genres?.let {
@@ -93,6 +123,8 @@ class DetailsFragment : Fragment() {
                         text = it.name.toString()
                     })
                 }
+
+                genresTitle.visibility = View.VISIBLE
             }
 
             uiModel.productionCountries?.let {
@@ -101,6 +133,8 @@ class DetailsFragment : Fragment() {
                         text = it.name
                     })
                 }
+
+                countriesTitle.visibility = View.VISIBLE
             }
 
             uiModel.spokenLanguages?.let {
@@ -109,6 +143,8 @@ class DetailsFragment : Fragment() {
                         text = it.name
                     })
                 }
+
+                languageTitle.visibility = View.VISIBLE
             }
 
             uiModel.productionCompanies?.let {
@@ -117,24 +153,47 @@ class DetailsFragment : Fragment() {
                         text = it.name
                     })
                 }
-            }
-        }
 
-        changeVisibleAfterLoaded()
+                companiesTitle.visibility = View.VISIBLE
+            }
+
+            loadingProgress.visibility = View.GONE
+            poster.visibility = View.VISIBLE
+        }
     }
 
-    private fun changeVisibleAfterLoaded() {
+    private fun onSimilarLoaded(similarMovies: MovieCollectionUiModel) {
         with(binding) {
-            loadingProgress.visibility = View.GONE
+            similarRecycleView.apply {
+                setHasFixedSize(true)
+                layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                adapter = SimilarRecommendationMovieAdapter(similarMovies.results)
+            }
 
-            poster.visibility = View.VISIBLE
-            rating.visibility = View.VISIBLE
-            voteAverage.visibility = View.VISIBLE
-            languageTitle.visibility = View.VISIBLE
-            countriesTitle.visibility = View.VISIBLE
-            genresTitle.visibility = View.VISIBLE
-            popularityTitle.visibility = View.VISIBLE
-            companiesTitle.visibility = View.VISIBLE
+            similarTitle.visibility = View.VISIBLE
+        }
+    }
+
+    private fun onRecommendedLoaded(recommendedMovies: MovieCollectionUiModel) {
+        with(binding) {
+            recommendedRecycleView.apply {
+                setHasFixedSize(true)
+                layoutManager =
+                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                adapter = SimilarRecommendationMovieAdapter(recommendedMovies.results)
+            }
+
+            recommendedTitle.visibility = View.VISIBLE
+        }
+    }
+
+    private fun onVideoLinksLoaded(videoLinks: VideoLinkCollectionUiModel) {
+        binding.moviesRecycleView.apply {
+            setHasFixedSize(true)
+            layoutManager =
+                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            adapter = VideoAdapter(videoLinks.results)
         }
     }
 

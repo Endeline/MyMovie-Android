@@ -18,13 +18,11 @@ class NowPlayingAdapter(
         val description = view.description
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteItemHolder {
-        return FavoriteItemHolder(NowPlayingItemBinding.inflate(LayoutInflater.from(parent.context)))
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteItemHolder =
+        FavoriteItemHolder(NowPlayingItemBinding.inflate(LayoutInflater.from(parent.context)))
 
-    override fun getItemCount(): Int {
-        return movieCollection?.size ?: 0
-    }
+    override fun getItemCount(): Int =
+        movieCollection?.size ?: 0
 
     override fun onBindViewHolder(holder: FavoriteItemHolder, position: Int) {
         val movieUiModel = movieCollection!![position]

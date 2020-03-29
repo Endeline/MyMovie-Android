@@ -3,6 +3,7 @@ package com.endeline.data.connectors
 import com.endeline.data.BuildConfig
 import com.endeline.data.models.MovieCollection
 import com.endeline.data.models.MovieDetails
+import com.endeline.data.models.VideoLinkCollection
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -26,5 +27,14 @@ interface MovieDbConnector {
 
     @GET("${BuildConfig.API_VERSION}/movie/{id}")
     fun getMovieDetails(@Path("id") id: Int): Observable<MovieDetails>
+
+    @GET("${BuildConfig.API_VERSION}/movie/{id}/similar")
+    fun getSimilarMovies(@Path("id") id: Int): Observable<MovieCollection>
+
+    @GET("${BuildConfig.API_VERSION}/movie/{id}/recommendations")
+    fun getRecommendedMovies(@Path("id") id: Int): Observable<MovieCollection>
+
+    @GET("${BuildConfig.API_VERSION}/movie/{id}/videos")
+    fun getVideoLinks(@Path("id") id: Int): Observable<VideoLinkCollection>
 
 }

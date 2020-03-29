@@ -15,16 +15,3 @@ fun List<ProductionCountries>.toUiModel() =
             add(it.toUiModel())
         }
     }
-
-fun ProductionCountriesUiModel.toEntity() =
-    ProductionCountries(
-        iso_3166_1 = this.iso_3166_1 ?: "",
-        name = this.name ?: ""
-    )
-
-fun List<ProductionCountriesUiModel>.toEntity() =
-    mutableListOf<ProductionCountries>().apply {
-        this@toEntity.forEach {
-            add(it.toEntity())
-        }
-    }

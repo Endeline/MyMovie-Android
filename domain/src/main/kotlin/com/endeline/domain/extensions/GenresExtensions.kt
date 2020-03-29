@@ -3,28 +3,15 @@ package com.endeline.domain.extensions
 import com.endeline.data.models.Genres
 import com.endeline.domain.uimodels.GenresUiModel
 
-fun Genres.toUiModel(): GenresUiModel =
+fun Genres.toUiModel() =
     GenresUiModel().apply {
         id = this@toUiModel.id
         name = this@toUiModel.name
     }
 
-fun List<Genres>.toUiModel(): List<GenresUiModel> =
+fun List<Genres>.toUiModel() =
     mutableListOf<GenresUiModel>().apply {
         this@toUiModel.forEach {
             add(it.toUiModel())
-        }
-    }
-
-fun GenresUiModel.toEntity(): Genres =
-    Genres(
-        id = this.id,
-        name = this.name
-    )
-
-fun List<GenresUiModel>.toEntity(): List<Genres> =
-    mutableListOf<Genres>().apply {
-        this@toEntity.forEach {
-            add(it.toEntity())
         }
     }
