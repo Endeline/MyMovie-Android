@@ -19,6 +19,6 @@ class GetUpcomingUseCase : ObservableUseCase<MovieCollectionUiModel> {
 
     override fun invoke(): Observable<MovieCollectionUiModel> =
         repository.getUpcoming()
-            .map { it!!.toUiModel() }
+            .map { it.toUiModel() }
 
 }

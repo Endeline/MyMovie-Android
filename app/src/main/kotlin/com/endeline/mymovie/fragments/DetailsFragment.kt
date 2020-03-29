@@ -121,8 +121,6 @@ class DetailsFragment : Fragment() {
         }
 
         changeVisibleAfterLoaded()
-
-        viewModel.addMovieDetailsToCache(uiModel)
     }
 
     private fun changeVisibleAfterLoaded() {

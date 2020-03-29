@@ -19,6 +19,6 @@ class GetTopRatedUseCase : ObservableUseCase<MovieCollectionUiModel> {
 
     override fun invoke(): Observable<MovieCollectionUiModel> =
         repository.getTopRated()
-            .map { it!!.toUiModel() }
+            .map { it.toUiModel() }
 
 }

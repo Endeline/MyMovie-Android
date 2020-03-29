@@ -28,6 +28,4 @@ class UseCaseModules {
     @Provides
     fun provideGetMovieDetailsUseCase() = GetMovieDetailsUseCase()
 
-    @Provides
-    fun provideAddCachedMovieDetailsUseCase() = AddCacheMovieDetailsUseCase()
 }

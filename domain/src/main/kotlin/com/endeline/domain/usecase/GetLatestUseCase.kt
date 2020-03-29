@@ -20,6 +20,6 @@ class GetLatestUseCase :
 
     override fun invoke(): Observable<MovieDetailsUiModel> =
         repository.getLatest()
-            .map { it!!.toUiModel() }
+            .map { it.toUiModel() }
 
 }
