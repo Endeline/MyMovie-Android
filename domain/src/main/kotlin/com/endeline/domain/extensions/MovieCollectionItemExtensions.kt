@@ -3,7 +3,7 @@ package com.endeline.domain.extensions
 import com.endeline.data.models.MovieCollectionItem
 import com.endeline.domain.uimodels.MovieCollectionItemUiModel
 
-fun MovieCollectionItem.toUiModel(): MovieCollectionItemUiModel =
+fun MovieCollectionItem.toUiModel() =
     MovieCollectionItemUiModel().apply {
         posterPath = this@toUiModel.posterPath
         adult = this@toUiModel.adult
@@ -21,7 +21,7 @@ fun MovieCollectionItem.toUiModel(): MovieCollectionItemUiModel =
         voteAverage = this@toUiModel.voteAverage
     }
 
-fun List<MovieCollectionItem>.toUiModel(): List<MovieCollectionItemUiModel> =
+fun List<MovieCollectionItem>.toUiModel() =
     mutableListOf<MovieCollectionItemUiModel>().apply {
         this@toUiModel.forEach {
             add(it.toUiModel())

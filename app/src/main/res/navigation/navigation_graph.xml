@@ -100,5 +100,25 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.endeline.mymovie.fragments.DetailsFragment"
-        android:label="DetailsFragment" />
+        android:label="DetailsFragment">
+        <action
+            android:id="@+id/toDetails"
+            app:destination="@id/detailsFragment">
+            <argument
+                android:name="movie_id"
+                android:defaultValue="-1"
+                app:argType="integer" />
+        </action>
+        <action
+            android:id="@+id/toVideo"
+            app:destination="@id/videoFragment">
+            <argument
+                android:name="movie_link"
+                app:argType="string" />
+        </action>
+    </fragment>
+    <fragment
+        android:id="@+id/videoFragment"
+        android:name="com.endeline.mymovie.fragments.VideoFragment"
+        android:label="VideoFragment" />
 </navigation>

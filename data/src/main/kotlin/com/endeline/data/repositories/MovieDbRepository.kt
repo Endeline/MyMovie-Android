@@ -4,6 +4,7 @@ import com.endeline.data.BuildConfig
 import com.endeline.data.connectors.MovieDbConnector
 import com.endeline.data.models.MovieCollection
 import com.endeline.data.models.MovieDetails
+import com.endeline.data.models.VideoLinkCollection
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Observable
 import io.reactivex.schedulers.Schedulers
@@ -23,6 +24,9 @@ class MovieDbRepository {
         private const val CACHE_POPULAR = "popular"
         private const val CACHE_TOP_RATED = "top_rated"
         private const val CACHE_UPCOMING = "upcoming"
+        private const val CACHE_SIMILAR_MOVIES = "similar_movies"
+        private const val CACHE_RECOMMENDATION_MOVIES = "recommendation_movies"
+        private const val CACHE_VIDEO_LINK = "video_link"
 
         private val retrofit = Retrofit.Builder()
             .baseUrl(BuildConfig.MOVIE_DB_BASE_URL)
@@ -54,6 +58,9 @@ class MovieDbRepository {
 
     private var cache = mutableMapOf<String, Any>().apply {
         put(CACHE_MOVIE_DETAILS, mutableListOf<MovieDetails>())
+        put(CACHE_SIMILAR_MOVIES, mutableMapOf<Int, MovieCollection>())
+        put(CACHE_RECOMMENDATION_MOVIES, mutableMapOf<Int, MovieCollection>())
+        put(CACHE_VIDEO_LINK, mutableMapOf<Int, VideoLinkCollection>())
     }
 
     fun getLatest() =
@@ -129,6 +136,52 @@ class MovieDbRepository {
                 .subscribeOn(Schedulers.io())
                 .flatMap {
                     (cache[CACHE_MOVIE_DETAILS] as MutableList<MovieDetails>).add(it)
+                    Observable.just(it)
+                }
+        }
+    }
+
+    fun getSimilarMovies(id: Int): Observable<MovieCollection> {
+        val similar = cache[CACHE_SIMILAR_MOVIES] as MutableMap<Int, MovieCollection>
+
+        return if (similar.containsKey(id)) {
+            Observable.just(similar[id])
+        } else {
+            service.getSimilarMovies(id)
+                .subscribeOn(Schedulers.io())
+                .flatMap {
+                    similar[id] = it
+                    Observable.just(it)
+                }
+        }
+    }
+
+    fun getRecommendedMovies(id: Int): Observable<MovieCollection> {
+        val recommended =
+            cache[CACHE_RECOMMENDATION_MOVIES] as MutableMap<Int, MovieCollection>
+
+        return if (recommended.containsKey(id)) {
+            Observable.just(recommended[id])
+        } else {
+            service.getRecommendedMovies(id)
+                .subscribeOn(Schedulers.io())
+                .flatMap {
+                    recommended[id] = it
+                    Observable.just(it)
+                }
+        }
+    }
+
+    fun getVideoLink(id: Int): Observable<VideoLinkCollection> {
+        val links = cache[CACHE_VIDEO_LINK] as MutableMap<Int, VideoLinkCollection>
+
+        return if (links.containsKey(id)) {
+            Observable.just(links[id])
+        } else {
+            service.getVideoLinks(id)
+                .subscribeOn(Schedulers.io())
+                .flatMap {
+                    links[id] = it
                     Observable.just(it)
                 }
         }

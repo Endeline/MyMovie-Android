@@ -17,18 +17,3 @@ fun List<ProductionCompanies>.toUiModel() =
             add(it.toUiModel())
         }
     }
-
-fun ProductionCompaniesUiModel.toEntity() =
-    ProductionCompanies(
-        id = this.id ?: 0,
-        logoPath = this.logoPath ?: "",
-        name = this.name ?: "",
-        originCountry = this.originCountry ?: ""
-    )
-
-fun List<ProductionCompaniesUiModel>.toEntity() =
-    mutableListOf<ProductionCompanies>().apply {
-        this@toEntity.forEach {
-            add(it.toEntity())
-        }
-    }

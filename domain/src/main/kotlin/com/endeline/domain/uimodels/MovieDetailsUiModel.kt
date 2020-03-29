@@ -3,7 +3,7 @@ package com.endeline.domain.uimodels
 data class MovieDetailsUiModel(
     var adult: Boolean? = null,
     var backdropPath: String? = null,
-    var belongsToCollection: String? = null,
+    var belongsToCollection: BelongsToCollectionUiModel? = null,
     var budget: Int? = null,
     var genres: List<GenresUiModel>? = null,
     var homepage: String? = null,

@@ -15,16 +15,3 @@ fun List<SpokenLanguages>.toUiModel() =
             add(it.toUiModel())
         }
     }
-
-fun SpokenLanguagesUiModel.toEntity() =
-    SpokenLanguages(
-        iso_639_1 = this.iso_639_1 ?: "",
-        name = this.name ?: ""
-    )
-
-fun List<SpokenLanguagesUiModel>.toEntity() =
-    mutableListOf<SpokenLanguages>().apply {
-        this@toEntity.forEach {
-            add(it.toEntity())
-        }
-    }

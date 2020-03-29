@@ -28,4 +28,12 @@ class UseCaseModules {
     @Provides
     fun provideGetMovieDetailsUseCase() = GetMovieDetailsUseCase()
 
+    @Provides
+    fun provideGetSimilarMovieUseCase() = GetSimilarMovieUseCase()
+
+    @Provides
+    fun provideGetRecommendationMovieUseCase() = GetRecommendedMovieUseCase()
+
+    @Provides
+    fun provideGetVideoLinkUseCase() = GetVideoLinksUseCase()
 }
