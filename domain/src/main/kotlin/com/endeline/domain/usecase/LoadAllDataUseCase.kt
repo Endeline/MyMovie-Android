@@ -44,12 +44,6 @@ class LoadAllDataUseCase : ObservableUseCase<Boolean> {
                 )
             }.subscribeOn(Schedulers.io())
             .flatMap {
-                repository.setCacheNowPlaying(it.nowPlaying)
-                repository.setCachedLatest(it.latest)
-                repository.setCachedPopular(it.popular)
-                repository.setCachedTopRated(it.topRated)
-                repository.setCachedUpcoming(it.upcoming)
-
                 Observable.just(true)
             }.doOnError {
                 Timber.d("$it")

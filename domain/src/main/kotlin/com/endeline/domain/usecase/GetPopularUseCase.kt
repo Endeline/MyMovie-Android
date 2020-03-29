@@ -19,6 +19,6 @@ class GetPopularUseCase : ObservableUseCase<MovieCollectionUiModel> {
 
     override fun invoke(): Observable<MovieCollectionUiModel> =
         repository.getPopular()
-            .map { it!!.toUiModel() }
+            .map { it.toUiModel() }
 
 }

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.endeline.mymovie.databinding.NowPlayingFragmentBinding
 import com.endeline.mymovie.di.components.DaggerViewModelComponent
 import com.endeline.mymovie.viewmodels.NowPlayingViewModel
+import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 import javax.inject.Inject
