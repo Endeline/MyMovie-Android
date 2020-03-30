@@ -14,9 +14,6 @@ class ViewModelModules {
     fun providesNowPlayingViewModel() = NowPlayingViewModel()
 
     @Provides
-    fun providesLatestViewModel() = LatestViewModel()
-
-    @Provides
     fun providesPopularViewModel() = PopularViewModel()
 
     @Provides

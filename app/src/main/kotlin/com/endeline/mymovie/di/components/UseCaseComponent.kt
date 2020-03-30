@@ -9,7 +9,6 @@ interface UseCaseComponent {
 
     fun inject(app: SplashViewModel)
     fun inject(app: NowPlayingViewModel)
-    fun inject(app: LatestViewModel)
     fun inject(app: PopularViewModel)
     fun inject(app: TopRatedViewModel)
     fun inject(app: UpcomingViewModel)

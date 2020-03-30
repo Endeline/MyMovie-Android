@@ -14,7 +14,6 @@ import javax.inject.Inject
 class LoadAllDataUseCase : ObservableUseCase<Boolean> {
     private data class ResultMapper(
         var nowPlaying: MovieCollection,
-        var latest: MovieDetails,
         var popular: MovieCollection,
         var topRated: MovieCollection,
         var upcoming: MovieCollection
@@ -30,14 +29,12 @@ class LoadAllDataUseCase : ObservableUseCase<Boolean> {
     override fun invoke(): Observable<Boolean> =
         Observables.combineLatest(
                 repository.getNowPlaying(),
-                repository.getLatest(),
                 repository.getPopular(),
                 repository.getTopRated(),
                 repository.getUpcoming()
-            ) { nowPlaying, latest, popular, topRated, upcoming ->
+            ) { nowPlaying, popular, topRated, upcoming ->
                 ResultMapper(
                     nowPlaying,
-                    latest,
                     popular,
                     topRated,
                     upcoming

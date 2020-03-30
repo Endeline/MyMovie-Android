@@ -4,10 +4,6 @@
         android:title="@string/menu_now_playing"
         android:icon="@android:drawable/ic_dialog_alert"/>
 
-    <item android:id="@+id/latest"
-        android:title="@string/menu_latest"
-        android:icon="@android:drawable/ic_delete"/>
-
     <item android:id="@+id/popular"
         android:title="@string/menu_popular"
         android:icon="@android:drawable/ic_menu_zoom"/>
