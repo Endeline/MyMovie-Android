@@ -6,7 +6,7 @@
 
     <fragment
         android:id="@+id/nowPlaying"
-        android:name="com.endeline.mymovie.fragments.nowplaying.NowPlayingFragment"
+        android:name="com.endeline.mymovie.fragments.NowPlayingFragment"
         android:label="NowPlayingFragment">
         <action
             android:id="@+id/toSearch"
