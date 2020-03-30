@@ -115,6 +115,9 @@
             <argument
                 android:name="movie_link"
                 app:argType="string" />
+            <argument
+                android:name="site"
+                app:argType="string" />
         </action>
     </fragment>
     <fragment

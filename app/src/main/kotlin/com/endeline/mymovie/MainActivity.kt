@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.view.View
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
@@ -12,6 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.endeline.mymovie.databinding.ActivityMainBinding
+import com.endeline.mymovie.fragments.DetailsFragmentDirections
 import com.endeline.mymovie.fragments.nowplaying.NowPlayingFragmentDirections
 import timber.log.Timber
 import timber.log.Timber.DebugTree
@@ -60,6 +62,18 @@ class MainActivity : AppCompatActivity() {
             )
         )
         setupActionBarWithNavController(navigationController, appBarConfiguration)
+
+        navigationController.addOnDestinationChangedListener { _, destination, _ ->
+            with(binding) {
+                if (destination.id == R.id.videoFragment) {
+                    customToolbar.visibility = View.GONE
+                    navigationView.visibility = View.GONE
+                } else {
+                    customToolbar.visibility = View.VISIBLE
+                    navigationView.visibility = View.VISIBLE
+                }
+            }
+        }
 
         with(binding) {
             navigationView.setupWithNavController(navigationController)

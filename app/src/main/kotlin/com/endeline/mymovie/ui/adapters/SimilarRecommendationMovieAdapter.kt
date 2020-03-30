@@ -16,7 +16,6 @@ class SimilarRecommendationMovieAdapter(
     class MovieHolder(view: SimilarRecommendationMovieBinding) :
         RecyclerView.ViewHolder(view.root) {
         val image = view.image
-        val title = view.title
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieHolder =
@@ -29,7 +28,6 @@ class SimilarRecommendationMovieAdapter(
         val movieUiModel = movieCollection!![position]
 
         with(holder) {
-            title.text = movieUiModel.title
             movieUiModel.posterPath?.let {
                 image.loadPosterImage(it)
             }
