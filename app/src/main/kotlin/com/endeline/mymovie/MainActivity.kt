@@ -55,7 +55,6 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(
             topLevelDestinationIds = setOf(
                 R.id.nowPlaying,
-                R.id.latest,
                 R.id.popular,
                 R.id.topRated,
                 R.id.upcoming

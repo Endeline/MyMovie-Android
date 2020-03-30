@@ -21,22 +21,6 @@
         </action>
     </fragment>
     <fragment
-        android:id="@+id/latest"
-        android:name="com.endeline.mymovie.fragments.LatestFragment"
-        android:label="LatestFragment">
-        <action
-            android:id="@+id/toSearch"
-            app:destination="@id/searchFragment" />
-        <action
-            android:id="@+id/toDetails"
-            app:destination="@id/detailsFragment">
-            <argument
-                android:name="movie_id"
-                android:defaultValue="-1"
-                app:argType="integer" />
-        </action>
-    </fragment>
-    <fragment
         android:id="@+id/popular"
         android:name="com.endeline.mymovie.fragments.PopularFragment"
         android:label="PopularFragment">

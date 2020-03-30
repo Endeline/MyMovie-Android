@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">MyMovie</string>
-    <string name="menu_latest">Latest</string>
     <string name="menu_now_playing">Now Playing</string>
     <string name="menu_popular">Popular</string>
     <string name="menu_top_rated">Top Rated</string>

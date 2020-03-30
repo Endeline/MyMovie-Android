@@ -17,7 +17,6 @@ interface ViewModelComponent {
     fun inject(app: NowPlayingAdapter)
 
     fun inject(app: NowPlayingFragment)
-    fun inject(app: LatestFragment)
     fun inject(app: PopularFragment)
     fun inject(app: TopRatedFragment)
     fun inject(app: UpcomingFragment)
