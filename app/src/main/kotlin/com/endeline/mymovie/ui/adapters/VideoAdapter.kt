@@ -29,7 +29,10 @@ class VideoAdapter(private val videoLinks: List<VideoLinkDetailsUiModel>?) :
             title.text = link.name
             itemView.setOnClickListener {
                 it.findNavController().navigate(
-                    DetailsFragmentDirections.toVideo(link.key ?: "")
+                    DetailsFragmentDirections.toVideo(
+                        link.key ?: "",
+                        link.site ?: ""
+                    )
                 )
             }
         }
