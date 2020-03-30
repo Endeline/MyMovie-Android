@@ -1,4 +1,4 @@
-package com.endeline.mymovie.fragments.nowplaying
+package com.endeline.mymovie.fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -7,8 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.endeline.mymovie.databinding.NowPlayingFragmentBinding
+import com.endeline.mymovie.databinding.MovieFragmentBinding
 import com.endeline.mymovie.di.components.DaggerViewModelComponent
+import com.endeline.mymovie.ui.adapters.MovieAdapter
 import com.endeline.mymovie.viewmodels.NowPlayingViewModel
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
@@ -19,13 +20,13 @@ class NowPlayingFragment : Fragment() {
     @Inject
     protected lateinit var viewModel: NowPlayingViewModel
 
-    private lateinit var binding: NowPlayingFragmentBinding
+    private lateinit var binding: MovieFragmentBinding
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = NowPlayingFragmentBinding.inflate(inflater)
+        binding = MovieFragmentBinding.inflate(inflater)
 
         DaggerViewModelComponent.builder().build().inject(this)
 
@@ -43,7 +44,8 @@ class NowPlayingFragment : Fragment() {
                     binding.recycleView.apply {
                         setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(requireContext())
-                        adapter = NowPlayingAdapter(it.results)
+                        adapter =
+                            MovieAdapter(it.results)
                     }
                 }, Timber::e
             )

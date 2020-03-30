@@ -13,8 +13,7 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.endeline.mymovie.databinding.ActivityMainBinding
-import com.endeline.mymovie.fragments.DetailsFragmentDirections
-import com.endeline.mymovie.fragments.nowplaying.NowPlayingFragmentDirections
+import com.endeline.mymovie.fragments.NowPlayingFragmentDirections
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
