@@ -21,5 +21,6 @@ interface ViewModelComponent {
     fun inject(app: TopRatedFragment)
     fun inject(app: UpcomingFragment)
     fun inject(app: DetailsFragment)
+    fun inject(app: SearchFragment)
 
 }

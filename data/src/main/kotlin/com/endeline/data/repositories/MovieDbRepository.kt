@@ -187,4 +187,7 @@ class MovieDbRepository {
         }
     }
 
+    fun searchAll(query: String) =
+        service.searchAll(query)
+
 }

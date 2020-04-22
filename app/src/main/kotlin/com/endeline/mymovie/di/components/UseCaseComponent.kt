@@ -13,5 +13,6 @@ interface UseCaseComponent {
     fun inject(app: TopRatedViewModel)
     fun inject(app: UpcomingViewModel)
     fun inject(app: DetailsViewModel)
+    fun inject(app: SearchViewModel)
 
 }

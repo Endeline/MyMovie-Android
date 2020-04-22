@@ -14,4 +14,8 @@
     <string name="companies">Companies</string>
     <string name="similar_movies">Similar movies</string>
     <string name="recommended_movies">Recommended movies</string>
+    <string name="type_for_search">Type for search</string>
+    <string name="movies">Movies</string>
+    <string name="tv">TV</string>
+    <string name="person">Person</string>
 </resources>
