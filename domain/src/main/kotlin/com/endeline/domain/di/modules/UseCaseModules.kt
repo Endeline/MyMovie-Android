@@ -36,4 +36,7 @@ class UseCaseModules {
 
     @Provides
     fun provideGetVideoLinkUseCase() = GetVideoLinksUseCase()
+
+    @Provides
+    fun provideSearchAllUseCase() = SearchAllUseCase()
 }

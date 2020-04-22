@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.endeline.domain.uimodels.VideoLinkDetailsUiModel
-import com.endeline.mymovie.databinding.DetailsFragmentBinding
 import com.endeline.mymovie.databinding.VideoLinkBinding
 import com.endeline.mymovie.fragments.DetailsFragmentDirections
 

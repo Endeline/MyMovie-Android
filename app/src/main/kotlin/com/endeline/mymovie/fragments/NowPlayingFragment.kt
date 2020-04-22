@@ -44,8 +44,7 @@ class NowPlayingFragment : Fragment() {
                     binding.recycleView.apply {
                         setHasFixedSize(true)
                         layoutManager = LinearLayoutManager(requireContext())
-                        adapter =
-                            MovieAdapter(it.results)
+                        adapter = MovieAdapter(it.results)
                     }
                 }, Timber::e
             )

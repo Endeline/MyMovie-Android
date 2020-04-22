@@ -144,7 +144,11 @@ class DetailsFragment : Fragment() {
                     })
                 }
 
-                languageTitle.visibility = View.VISIBLE
+                languageTitle.visibility = if (it.isNotEmpty()) {
+                    View.VISIBLE
+                } else {
+                    View.GONE
+                }
             }
 
             uiModel.productionCompanies?.let {
@@ -164,36 +168,57 @@ class DetailsFragment : Fragment() {
 
     private fun onSimilarLoaded(similarMovies: MovieCollectionUiModel) {
         with(binding) {
-            similarRecycleView.apply {
-                setHasFixedSize(true)
-                layoutManager =
-                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                adapter = SimilarRecommendationMovieAdapter(similarMovies.results)
+
+            if (!similarMovies.results.isNullOrEmpty()) {
+                similarRecycleView.visibility = View.VISIBLE
+                similarRecycleView.apply {
+                    setHasFixedSize(true)
+                    layoutManager =
+                        LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    adapter = SimilarRecommendationMovieAdapter(similarMovies.results)
+                }
+
+                similarTitle.visibility = View.VISIBLE
+            } else {
+                similarTitle.visibility = View.GONE
+                similarRecycleView.visibility = View.GONE
             }
 
-            similarTitle.visibility = View.VISIBLE
         }
     }
 
     private fun onRecommendedLoaded(recommendedMovies: MovieCollectionUiModel) {
         with(binding) {
-            recommendedRecycleView.apply {
-                setHasFixedSize(true)
-                layoutManager =
-                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-                adapter = SimilarRecommendationMovieAdapter(recommendedMovies.results)
-            }
+            if (!recommendedMovies.results.isNullOrEmpty()) {
+                recommendedRecycleView.visibility = View.VISIBLE
+                recommendedRecycleView.apply {
+                    setHasFixedSize(true)
+                    layoutManager =
+                        LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    adapter = SimilarRecommendationMovieAdapter(recommendedMovies.results)
+                }
 
-            recommendedTitle.visibility = View.VISIBLE
+                recommendedTitle.visibility = View.VISIBLE
+            } else {
+                recommendedTitle.visibility = View.GONE
+                recommendedRecycleView.visibility = View.GONE
+            }
         }
     }
 
     private fun onVideoLinksLoaded(videoLinks: VideoLinkCollectionUiModel) {
-        binding.moviesRecycleView.apply {
-            setHasFixedSize(true)
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
-            adapter = VideoAdapter(videoLinks.results)
+        with(binding) {
+            if (!videoLinks.results.isNullOrEmpty()) {
+                moviesRecycleView.visibility = View.VISIBLE
+                moviesRecycleView.apply {
+                    setHasFixedSize(true)
+                    layoutManager =
+                        LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                    adapter = VideoAdapter(videoLinks.results)
+                }
+            } else {
+                moviesRecycleView.visibility = View.GONE
+            }
         }
     }
 

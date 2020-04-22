@@ -70,13 +70,21 @@ class MainActivity : AppCompatActivity() {
                     customToolbar.visibility = View.VISIBLE
                     navigationView.visibility = View.VISIBLE
                 }
+
+                with(findViewById<ImageView>(R.id.ic_search)) {
+                    visibility = if (destination.id == R.id.searchFragment) {
+                        View.GONE
+                    } else {
+                        View.VISIBLE
+                    }
+                }
             }
         }
 
         with(binding) {
             navigationView.setupWithNavController(navigationController)
             findViewById<ImageView>(R.id.ic_search).setOnClickListener {
-                navigationController.navigate(NowPlayingFragmentDirections.toSearch())
+                navigationController.navigate(R.id.searchFragment)
             }
         }
     }

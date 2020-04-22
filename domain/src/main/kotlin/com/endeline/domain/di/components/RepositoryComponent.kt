@@ -17,5 +17,6 @@ interface RepositoryComponent {
     fun inject(useCase: GetSimilarMovieUseCase)
     fun inject(useCase: GetRecommendedMovieUseCase)
     fun inject(useCase: GetVideoLinksUseCase)
+    fun inject(useCase: SearchAllUseCase)
 
 }
