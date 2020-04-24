@@ -13,7 +13,6 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
 import com.endeline.mymovie.databinding.ActivityMainBinding
-import com.endeline.mymovie.fragments.NowPlayingFragmentDirections
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
@@ -29,6 +28,13 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var navigationController: NavController
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+    private val topLevelDestination = setOf(
+        R.id.nowPlaying,
+        R.id.popular,
+        R.id.topRated,
+        R.id.upcoming
+    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -51,18 +57,19 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.customToolbar)
 
         navigationController = findNavController(R.id.navigation_host)
-        appBarConfiguration = AppBarConfiguration(
-            topLevelDestinationIds = setOf(
-                R.id.nowPlaying,
-                R.id.popular,
-                R.id.topRated,
-                R.id.upcoming
-            )
-        )
+        appBarConfiguration = AppBarConfiguration(topLevelDestination)
+
         setupActionBarWithNavController(navigationController, appBarConfiguration)
 
-        navigationController.addOnDestinationChangedListener { _, destination, _ ->
-            with(binding) {
+        with(binding) {
+            navigationController.addOnDestinationChangedListener { _, destination, _ ->
+
+                toolbarTitle.visibility = if (topLevelDestination.contains(destination.id)) {
+                    View.VISIBLE
+                } else {
+                    View.INVISIBLE
+                }
+
                 if (destination.id == R.id.videoFragment) {
                     customToolbar.visibility = View.GONE
                     navigationView.visibility = View.GONE
@@ -71,19 +78,16 @@ class MainActivity : AppCompatActivity() {
                     navigationView.visibility = View.VISIBLE
                 }
 
-                with(findViewById<ImageView>(R.id.ic_search)) {
-                    visibility = if (destination.id == R.id.searchFragment) {
-                        View.GONE
-                    } else {
-                        View.VISIBLE
-                    }
+                icSearch.visibility = if (destination.id == R.id.searchFragment) {
+                    View.GONE
+                } else {
+                    View.VISIBLE
                 }
             }
-        }
 
-        with(binding) {
             navigationView.setupWithNavController(navigationController)
-            findViewById<ImageView>(R.id.ic_search).setOnClickListener {
+
+            icSearch.setOnClickListener {
                 navigationController.navigate(R.id.searchFragment)
             }
         }

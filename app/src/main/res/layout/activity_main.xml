@@ -60,11 +60,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="@android:color/white"
-        app:itemIconTint="@android:color/black"
-        app:itemTextColor="@android:color/black"
+        android:background="@android:color/black"
         app:layout_behavior="@string/hide_bottom_view_on_scroll_behavior"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:itemIconTint="@color/main_bottom_menu_selector_text"
+        app:itemTextAppearanceActive="@style/BottomMenuItemTextAppearance"
+        app:itemTextAppearanceInactive="@style/BottomMenuItemTextAppearance"
+        app:itemTextColor="@color/main_bottom_menu_selector_text"
+        app:labelVisibilityMode="labeled"
         app:menu="@menu/navigation_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

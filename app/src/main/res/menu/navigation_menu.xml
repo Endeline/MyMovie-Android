@@ -2,18 +2,18 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/nowPlaying"
         android:title="@string/menu_now_playing"
-        android:icon="@android:drawable/ic_dialog_alert"/>
+        android:icon="@drawable/ic_now_playing"/>
 
     <item android:id="@+id/popular"
         android:title="@string/menu_popular"
-        android:icon="@android:drawable/ic_menu_zoom"/>
+        android:icon="@drawable/ic_popular"/>
 
     <item android:id="@+id/topRated"
         android:title="@string/menu_top_rated"
-        android:icon="@android:drawable/ic_menu_zoom"/>
+        android:icon="@drawable/ic_top_rated"/>
 
     <item android:id="@+id/upcoming"
         android:title="@string/menu_upcoming"
-        android:icon="@android:drawable/ic_input_add"/>
+        android:icon="@drawable/ic_upcoming"/>
 
 </menu>
