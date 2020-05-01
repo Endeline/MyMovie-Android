@@ -1,6 +1,12 @@
 package com.endeline.mymovie.di.modules
 
-import com.endeline.mymovie.viewmodels.*
+import com.endeline.mymovie.ui.details.DetailsViewModel
+import com.endeline.mymovie.ui.now.NowPlayingViewModel
+import com.endeline.mymovie.ui.popular.PopularViewModel
+import com.endeline.mymovie.ui.search.SearchViewModel
+import com.endeline.mymovie.ui.splash.SplashViewModel
+import com.endeline.mymovie.ui.top.TopRatedViewModel
+import com.endeline.mymovie.ui.upcoming.UpcomingViewModel
 import dagger.Module
 import dagger.Provides
 
@@ -8,24 +14,31 @@ import dagger.Provides
 class ViewModelModules {
 
     @Provides
-    fun provideSplashScreenViewModel() = SplashViewModel()
+    fun provideSplashScreenViewModel() =
+        SplashViewModel()
 
     @Provides
-    fun providesNowPlayingViewModel() = NowPlayingViewModel()
+    fun providesNowPlayingViewModel() =
+        NowPlayingViewModel()
 
     @Provides
-    fun providesPopularViewModel() = PopularViewModel()
+    fun providesPopularViewModel() =
+        PopularViewModel()
 
     @Provides
-    fun provideSearchViewModel() = SearchViewModel()
+    fun provideSearchViewModel() =
+        SearchViewModel()
 
     @Provides
-    fun provideTopRatedViewModel() = TopRatedViewModel()
+    fun provideTopRatedViewModel() =
+        TopRatedViewModel()
 
     @Provides
-    fun provideUpcomingViewModel() = UpcomingViewModel()
+    fun provideUpcomingViewModel() =
+        UpcomingViewModel()
 
     @Provides
-    fun provideDetailsViewModel() = DetailsViewModel()
+    fun provideDetailsViewModel() =
+        DetailsViewModel()
 
 }
