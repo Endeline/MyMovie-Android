@@ -1,10 +1,9 @@
 package com.endeline.domain.usecase
 
 import com.endeline.data.models.MovieCollection
-import com.endeline.data.models.MovieDetails
-import com.endeline.data.repositories.MovieDbRepository
+import com.endeline.data.services.MovieDbService
 import com.endeline.domain.di.components.DaggerRepositoryComponent
-import com.endeline.domain.types.ObservableUseCase
+import com.endeline.domain.usecase.types.ObservableUseCase
 import io.reactivex.Observable
 import io.reactivex.rxkotlin.Observables
 import io.reactivex.schedulers.Schedulers
@@ -20,7 +19,7 @@ class LoadAllDataUseCase : ObservableUseCase<Boolean> {
     )
 
     @Inject
-    protected lateinit var repository: MovieDbRepository
+    protected lateinit var repository: MovieDbService
 
     init {
         DaggerRepositoryComponent.builder().build().inject(this)

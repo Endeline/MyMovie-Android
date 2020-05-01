@@ -1,7 +1,13 @@
 package com.endeline.mymovie.di.components
 
 import com.endeline.domain.di.modules.UseCaseModules
-import com.endeline.mymovie.viewmodels.*
+import com.endeline.mymovie.ui.details.DetailsViewModel
+import com.endeline.mymovie.ui.now.NowPlayingViewModel
+import com.endeline.mymovie.ui.popular.PopularViewModel
+import com.endeline.mymovie.ui.search.SearchViewModel
+import com.endeline.mymovie.ui.splash.SplashViewModel
+import com.endeline.mymovie.ui.top.TopRatedViewModel
+import com.endeline.mymovie.ui.upcoming.UpcomingViewModel
 import dagger.Component
 
 @Component(modules = [UseCaseModules::class])

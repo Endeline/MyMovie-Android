@@ -1,9 +1,9 @@
 package com.endeline.domain.usecase
 
-import com.endeline.data.repositories.MovieDbRepository
+import com.endeline.data.services.MovieDbService
 import com.endeline.domain.di.components.DaggerRepositoryComponent
 import com.endeline.domain.extensions.toUiModel
-import com.endeline.domain.types.ObservableUseCase
+import com.endeline.domain.usecase.types.ObservableUseCase
 import com.endeline.domain.uimodels.MovieCollectionUiModel
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -11,7 +11,7 @@ import javax.inject.Inject
 class GetNowPlayingUseCase : ObservableUseCase<MovieCollectionUiModel>{
 
     @Inject
-    protected lateinit var repository: MovieDbRepository
+    protected lateinit var repository: MovieDbService
 
     init {
         DaggerRepositoryComponent.builder().build().inject(this)
@@ -19,6 +19,6 @@ class GetNowPlayingUseCase : ObservableUseCase<MovieCollectionUiModel>{
 
     override fun invoke(): Observable<MovieCollectionUiModel> =
         repository.getNowPlaying()
-            .map { it!!.toUiModel() }
+            .map { it.toUiModel() }
 
 }
