@@ -1,21 +1,24 @@
 package com.endeline.mymovie.ui.splash
 
 import android.os.Bundle
+import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import com.endeline.mymovie.R
 import com.endeline.mymovie.databinding.ActivitySplashScreenBinding
-import com.endeline.mymovie.di.components.DaggerViewModelComponent
+import com.endeline.mymovie.di.ViewModelFactory
 import com.endeline.mymovie.ui.main.MainActivity
 import com.google.android.material.snackbar.Snackbar
-import javax.inject.Inject
 
 class SplashScreenActivity : AppCompatActivity() {
 
-    @Inject
-    protected lateinit var viewModel: SplashViewModel
-
     private lateinit var binding: ActivitySplashScreenBinding
+
+    private val viewModelFactory: ViewModelFactory.SplashScreenViewModelFactory =
+        ViewModelFactory.SplashScreenViewModelFactory()
+
+    private val viewModel by viewModels<SplashViewModel>(factoryProducer = { viewModelFactory })
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,8 +26,6 @@ class SplashScreenActivity : AppCompatActivity() {
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
 
         setContentView(binding.root)
-
-        DaggerViewModelComponent.builder().build().inject(this)
 
         init()
     }

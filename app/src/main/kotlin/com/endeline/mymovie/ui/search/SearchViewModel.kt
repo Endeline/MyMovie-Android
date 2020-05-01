@@ -4,23 +4,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.endeline.domain.uimodels.SearchItemUiModel
 import com.endeline.domain.usecase.SearchAllUseCase
-import com.endeline.mymovie.di.components.DaggerUseCaseComponent
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
-import javax.inject.Inject
 
-class SearchViewModel : ViewModel() {
-
-    @Inject
-    protected lateinit var searchAllUseCase: SearchAllUseCase
+class SearchViewModel(val searchAllUseCase: SearchAllUseCase) : ViewModel() {
 
     val personLiveData = MutableLiveData<List<SearchItemUiModel>>()
     val movieLiveData = MutableLiveData<List<SearchItemUiModel>>()
     val tvLiveData = MutableLiveData<List<SearchItemUiModel>>()
-
-    init {
-        DaggerUseCaseComponent.builder().build().inject(this)
-    }
 
     fun search(query: String) =
         searchAllUseCase(query)

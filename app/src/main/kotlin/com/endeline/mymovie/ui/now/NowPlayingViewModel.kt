@@ -5,21 +5,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.endeline.domain.uimodels.MovieCollectionItemUiModel
 import com.endeline.domain.usecase.GetNowPlayingUseCase
-import com.endeline.mymovie.di.components.DaggerUseCaseComponent
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
-import javax.inject.Inject
 
-class NowPlayingViewModel : ViewModel() {
-
-    @Inject
-    protected lateinit var getNowPlayingUseCase: GetNowPlayingUseCase
+class NowPlayingViewModel(
+    val getNowPlayingUseCase: GetNowPlayingUseCase
+) : ViewModel() {
 
     val movieItemsLiveData = MutableLiveData<List<MovieCollectionItemUiModel>>()
-
-    init {
-        DaggerUseCaseComponent.builder().build().inject(this)
-    }
 
     @SuppressLint("CheckResult")
     fun loadNowPlaying() {

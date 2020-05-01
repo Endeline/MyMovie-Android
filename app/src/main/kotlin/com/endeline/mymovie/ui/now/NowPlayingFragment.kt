@@ -6,19 +6,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.endeline.mymovie.databinding.MovieFragmentBinding
-import com.endeline.mymovie.di.components.DaggerViewModelComponent
+import com.endeline.mymovie.di.ViewModelFactory
 import com.endeline.mymovie.ui.adapters.MovieAdapter
-import javax.inject.Inject
 
 class NowPlayingFragment : Fragment() {
 
-    @Inject
-    protected lateinit var viewModel: NowPlayingViewModel
+    private val viewModelFactory: ViewModelFactory.NowPlayingViewModelFactory =
+        ViewModelFactory.NowPlayingViewModelFactory()
+
+    private val viewModel by viewModels<NowPlayingViewModel>(factoryProducer = { viewModelFactory })
 
     private lateinit var binding: MovieFragmentBinding
 
@@ -33,8 +34,6 @@ class NowPlayingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = MovieFragmentBinding.inflate(inflater)
-
-        DaggerViewModelComponent.builder().build().inject(this)
 
         binding.recycleView.apply {
             setHasFixedSize(true)
