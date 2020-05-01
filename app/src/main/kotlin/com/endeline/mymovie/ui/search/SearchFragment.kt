@@ -7,18 +7,20 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.endeline.domain.uimodels.SearchItemUiModel
 import com.endeline.mymovie.databinding.SearchFragmentBinding
-import com.endeline.mymovie.di.components.DaggerViewModelComponent
-import javax.inject.Inject
+import com.endeline.mymovie.di.ViewModelFactory
 
 class SearchFragment : Fragment() {
 
-    @Inject
-    protected lateinit var viewModel: SearchViewModel
+    private val viewModelFactory: ViewModelFactory.SearchViewModelFactory =
+        ViewModelFactory.SearchViewModelFactory()
+
+    private val viewModel by viewModels<SearchViewModel>(factoryProducer = { viewModelFactory })
 
     private lateinit var binding: SearchFragmentBinding
 
@@ -27,8 +29,6 @@ class SearchFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = SearchFragmentBinding.inflate(inflater)
-
-        DaggerViewModelComponent.builder().build().inject(this)
 
         binding.searchInput.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {}

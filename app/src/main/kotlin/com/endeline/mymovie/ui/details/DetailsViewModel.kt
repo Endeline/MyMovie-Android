@@ -8,23 +8,14 @@ import com.endeline.domain.usecase.GetMovieDetailsUseCase
 import com.endeline.domain.usecase.GetRecommendedMovieUseCase
 import com.endeline.domain.usecase.GetSimilarMovieUseCase
 import com.endeline.domain.usecase.GetVideoLinksUseCase
-import com.endeline.mymovie.di.components.DaggerUseCaseComponent
 import timber.log.Timber
-import javax.inject.Inject
 
-class DetailsViewModel : ViewModel() {
-
-    @Inject
-    protected lateinit var getMovieDetailsViewModel: GetMovieDetailsUseCase
-
-    @Inject
-    protected lateinit var getSimilarMovieUseCase: GetSimilarMovieUseCase
-
-    @Inject
-    protected lateinit var getRecommendedMovieUseCase: GetRecommendedMovieUseCase
-
-    @Inject
-    protected lateinit var getVideoLinksUseCase: GetVideoLinksUseCase
+class DetailsViewModel(
+    val getMovieDetailsViewModel: GetMovieDetailsUseCase,
+    val getSimilarMovieUseCase: GetSimilarMovieUseCase,
+    val getRecommendedMovieUseCase: GetRecommendedMovieUseCase,
+    val getVideoLinksUseCase: GetVideoLinksUseCase
+) : ViewModel() {
 
     val similarLiveData = MutableLiveData<List<MovieCollectionItemUiModel>>()
     val recommendedLiveData = MutableLiveData<List<MovieCollectionItemUiModel>>()
@@ -38,10 +29,6 @@ class DetailsViewModel : ViewModel() {
     val spokenLanguagesLiveData = MutableLiveData<List<SpokenLanguagesUiModel>>()
     val productionCompaniesLiveData = MutableLiveData<List<ProductionCompaniesUiModel>>()
     val onDataLoadedLiveData = MutableLiveData<Boolean>()
-
-    init {
-        DaggerUseCaseComponent.builder().build().inject(this)
-    }
 
     @SuppressLint("CheckResult")
     fun loadMovieDetails(id: Int) {

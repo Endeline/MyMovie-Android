@@ -40,7 +40,7 @@ allprojects {
         jUnitX = "1.1.1"
         espressoCore = "3.2.0"
         timber = "4.7.1"
-        navigation = "2.2.1"
+        navigation = "2.2.2"
         material = "1.1.0"
         rxAndroid = "2.1.1"
         rxJava = "2.2.18"
@@ -52,6 +52,7 @@ allprojects {
         retrofit2 = "2.6.2"
         multidex = "1.0.3"
         glide = "4.11.0"
+        circularSeekBar = "1.2.0"
     }
 }
 

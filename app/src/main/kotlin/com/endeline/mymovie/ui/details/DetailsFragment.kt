@@ -8,14 +8,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.endeline.domain.uimodels.*
 import com.endeline.mymovie.databinding.DetailsFragmentBinding
-import com.endeline.mymovie.di.components.DaggerViewModelComponent
+import com.endeline.mymovie.di.ViewModelFactory
 import com.endeline.mymovie.extensions.loadPosterImage
-import javax.inject.Inject
 
 class DetailsFragment : Fragment() {
 
@@ -27,8 +27,10 @@ class DetailsFragment : Fragment() {
     // reviews -> opinion
     // person -> find in api!!!
 
-    @Inject
-    protected lateinit var viewModel: DetailsViewModel
+    private val viewModelFactory: ViewModelFactory.DetailsViewModelFactory =
+        ViewModelFactory.DetailsViewModelFactory()
+
+    private val viewModel by viewModels<DetailsViewModel>(factoryProducer = { viewModelFactory })
 
     private lateinit var binding: DetailsFragmentBinding
 
@@ -39,9 +41,6 @@ class DetailsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = DetailsFragmentBinding.inflate(inflater)
-
-
-        DaggerViewModelComponent.builder().build().inject(this)
 
         movieId = arguments?.getInt(MOVIE_ID_KEY, -1)!!
 
