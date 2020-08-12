@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.endeline.domain.uimodels.*
 import com.endeline.mymovie.databinding.DetailsFragmentBinding
@@ -32,6 +33,8 @@ class DetailsFragment : Fragment() {
 
     private val viewModel by viewModels<DetailsViewModel>(factoryProducer = { viewModelFactory })
 
+    private val args by navArgs<DetailsFragmentArgs>()
+
     private lateinit var binding: DetailsFragmentBinding
 
     private var movieId = 0
@@ -42,7 +45,7 @@ class DetailsFragment : Fragment() {
     ): View? {
         binding = DetailsFragmentBinding.inflate(inflater)
 
-        movieId = arguments?.getInt(MOVIE_ID_KEY, -1)!!
+        movieId = args.movieId
 
         return binding.root
     }
