@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.webkit.WebChromeClient
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.navArgs
 import com.endeline.mymovie.databinding.VideoFragmentBinding
 
 class VideoFragment : Fragment() {
@@ -18,6 +19,8 @@ class VideoFragment : Fragment() {
     }
 
     private lateinit var binding: VideoFragmentBinding
+
+    private val args by navArgs<VideoFragmentArgs>()
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onCreateView(
@@ -40,8 +43,8 @@ class VideoFragment : Fragment() {
 
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
-        if (arguments?.getString("site") == SITE_YOUTUBE) {
-            binding.webView.loadUrl("$YOUTUBE_URL${arguments?.getString("movie_link")}")
+        if (args.site == SITE_YOUTUBE) {
+            binding.webView.loadUrl("$YOUTUBE_URL${args.movieLink}")
         }
     }
 

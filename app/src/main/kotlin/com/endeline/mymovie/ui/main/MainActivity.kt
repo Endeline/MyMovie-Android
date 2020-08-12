@@ -11,6 +11,7 @@ import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import androidx.navigation.ui.setupWithNavController
+import com.endeline.mymovie.NavigationGraphXmlDirections
 import com.endeline.mymovie.R
 import com.endeline.mymovie.databinding.ActivityMainBinding
 import timber.log.Timber
@@ -88,7 +89,7 @@ class MainActivity : AppCompatActivity() {
             navigationView.setupWithNavController(navigationController)
 
             icSearch.setOnClickListener {
-                navigationController.navigate(R.id.searchFragment)
+                navigationController.navigate(NavigationGraphXmlDirections.navigateToSearch())
             }
         }
     }
