@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
@@ -14,6 +15,7 @@ import androidx.navigation.ui.setupWithNavController
 import com.endeline.mymovie.NavigationGraphXmlDirections
 import com.endeline.mymovie.R
 import com.endeline.mymovie.databinding.ActivityMainBinding
+import com.endeline.mymovie.di.ViewModelFactory
 import timber.log.Timber
 import timber.log.Timber.DebugTree
 
@@ -24,6 +26,11 @@ class MainActivity : AppCompatActivity() {
             context.startActivity(Intent(context, MainActivity::class.java))
         }
     }
+
+    private val viewModelFactory: ViewModelFactory.MainActivityViewModel =
+        ViewModelFactory.MainActivityViewModel()
+
+    private val viewModel by viewModels<MainActivityViewModel>(factoryProducer = { viewModelFactory })
 
     private lateinit var binding: ActivityMainBinding
 
@@ -55,43 +62,12 @@ class MainActivity : AppCompatActivity() {
     private fun init() {
         Timber.plant(DebugTree())
 
-        setSupportActionBar(binding.customToolbar)
+        viewModel.initializeServices(this)
 
         navigationController = findNavController(R.id.navigation_host)
         appBarConfiguration = AppBarConfiguration(topLevelDestination)
 
-        setupActionBarWithNavController(navigationController, appBarConfiguration)
-
-        with(binding) {
-            navigationController.addOnDestinationChangedListener { _, destination, _ ->
-
-                toolbarTitle.visibility = if (topLevelDestination.contains(destination.id)) {
-                    View.VISIBLE
-                } else {
-                    View.INVISIBLE
-                }
-
-                if (destination.id == R.id.videoFragment) {
-                    customToolbar.visibility = View.GONE
-                    navigationView.visibility = View.GONE
-                } else {
-                    customToolbar.visibility = View.VISIBLE
-                    navigationView.visibility = View.VISIBLE
-                }
-
-                icSearch.visibility = if (destination.id == R.id.searchFragment) {
-                    View.GONE
-                } else {
-                    View.VISIBLE
-                }
-            }
-
-            navigationView.setupWithNavController(navigationController)
-
-            icSearch.setOnClickListener {
-                navigationController.navigate(NavigationGraphXmlDirections.navigateToSearch())
-            }
-        }
+        binding.navigationView.setupWithNavController(navigationController)
     }
 
 }

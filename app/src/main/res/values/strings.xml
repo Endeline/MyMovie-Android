@@ -18,4 +18,13 @@
     <string name="movies">Movies</string>
     <string name="tv">TV</string>
     <string name="person">Person</string>
+    <string name="login">Login</string>
+    <string name="password">Password</string>
+    <string name="sign_in">Sign in</string>
+    <string name="forgot_password">I forgot password</string>
+    <string name="sign_up">Sign up</string>
+    <string name="login_to_short">Login to short</string>
+    <string name="login_empty">Login cannot be empty</string>
+    <string name="password_to_short">Password to short</string>
+    <string name="password_empty">Password cannot be empty</string>
 </resources>

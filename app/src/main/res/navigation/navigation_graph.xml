@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <navigation xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph.xml"
     app:startDestination="@id/nowPlaying">
 
@@ -8,10 +9,35 @@
         android:id="@+id/navigateToSearch"
         app:destination="@id/searchFragment" />
 
+    <action
+        android:id="@+id/navigateToUser"
+        app:destination="@id/userFragment" />
+
+    <fragment
+        android:id="@+id/userFragment"
+        android:name="com.endeline.mymovie.ui.user.UserFragment"
+        android:label="UserFragment"
+        tools:layout="@layout/login_fragment">
+        <action
+            android:id="@+id/toRegister"
+            app:destination="@id/registerFragment" />
+        <action
+            android:id="@+id/toForgotPassword"
+            app:destination="@id/forgotPassword" />
+
+    </fragment>
+
+    <fragment
+        android:id="@+id/forgotPassword"
+        android:name="com.endeline.mymovie.ui.forgotpassword.ForgotPasswordFragment"
+        android:label="ForgotPassword"
+        tools:layout="@layout/forgot_password_fragment"/>
+
     <fragment
         android:id="@+id/nowPlaying"
         android:name="com.endeline.mymovie.ui.now.NowPlayingFragment"
-        android:label="NowPlayingFragment">
+        android:label="NowPlayingFragment"
+        tools:layout="@layout/movie_fragment">
         <action
             android:id="@+id/toDetails"
             app:destination="@id/detailsFragment" />
@@ -20,7 +46,8 @@
     <fragment
         android:id="@+id/popular"
         android:name="com.endeline.mymovie.ui.popular.PopularFragment"
-        android:label="PopularFragment">
+        android:label="PopularFragment"
+        tools:layout="@layout/movie_fragment">
         <action
             android:id="@+id/toDetails"
             app:destination="@id/detailsFragment" />
@@ -29,7 +56,8 @@
     <fragment
         android:id="@+id/upcoming"
         android:name="com.endeline.mymovie.ui.upcoming.UpcomingFragment"
-        android:label="UpcomingFragment">
+        android:label="UpcomingFragment"
+        tools:layout="@layout/movie_fragment">
         <action
             android:id="@+id/toDetails"
             app:destination="@id/detailsFragment" />
@@ -38,7 +66,8 @@
     <fragment
         android:id="@+id/topRated"
         android:name="com.endeline.mymovie.ui.top.TopRatedFragment"
-        android:label="TopRatedFragment">
+        android:label="TopRatedFragment"
+        tools:layout="@layout/movie_fragment">
         <action
             android:id="@+id/toDetails"
             app:destination="@id/detailsFragment" />
@@ -47,7 +76,8 @@
     <fragment
         android:id="@+id/searchFragment"
         android:name="com.endeline.mymovie.ui.search.SearchFragment"
-        android:label="SearchFragment">
+        android:label="SearchFragment"
+        tools:layout="@layout/search_fragment">
         <action
             android:id="@+id/toDetails"
             app:destination="@id/detailsFragment" />
@@ -56,7 +86,8 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.endeline.mymovie.ui.details.DetailsFragment"
-        android:label="DetailsFragment">
+        android:label="DetailsFragment"
+        tools:layout="@layout/details_fragment">
         <argument
             android:name="movieId"
             android:defaultValue="-1"
@@ -73,7 +104,8 @@
     <fragment
         android:id="@+id/videoFragment"
         android:name="com.endeline.mymovie.ui.video.VideoFragment"
-        android:label="VideoFragment">
+        android:label="VideoFragment"
+        tools:layout="@layout/video_fragment">
         <argument
             android:name="movieLink"
             app:argType="string" />
@@ -81,4 +113,10 @@
             android:name="site"
             app:argType="string" />
     </fragment>
+
+    <fragment
+        android:id="@+id/registerFragment"
+        android:name="com.endeline.mymovie.ui.register.RegisterFragment"
+        android:label="RegisterFragment"
+        tools:layout="@layout/register_fragment"/>
 </navigation>

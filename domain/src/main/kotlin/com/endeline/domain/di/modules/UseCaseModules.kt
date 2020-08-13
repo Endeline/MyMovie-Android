@@ -39,4 +39,16 @@ class UseCaseModules {
 
     @Provides
     fun provideSearchAllUseCase() = SearchAllUseCase()
+
+    @Provides
+    fun provideInitializeUserServiceUseCase() = InitializeUserServiceUseCase()
+
+    @Provides
+    fun providesGetUserIsLoggedInUseCase() = GetUserIsLoggedInUseCase()
+
+    @Provides
+    fun provideGetUserByLoginUserCase() = GetUserByLoginUseCase()
+
+    @Provides
+    fun provideCheckIsUserInAppUseCase() = CheckIsUserInAppUseCase()
 }

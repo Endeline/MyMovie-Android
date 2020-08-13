@@ -61,4 +61,12 @@ dependencies {
     implementation "com.squareup.retrofit2:adapter-rxjava:$project.ext.retrofit2"
     implementation "com.squareup.okhttp3:logging-interceptor:$project.ext.okHttpLoggin"
     implementation "com.jakewharton.retrofit:retrofit2-rxjava2-adapter:$project.ext.rxJavaAdapter"
+
+    implementation "androidx.room:room-runtime:$project.ext.room"
+    kapt "androidx.room:room-compiler:$project.ext.room"
+    implementation "androidx.room:room-ktx:$project.ext.room"
+    implementation "androidx.room:room-rxjava2:$project.ext.room"
+    implementation "androidx.room:room-guava:$project.ext.room"
+    implementation "android.arch.persistence.room:rxjava2:$project.ext.roomPersistence"
+    testImplementation "androidx.room:room-testing:$project.ext.room"
 }
