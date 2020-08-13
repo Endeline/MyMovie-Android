@@ -1,0 +1,42 @@
+package com.endeline.data.repository
+
+import android.content.Context
+import com.endeline.data.entities.UserEntity
+
+class UserRepository(context: Context) {
+    companion object {
+        private const val CURRENT_USER_SHARED_PREFERENCES = "CURRENT_USER"
+        private const val ID_KEY = "id"
+        private const val DEFAULT_ID = -1
+        private const val LOGIN_KEY = "login"
+        private const val PASSWORD_KEY = "password"
+    }
+
+    private val sharedPreference  = context.getSharedPreferences(
+        CURRENT_USER_SHARED_PREFERENCES,
+        Context.MODE_PRIVATE
+    )
+
+    fun saveCurrentUser(user: UserEntity) = with(sharedPreference.edit()) {
+        putInt(ID_KEY, user.id ?: DEFAULT_ID)
+        putString(LOGIN_KEY, user.login)
+        putString(PASSWORD_KEY, user.password)
+        commit()
+    }
+
+    fun getCurrentUser() : UserEntity = with(sharedPreference) {
+        return UserEntity(
+            id = getInt(ID_KEY, DEFAULT_ID),
+            login = getString(LOGIN_KEY, ""),
+            password = getString(PASSWORD_KEY, "")
+        )
+    }
+
+    fun isAnyUser() : Boolean = sharedPreference.getInt(ID_KEY, DEFAULT_ID) != DEFAULT_ID
+
+    fun clear() = with(sharedPreference.edit()) {
+        putInt(ID_KEY, DEFAULT_ID)
+        putString(LOGIN_KEY, "")
+        putString(PASSWORD_KEY, "")
+    }
+}

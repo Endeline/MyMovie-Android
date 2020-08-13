@@ -17,6 +17,10 @@ import com.endeline.mymovie.di.ViewModelFactory
 
 class SearchFragment : Fragment() {
 
+    companion object {
+        private const val MINIMUM_TEXT_SIZE_TO_SEARCH = 3
+    }
+
     private val viewModelFactory: ViewModelFactory.SearchViewModelFactory =
         ViewModelFactory.SearchViewModelFactory()
 
@@ -36,7 +40,7 @@ class SearchFragment : Fragment() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (count >= 3) {
+                if (s?.length ?: 0 >= MINIMUM_TEXT_SIZE_TO_SEARCH) {
                     s?.let {
                         viewModel.search(it.toString())
                     }

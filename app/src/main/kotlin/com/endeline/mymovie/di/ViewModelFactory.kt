@@ -131,4 +131,43 @@ class ViewModelFactory {
         }
     }
 
+    class MainActivityViewModel : ViewModelProvider.Factory {
+
+        @Inject
+        protected lateinit var getUserIsLoggedInUseCase: GetUserIsLoggedInUseCase
+
+        @Inject
+        protected lateinit var initializeUserServiceUseCase: InitializeUserServiceUseCase
+
+        init {
+            DaggerUseCaseComponent.builder().build().inject(this)
+        }
+
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return modelClass.getConstructor(
+                GetUserIsLoggedInUseCase::class.java,
+                InitializeUserServiceUseCase::class.java
+            ).newInstance(getUserIsLoggedInUseCase, initializeUserServiceUseCase)
+        }
+    }
+
+    class UserViewModel : ViewModelProvider.Factory {
+
+        @Inject
+        protected lateinit var getUserIsLoggedIn: GetUserIsLoggedInUseCase
+
+        @Inject
+        protected lateinit var checkIsUserInAppUseCase: CheckIsUserInAppUseCase
+
+        init {
+            DaggerUseCaseComponent.builder().build().inject(this)
+        }
+
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return modelClass.getConstructor(
+                GetUserIsLoggedInUseCase::class.java,
+                CheckIsUserInAppUseCase::class.java
+            ).newInstance(getUserIsLoggedIn, checkIsUserInAppUseCase)
+        }
+    }
 }

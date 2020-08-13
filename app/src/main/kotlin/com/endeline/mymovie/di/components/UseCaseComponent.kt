@@ -14,5 +14,6 @@ interface UseCaseComponent {
     fun inject(app: ViewModelFactory.SearchViewModelFactory)
     fun inject(app: ViewModelFactory.TopRatedViewModelFactory)
     fun inject(app: ViewModelFactory.UpcomingViewModel)
-
+    fun inject(app: ViewModelFactory.MainActivityViewModel)
+    fun inject(app: ViewModelFactory.UserViewModel)
 }
