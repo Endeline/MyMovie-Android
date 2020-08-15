@@ -20,10 +20,6 @@ import com.endeline.mymovie.extensions.loadPosterImage
 
 class DetailsFragment : Fragment() {
 
-    companion object {
-        private const val MOVIE_ID_KEY = "movie_id"
-    }
-
     //todo section ->
     // reviews -> opinion
     // person -> find in api!!!
@@ -54,42 +50,41 @@ class DetailsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
-        viewModel.apply {
-            similarLiveData.observe(viewLifecycleOwner, Observer { onSimilarLoaded(it) })
+        subscribeUi()
 
-            recommendedLiveData.observe(viewLifecycleOwner, Observer { onRecommendedLoaded(it) })
+        viewModel.loadMovieData(movieId)
+    }
 
-            videoLinksLiveData.observe(viewLifecycleOwner, Observer { onVideoLinksLoaded(it) })
+    private fun subscribeUi() = with(viewModel) {
+        getSimilarLiveData().observe(viewLifecycleOwner, Observer { onSimilarLoaded(it) })
 
-            contentLiveData.observe(viewLifecycleOwner, Observer { onContentLoaded(it) })
+        getRecommendedLiveData().observe(viewLifecycleOwner, Observer { onRecommendedLoaded(it) })
 
-            posterLiveData.observe(viewLifecycleOwner, Observer { onPosterLoaded(it) })
+        getVideoLinksLiveData().observe(viewLifecycleOwner, Observer { onVideoLinksLoaded(it) })
 
-            voteAverage.observe(viewLifecycleOwner, Observer { onVoteAverageLoaded(it) })
+        getContentLiveData().observe(viewLifecycleOwner, Observer { onContentLoaded(it) })
 
-            popularityLiveData.observe(viewLifecycleOwner, Observer { onPopularityLoaded(it) })
+        getPosterLiveData().observe(viewLifecycleOwner, Observer { onPosterLoaded(it) })
 
-            genresLiveData.observe(viewLifecycleOwner, Observer { onGenresLoaded(it) })
+        getVoteAverageLiveData().observe(viewLifecycleOwner, Observer { onVoteAverageLoaded(it) })
 
-            onDataLoadedLiveData.observe(viewLifecycleOwner, Observer { onDataLoaded(true) })
+        getPopularityLiveData().observe(viewLifecycleOwner, Observer { onPopularityLoaded(it) })
 
-            productionCountriesLiveData.observe(
-                viewLifecycleOwner,
-                Observer { onProductionCountriesDataLoaded(it) })
+        getGenresLiveData().observe(viewLifecycleOwner, Observer { onGenresLoaded(it) })
 
-            spokenLanguagesLiveData.observe(
-                viewLifecycleOwner,
-                Observer { onSpokenLanguageLoaded(it) })
+        getOnDataLoadedLive().observe(viewLifecycleOwner, Observer { onDataLoaded(true) })
 
-            productionCompaniesLiveData.observe(
-                viewLifecycleOwner,
-                Observer { onProductionCompaniesLoaded(it) })
+        getProductionCountriesLiveData().observe(
+            viewLifecycleOwner,
+            Observer { onProductionCountriesDataLoaded(it) })
 
-            loadMovieDetails(movieId)
-            loadSimilarMovies(movieId)
-            loadRecommendedMovies(movieId)
-            loadVideoLinks(movieId)
-        }
+        getSpokenLanguageLiveData().observe(
+            viewLifecycleOwner,
+            Observer { onSpokenLanguageLoaded(it) })
+
+        getProductionCompaniesLiveData().observe(
+            viewLifecycleOwner,
+            Observer { onProductionCompaniesLoaded(it) })
     }
 
     private fun onContentLoaded(content: Pair<String, String>) {
@@ -190,8 +185,11 @@ class DetailsFragment : Fragment() {
         similarRecycleView.apply {
             visibility = View.VISIBLE
             setHasFixedSize(true)
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
             adapter = movieAdapter
 
             movieAdapter.submitList(similarMovies)
@@ -209,8 +207,11 @@ class DetailsFragment : Fragment() {
             recommendedRecycleView.apply {
                 visibility = View.VISIBLE
                 setHasFixedSize(true)
-                layoutManager =
-                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                layoutManager = LinearLayoutManager(
+                    requireContext(),
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
                 adapter = movieAdapter
 
                 movieAdapter.submitList(recommendedMovies)
@@ -225,8 +226,11 @@ class DetailsFragment : Fragment() {
         moviesRecycleView.apply {
             visibility = View.VISIBLE
             setHasFixedSize(true)
-            layoutManager =
-                LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
             adapter = videoAdapter
         }
 

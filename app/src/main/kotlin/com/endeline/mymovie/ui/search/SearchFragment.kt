@@ -54,19 +54,21 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.apply {
-            movieLiveData.observe(viewLifecycleOwner, Observer {
-                onMovieSearchResult(it)
-            })
+        subscribeUi()
+    }
 
-            tvLiveData.observe(viewLifecycleOwner, Observer {
-                onTvSearchResult(it)
-            })
+    private fun subscribeUi() {
+        viewModel.getMovieLiveData().observe(viewLifecycleOwner, Observer {
+            onMovieSearchResult(it)
+        })
 
-            personLiveData.observe(viewLifecycleOwner, Observer {
-                onPersonSearchResult(it)
-            })
-        }
+        viewModel.getTvLiveData().observe(viewLifecycleOwner, Observer {
+            onTvSearchResult(it)
+        })
+
+        viewModel.getPersonLiveData().observe(viewLifecycleOwner, Observer {
+            onPersonSearchResult(it)
+        })
     }
 
     private fun onMovieSearchResult(collection: List<SearchItemUiModel>) = with(binding) {
@@ -79,10 +81,13 @@ class SearchFragment : Fragment() {
 
             moviesTitle.visibility = View.VISIBLE
 
-            with(moviesRecycle) {
+            moviesRecycle.apply {
                 setHasFixedSize(true)
-                layoutManager =
-                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                layoutManager = LinearLayoutManager(
+                    requireContext(),
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
                 adapter = searchAdapter
                 visibility = View.VISIBLE
             }
@@ -102,10 +107,13 @@ class SearchFragment : Fragment() {
 
             tvTitle.visibility = View.VISIBLE
 
-            with(tvRecycle) {
+            tvRecycle.apply {
                 setHasFixedSize(true)
-                layoutManager =
-                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                layoutManager = LinearLayoutManager(
+                    requireContext(),
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
                 adapter = searchAdapter
                 visibility = View.VISIBLE
             }
@@ -125,10 +133,13 @@ class SearchFragment : Fragment() {
 
             personTitle.visibility = View.VISIBLE
 
-            with(personRecycle) {
+            personRecycle.apply {
                 setHasFixedSize(true)
-                layoutManager =
-                    LinearLayoutManager(requireContext(), LinearLayoutManager.HORIZONTAL, false)
+                layoutManager = LinearLayoutManager(
+                    requireContext(),
+                    LinearLayoutManager.HORIZONTAL,
+                    false
+                )
                 adapter = searchAdapter
                 visibility = View.VISIBLE
             }

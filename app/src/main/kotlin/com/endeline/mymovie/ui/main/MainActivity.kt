@@ -68,6 +68,14 @@ class MainActivity : AppCompatActivity() {
         appBarConfiguration = AppBarConfiguration(topLevelDestination)
 
         binding.navigationView.setupWithNavController(navigationController)
+
+        navigationController.addOnDestinationChangedListener { _, destination, _ ->
+            binding.navigationView.visibility = if (destination.id == R.id.videoFragment) {
+                View.GONE
+            } else {
+                View.VISIBLE
+            }
+        }
     }
 
 }

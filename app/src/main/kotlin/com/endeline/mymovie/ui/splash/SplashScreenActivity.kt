@@ -31,20 +31,18 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun init() {
-        viewModel.apply {
-            dataLoadedLiveData.observe(this@SplashScreenActivity, Observer {
-                if (it) {
-                    MainActivity.start(this@SplashScreenActivity)
-                    this@SplashScreenActivity.finish()
-                } else {
-                    Snackbar.make(binding.root, R.string.loading_error, Snackbar.LENGTH_INDEFINITE)
-                        .setAction(R.string.refresh) { viewModel.loadData() }
-                        .show()
-                }
-            })
+        viewModel.getDataLoadedLiveData().observe(this@SplashScreenActivity, Observer {
+            if (it) {
+                MainActivity.start(this@SplashScreenActivity)
+                this@SplashScreenActivity.finish()
+            } else {
+                Snackbar.make(binding.root, R.string.loading_error, Snackbar.LENGTH_INDEFINITE)
+                    .setAction(R.string.refresh) { viewModel.loadData() }
+                    .show()
+            }
+        })
 
-            loadData()
-        }
+        viewModel.loadData()
     }
 
 }
