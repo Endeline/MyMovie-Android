@@ -13,14 +13,9 @@ class UserViewModel(
      private val getUserInAppUseCase: CheckIsUserInAppUseCase
 ) : ViewModel() {
 
-    private var changeLoginStatusLiveData: MutableLiveData<Boolean>? = null
+    private var changeLoginStatusLiveData = MutableLiveData<Boolean>()
 
-    fun getChangeLoginStatusLiveData(): LiveData<Boolean> {
-        if (changeLoginStatusLiveData == null) {
-            changeLoginStatusLiveData = MutableLiveData()
-        }
-        return changeLoginStatusLiveData as MutableLiveData<Boolean>
-    }
+    fun getChangeLoginStatusLiveData(): LiveData<Boolean> = changeLoginStatusLiveData
 
     fun isUserLogged(): Boolean = getUserIsLoggedInUseCase().blockingGet()
 
@@ -28,7 +23,7 @@ class UserViewModel(
     fun login(login: String, password: String) {
         getUserInAppUseCase(login, password)
             .subscribe({
-                changeLoginStatusLiveData?.postValue(it)
+                changeLoginStatusLiveData.postValue(it)
             }, Timber::e)
     }
 

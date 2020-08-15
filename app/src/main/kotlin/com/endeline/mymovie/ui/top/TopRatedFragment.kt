@@ -48,13 +48,11 @@ class TopRatedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.apply {
-            topRatedLiveData.observe(viewLifecycleOwner, Observer {
-                movieAdapter.submitList(it)
-            })
+        viewModel.getTopRatedLiveData().observe(viewLifecycleOwner, Observer {
+            movieAdapter.submitList(it)
+        })
 
-            loadTopRated()
-        }
+        viewModel.loadTopRated()
     }
 
 }

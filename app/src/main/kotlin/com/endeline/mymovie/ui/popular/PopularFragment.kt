@@ -48,12 +48,10 @@ class PopularFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.apply {
-            popularLiveData.observe(viewLifecycleOwner, Observer {
-                movieAdapter.submitList(it)
-            })
+        viewModel.getPopularLiveData().observe(viewLifecycleOwner, Observer {
+            movieAdapter.submitList(it)
+        })
 
-            loadPopular()
-        }
+        viewModel.loadPopular()
     }
 }

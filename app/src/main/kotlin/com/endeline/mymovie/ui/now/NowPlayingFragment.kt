@@ -48,13 +48,10 @@ class NowPlayingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.apply {
-            movieItemsLiveData.observe(viewLifecycleOwner, Observer {
-                movieAdapter.submitList(it)
-            })
+        viewModel.getMovieItemsLiveData().observe(viewLifecycleOwner, Observer {
+            movieAdapter.submitList(it)
+        })
 
-            loadNowPlaying()
-        }
+        viewModel.loadNowPlaying()
     }
-
 }

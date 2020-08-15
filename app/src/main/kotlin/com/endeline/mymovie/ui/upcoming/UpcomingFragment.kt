@@ -46,13 +46,11 @@ class UpcomingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        viewModel.apply {
-            upcomingLiveData.observe(viewLifecycleOwner, Observer {
-                movieAdapter.submitList(it)
-            })
+        viewModel.getUpcomingLiveData().observe(viewLifecycleOwner, Observer {
+            movieAdapter.submitList(it)
+        })
 
-            loadUpcoming()
-        }
+        viewModel.loadUpcoming()
     }
 
 }

@@ -1,5 +1,6 @@
 package com.endeline.mymovie.ui.search
 
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.endeline.domain.uimodels.SearchItemUiModel
@@ -7,11 +8,16 @@ import com.endeline.domain.usecase.SearchAllUseCase
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-class SearchViewModel(val searchAllUseCase: SearchAllUseCase) : ViewModel() {
+class SearchViewModel(private val searchAllUseCase: SearchAllUseCase) : ViewModel() {
 
-    val personLiveData = MutableLiveData<List<SearchItemUiModel>>()
-    val movieLiveData = MutableLiveData<List<SearchItemUiModel>>()
-    val tvLiveData = MutableLiveData<List<SearchItemUiModel>>()
+    private val personLiveData = MutableLiveData<List<SearchItemUiModel>>()
+    private val movieLiveData = MutableLiveData<List<SearchItemUiModel>>()
+    private val tvLiveData = MutableLiveData<List<SearchItemUiModel>>()
+
+    fun getPersonLiveData(): LiveData<List<SearchItemUiModel>> = personLiveData
+    fun getMovieLiveData(): LiveData<List<SearchItemUiModel>> = movieLiveData
+    fun getTvLiveData(): LiveData<List<SearchItemUiModel>> = tvLiveData
+
 
     fun search(query: String) =
         searchAllUseCase(query)

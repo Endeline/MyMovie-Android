@@ -1,6 +1,7 @@
 package com.endeline.mymovie.ui.upcoming
 
 import android.annotation.SuppressLint
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.endeline.domain.uimodels.MovieCollectionItemUiModel
@@ -9,7 +10,9 @@ import timber.log.Timber
 
 class UpcomingViewModel(private val getUpcomingUseCase: GetUpcomingUseCase) : ViewModel() {
 
-    val upcomingLiveData = MutableLiveData<List<MovieCollectionItemUiModel>>()
+    private var upcomingLiveData = MutableLiveData<List<MovieCollectionItemUiModel>>()
+
+    fun getUpcomingLiveData() : LiveData<List<MovieCollectionItemUiModel>> = upcomingLiveData
 
     @SuppressLint("CheckResult")
     fun loadUpcoming() {

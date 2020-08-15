@@ -6,11 +6,8 @@ import com.endeline.domain.usecase.GetUserIsLoggedInUseCase
 import com.endeline.domain.usecase.InitializeUserServiceUseCase
 
 class MainActivityViewModel(
-    val getUserIsLoggedInUseCase: GetUserIsLoggedInUseCase,
-    val initializeUserServiceUseCase: InitializeUserServiceUseCase
+    private val initializeUserServiceUseCase: InitializeUserServiceUseCase
 ) : ViewModel() {
-
-    fun getUserIsLoggedIn() = getUserIsLoggedInUseCase()
 
     fun initializeServices(context: Context) = initializeUserServiceUseCase(context)
 }

@@ -134,9 +134,6 @@ class ViewModelFactory {
     class MainActivityViewModel : ViewModelProvider.Factory {
 
         @Inject
-        protected lateinit var getUserIsLoggedInUseCase: GetUserIsLoggedInUseCase
-
-        @Inject
         protected lateinit var initializeUserServiceUseCase: InitializeUserServiceUseCase
 
         init {
@@ -145,9 +142,8 @@ class ViewModelFactory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return modelClass.getConstructor(
-                GetUserIsLoggedInUseCase::class.java,
                 InitializeUserServiceUseCase::class.java
-            ).newInstance(getUserIsLoggedInUseCase, initializeUserServiceUseCase)
+            ).newInstance(initializeUserServiceUseCase)
         }
     }
 
