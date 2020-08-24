@@ -1,4 +1,4 @@
-package com.endeline.mymovie.ui.forgotpassword
+package com.endeline.mymovie.ui.user.forgotpassword
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
