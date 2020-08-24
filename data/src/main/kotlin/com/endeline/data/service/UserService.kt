@@ -28,8 +28,12 @@ class UserService {
         return Completable.complete()
     }
 
-    fun saveUser(userEntity: UserEntity) =
-        userDao.insert(userEntity)
+    fun saveUser(userEntity: UserEntity) : Observable<UserEntity> {
+        userEntity.id = userDao.insert(userEntity)
+        userRepository.saveCurrentUser(userEntity)
+
+        return Observable.just(userEntity)
+    }
 
     fun getCurrentUser(): Single<Boolean> {
         return Single.just(userRepository.isAnyUser())
@@ -38,7 +42,7 @@ class UserService {
     fun getAllUsers() =
         userDao.getAll()
 
-    fun getUserById(id: Int) =
+    fun getUserById(id: Long) =
         userDao.getById(id)
 
     fun getUserByLogin(login: String) =

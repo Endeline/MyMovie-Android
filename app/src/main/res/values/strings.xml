@@ -20,6 +20,8 @@
     <string name="person">Person</string>
     <string name="login">Login</string>
     <string name="password">Password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="confirm">Confirm</string>
     <string name="sign_in">Sign in</string>
     <string name="forgot_password">I forgot password</string>
     <string name="sign_up">Sign up</string>
@@ -27,4 +29,15 @@
     <string name="login_empty">Login cannot be empty</string>
     <string name="password_to_short">Password to short</string>
     <string name="password_empty">Password cannot be empty</string>
+    <string name="please_fill_all_fields">Please fill all fields</string>
+    <string name="not_same_password">Passwords do not match</string>
+    <string name="error_title">Sorry</string>
+    <string name="error_user_already_exist">Current user already exist</string>
+    <string name="error_unknown_error">Unknown error</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="dialog_register">Register</string>
+    <string name="dialog_forgot_password">Forgot password</string>
+    <string name="login_error_dialog_title">Ups</string>
+    <string name="login_error_description">Bad login password, if You don\'t have account click register</string>
 </resources>

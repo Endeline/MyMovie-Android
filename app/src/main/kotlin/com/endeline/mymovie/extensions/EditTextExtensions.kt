@@ -1,5 +1,6 @@
 package com.endeline.mymovie.extensions
 
+import android.widget.EditText
 import androidx.appcompat.widget.AppCompatEditText
 
 private const val MINIMUM_CHARACTER_AMOUNT = 6
@@ -22,4 +23,13 @@ fun AppCompatEditText.validate(emptyError: String, toShortError: String) : Boole
     }
 
     return result
+}
+
+fun isSameEditText(firstEditText: EditText, secondEditText: EditText, errorText: String) : Boolean {
+    return if (firstEditText.text.toString() == secondEditText.text.toString()) {
+        true
+    } else {
+        secondEditText.error = errorText
+        false
+    }
 }

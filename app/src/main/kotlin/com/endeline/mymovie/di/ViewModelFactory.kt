@@ -150,10 +150,11 @@ class ViewModelFactory {
     class UserViewModel : ViewModelProvider.Factory {
 
         @Inject
-        protected lateinit var getUserIsLoggedIn: GetUserIsLoggedInUseCase
+        lateinit var getUserIsLoggedIn: GetUserIsLoggedInUseCase
 
         @Inject
-        protected lateinit var checkIsUserInAppUseCase: CheckIsUserInAppUseCase
+        lateinit var checkIsUserInAppUseCase: CheckIsUserInAppUseCase
+
 
         init {
             DaggerUseCaseComponent.builder().build().inject(this)
@@ -164,6 +165,26 @@ class ViewModelFactory {
                 GetUserIsLoggedInUseCase::class.java,
                 CheckIsUserInAppUseCase::class.java
             ).newInstance(getUserIsLoggedIn, checkIsUserInAppUseCase)
+        }
+    }
+
+    class RegisterViewModel : ViewModelProvider.Factory {
+
+        @Inject
+        lateinit var checkExistLoginUseCase: CheckExistLoginUseCase
+
+        @Inject
+        lateinit var registerUseCase: RegisterUseCase
+
+        init {
+            DaggerUseCaseComponent.builder().build().inject(this)
+        }
+
+        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+            return modelClass.getConstructor(
+                CheckExistLoginUseCase::class.java,
+                RegisterUseCase::class.java
+            ).newInstance(checkExistLoginUseCase, registerUseCase)
         }
     }
 }

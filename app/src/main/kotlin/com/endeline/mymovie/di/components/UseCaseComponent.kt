@@ -16,4 +16,5 @@ interface UseCaseComponent {
     fun inject(app: ViewModelFactory.UpcomingViewModel)
     fun inject(app: ViewModelFactory.MainActivityViewModel)
     fun inject(app: ViewModelFactory.UserViewModel)
+    fun inject(app: ViewModelFactory.RegisterViewModel)
 }

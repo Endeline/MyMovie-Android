@@ -29,7 +29,7 @@
 
     <fragment
         android:id="@+id/forgotPassword"
-        android:name="com.endeline.mymovie.ui.forgotpassword.ForgotPasswordFragment"
+        android:name="com.endeline.mymovie.ui.user.forgotpassword.ForgotPasswordFragment"
         android:label="ForgotPassword"
         tools:layout="@layout/forgot_password_fragment"/>
 
@@ -116,7 +116,7 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.endeline.mymovie.ui.register.RegisterFragment"
+        android:name="com.endeline.mymovie.ui.user.register.RegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/register_fragment"/>
 </navigation>

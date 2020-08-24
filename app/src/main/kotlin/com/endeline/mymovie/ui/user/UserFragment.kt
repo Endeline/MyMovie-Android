@@ -12,13 +12,28 @@ import com.endeline.mymovie.R
 import com.endeline.mymovie.databinding.LoginFragmentBinding
 import com.endeline.mymovie.databinding.ProfileFragmentBinding
 import com.endeline.mymovie.di.ViewModelFactory
+import com.endeline.mymovie.extensions.showDialogWithButtons
 import com.endeline.mymovie.extensions.validate
+import com.endeline.mymovie.ui.user.register.RegisterFragment
 
 class UserFragment : Fragment() {
 
     private val viewModelFactory: ViewModelFactory.UserViewModel = ViewModelFactory.UserViewModel()
 
     private val viewModel by viewModels<UserViewModel>(factoryProducer = { viewModelFactory })
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        val savedStateHandle = findNavController().currentBackStackEntry?.savedStateHandle
+
+        savedStateHandle?.getLiveData(RegisterFragment.REGISTER_STATUS_LIVE_DATA, false)
+            ?.observe(this, Observer {
+                if (it) {
+                    findNavController().popBackStack()
+                }
+            })
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,13 +48,13 @@ class UserFragment : Fragment() {
         }
     }
 
-    private fun createLoggedLayout(inflater: LayoutInflater) : View {
+    private fun createLoggedLayout(inflater: LayoutInflater): View {
         val binding = ProfileFragmentBinding.inflate(inflater)
 
         return binding.root
     }
 
-    private fun createNotLoggedLayout(inflater: LayoutInflater) : View {
+    private fun createNotLoggedLayout(inflater: LayoutInflater): View {
         val binding = LoginFragmentBinding.inflate(inflater)
 
         initNotLoggedLayout(binding)
@@ -52,7 +67,18 @@ class UserFragment : Fragment() {
             if (it) {
                 findNavController().popBackStack()
             } else {
-                //todo register info
+                showDialogWithButtons(
+                    R.string.login_error_dialog_title,
+                    R.string.login_error_description,
+                    R.string.dialog_register,
+                    R.string.dialog_forgot_password,
+                    positiveButtonClick = {
+                        findNavController().navigate(UserFragmentDirections.toRegister())
+                    },
+                    neutralButtonClick = {
+                        findNavController().navigate(UserFragmentDirections.toForgotPassword())
+                    }
+                )
             }
         })
 
@@ -72,8 +98,12 @@ class UserFragment : Fragment() {
     }
 
     private fun isCorrectData(binding: LoginFragmentBinding): Boolean = with(binding) {
-        val logicCorrect = inputLogin.validate(getString(R.string.login_empty), getString(R.string.login_to_short))
-        val passwordCorrect = inputPassword.validate(getString(R.string.password_empty), getString(R.string.password_to_short))
+        val logicCorrect =
+            inputLogin.validate(getString(R.string.login_empty), getString(R.string.login_to_short))
+        val passwordCorrect = inputPassword.validate(
+            getString(R.string.password_empty),
+            getString(R.string.password_to_short)
+        )
 
         return logicCorrect && passwordCorrect
     }

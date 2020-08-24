@@ -20,7 +20,7 @@ interface UserDao {
     fun getAll(): Maybe<List<UserEntity>>
 
     @Query("SELECT * FROM user WHERE user.id = :id")
-    fun getById(id: Int): Maybe<UserEntity>
+    fun getById(id: Long): Maybe<UserEntity>
 
     @Query("SELECT * FROM user WHERE user.login = :login")
     fun getByLogin(login: String): Maybe<UserEntity>
