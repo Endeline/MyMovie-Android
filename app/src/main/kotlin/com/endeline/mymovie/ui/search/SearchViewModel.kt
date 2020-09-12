@@ -44,9 +44,17 @@ class SearchViewModel(private val searchAllUseCase: SearchAllUseCase) : ViewMode
                         MediaType.fromString(item.mediaType)
                     }
 
-                    _personLiveData.value = resultMap[MediaType.person]
-                    _movieLiveData.value = resultMap[MediaType.movie]
-                    _tvLiveData.value = resultMap[MediaType.tv]
+                    resultMap[MediaType.person]?.let {
+                        _personLiveData.value = it
+                    }
+
+                    resultMap[MediaType.movie]?.let {
+                        _movieLiveData.value = it
+                    }
+
+                    resultMap[MediaType.tv]?.let {
+                        _tvLiveData.value = it
+                    }
                 }
             }, Timber::e)
 

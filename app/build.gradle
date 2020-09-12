@@ -52,7 +52,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
     implementation "androidx.appcompat:appcompat:$project.ext.appCompact"
     implementation "com.google.android.material:material:$project.ext.material"
 
@@ -89,4 +89,6 @@ dependencies {
     kapt "com.github.bumptech.glide:compiler:$project.ext.glide"
 
     implementation "me.tankery.lib:circularSeekBar:$project.ext.circularSeekBar"
+
+    implementation 'jp.wasabeef:recyclerview-animators:4.0.0'
 }

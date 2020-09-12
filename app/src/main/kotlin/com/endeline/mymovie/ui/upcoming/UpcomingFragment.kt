@@ -10,7 +10,9 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.endeline.mymovie.databinding.MovieFragmentBinding
 import com.endeline.mymovie.di.ViewModelFactory
+import com.endeline.mymovie.ui.Constants
 import com.endeline.mymovie.ui.adapters.MovieAdapter
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class UpcomingFragment : Fragment() {
 
@@ -43,16 +45,19 @@ class UpcomingFragment : Fragment() {
         subscribeUi()
     }
 
-    private fun setComponent() = with(binding) {
-        recycleView.apply {
+    private fun setComponent() {
+        binding.recycleView.apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(requireContext())
             adapter = movieAdapter
+            itemAnimator = SlideInUpAnimator().apply {
+                addDuration = Constants.Animation.RECYCLER_VIEW_ITEM_DURATION
+            }
         }
     }
 
-    private fun subscribeUi() = with(viewModel) {
-        upcomingLiveData.observe(viewLifecycleOwner) {
+    private fun subscribeUi() {
+        viewModel.upcomingLiveData.observe(viewLifecycleOwner) {
             movieAdapter.submitList(it)
         }
     }
