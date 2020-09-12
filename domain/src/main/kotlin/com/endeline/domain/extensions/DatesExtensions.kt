@@ -1,10 +1,9 @@
 package com.endeline.domain.extensions
 
-import com.endeline.data.models.Dates
-import com.endeline.domain.uimodels.DatesUiModel
+import com.endeline.data.models.MovieCollection.Dates
+import com.endeline.domain.uimodels.MovieCollectionUiModel.DatesUiModel
 
-fun Dates.toUiModel() =
-    DatesUiModel().apply {
-        maximum = this@toUiModel.maximum
-        minimum = this@toUiModel.minimum
-    }
+fun Dates.toUiModel() = DatesUiModel(
+    maximum = this@toUiModel.maximum ?: "",
+    minimum = this@toUiModel.minimum ?: ""
+)

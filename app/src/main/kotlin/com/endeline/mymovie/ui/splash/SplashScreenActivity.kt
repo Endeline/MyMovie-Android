@@ -1,10 +1,8 @@
 package com.endeline.mymovie.ui.splash
 
 import android.os.Bundle
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import com.endeline.mymovie.R
 import com.endeline.mymovie.databinding.ActivitySplashScreenBinding
 import com.endeline.mymovie.di.ViewModelFactory
@@ -18,7 +16,9 @@ class SplashScreenActivity : AppCompatActivity() {
     private val viewModelFactory: ViewModelFactory.SplashScreenViewModelFactory =
         ViewModelFactory.SplashScreenViewModelFactory()
 
-    private val viewModel by viewModels<SplashViewModel>(factoryProducer = { viewModelFactory })
+    private val viewModel by viewModels<SplashViewModel>{
+        viewModelFactory
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,12 +27,12 @@ class SplashScreenActivity : AppCompatActivity() {
 
         setContentView(binding.root)
 
-        init()
+        subscribeUi()
     }
 
-    private fun init() {
-        viewModel.getDataLoadedLiveData().observe(this@SplashScreenActivity, Observer {
-            if (it) {
+    private fun subscribeUi() = with(viewModel) {
+        dataLoadedLiveData.observe(this@SplashScreenActivity) { dataLoaded ->
+            if (dataLoaded) {
                 MainActivity.start(this@SplashScreenActivity)
                 this@SplashScreenActivity.finish()
             } else {
@@ -40,9 +40,6 @@ class SplashScreenActivity : AppCompatActivity() {
                     .setAction(R.string.refresh) { viewModel.loadData() }
                     .show()
             }
-        })
-
-        viewModel.loadData()
+        }
     }
-
 }

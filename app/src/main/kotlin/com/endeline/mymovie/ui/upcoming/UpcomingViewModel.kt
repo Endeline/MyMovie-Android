@@ -1,25 +1,33 @@
 package com.endeline.mymovie.ui.upcoming
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.endeline.domain.uimodels.MovieCollectionItemUiModel
+import com.endeline.domain.uimodels.MovieCollectionUiModel.MovieItemUiModel
 import com.endeline.domain.usecase.GetUpcomingUseCase
+import io.reactivex.disposables.CompositeDisposable
 import timber.log.Timber
 
-class UpcomingViewModel(private val getUpcomingUseCase: GetUpcomingUseCase) : ViewModel() {
+class UpcomingViewModel(getUpcomingUseCase: GetUpcomingUseCase) : ViewModel() {
 
-    private var upcomingLiveData = MutableLiveData<List<MovieCollectionItemUiModel>>()
+    private val subscription = CompositeDisposable()
 
-    fun getUpcomingLiveData() : LiveData<List<MovieCollectionItemUiModel>> = upcomingLiveData
+    private val _upcomingLiveData = MutableLiveData<List<MovieItemUiModel>>()
 
-    @SuppressLint("CheckResult")
-    fun loadUpcoming() {
-        getUpcomingUseCase()
-            .subscribe({
-                upcomingLiveData.postValue(it.results)
+    val upcomingLiveData: LiveData<List<MovieItemUiModel>>
+        get() = _upcomingLiveData
+
+    init {
+        val disposable = getUpcomingUseCase()
+            .subscribe({ collection ->
+                _upcomingLiveData.value = collection.results
             }, Timber::e)
+
+        subscription.addAll(disposable)
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        subscription.clear()
+    }
 }

@@ -1,35 +1,30 @@
 package com.endeline.domain.extensions
 
-import com.endeline.data.models.SearchItem
-import com.endeline.domain.uimodels.SearchItemUiModel
+import com.endeline.data.models.SearchAll.SearchItem
+import com.endeline.domain.uimodels.SearchAllUiModel.SearchItemUiModel
+import java.util.*
 
-fun SearchItem.toUiModel() =
-    SearchItemUiModel().apply {
-        posterPath = this@toUiModel.posterPath
-        popularity = this@toUiModel.popularity
-        voteCount = this@toUiModel.voteCount
-        video = this@toUiModel.video
-        mediaType = this@toUiModel.mediaType
-        id = this@toUiModel.id
-        adult = this@toUiModel.adult
-        backdropPath = this@toUiModel.backdropPath
-        originalLanguage = this@toUiModel.originalLanguage
-        originalTitle = this@toUiModel.originalTitle
-        genreIds = this@toUiModel.genreIds
-        title = this@toUiModel.title
-        voteAverage = this@toUiModel.voteAverage
-        overview = this@toUiModel.overview
-        releaseDate = this@toUiModel.releaseDate
-        knownForDepartment = this@toUiModel.knownForDepartment
-        name = this@toUiModel.name
-        knownFor = this@toUiModel.knownFor?.toUiModel()
-        profilePath = this@toUiModel.profilePath
-        gender = this@toUiModel.gender
-    }
+fun SearchItem.toUiModel() = SearchItemUiModel(
+    popularity = this@toUiModel.popularity ?: -1.0,
+    voteCount = this@toUiModel.voteCount ?: -1,
+    video = this@toUiModel.video ?: false,
+    mediaType = this@toUiModel.mediaType ?: "",
+    id = this@toUiModel.id ?: -1,
+    adult = this@toUiModel.adult ?: false,
+    voteAverage = this@toUiModel.voteAverage ?: -1.0,
+    gender = this@toUiModel.gender ?: -1,
+    overview = this@toUiModel.overview ?: "",
+    genreIds = this@toUiModel.genreIds ?: emptyList(),
+    originalLanguage = this@toUiModel.originalLanguage ?: "",
+    posterPath = this@toUiModel.posterPath ?: "",
+    releaseDate = this@toUiModel.releaseDate ?: Date(),
+    title = this@toUiModel.title ?: "",
+    originalTitle = this@toUiModel.originalTitle ?: "",
+    profilePath = this@toUiModel.profilePath ?: "",
+    name = this@toUiModel.name ?: "",
+    knownForDepartment = this@toUiModel.knownForDepartment ?: "",
+    backdropPath = this@toUiModel.backdropPath ?: "",
+    knownFor = this@toUiModel.knownFor?.toUiModel() ?: emptyList()
+)
 
-fun List<SearchItem>.toUiModel() =
-    mutableListOf<SearchItemUiModel>().apply {
-        this@toUiModel.forEach {
-            add(it.toUiModel())
-        }
-    }
+fun List<SearchItem>.toUiModel() = this.map { it.toUiModel() }

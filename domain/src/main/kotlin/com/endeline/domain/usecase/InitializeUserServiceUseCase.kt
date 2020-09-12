@@ -10,13 +10,12 @@ import javax.inject.Inject
 class InitializeUserServiceUseCase : CompletableUseCaseWithParam<Context> {
 
     @Inject
-    protected lateinit var userService: UserService
+    lateinit var userService: UserService
 
     init {
         DaggerServiceComponent.builder().build().inject(this)
     }
 
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
-    override fun invoke(context: Context) =
-        userService.initDatabase(context)
+    override fun invoke(context: Context) = userService.initDatabase(context)
 }

@@ -13,39 +13,25 @@ import com.endeline.mymovie.databinding.VideoFragmentBinding
 
 class VideoFragment : Fragment() {
 
-    companion object {
-        private const val YOUTUBE_URL = "https://www.youtube.com/embed/"
-        private const val SITE_YOUTUBE = "YouTube"
-    }
-
     private lateinit var binding: VideoFragmentBinding
 
     private val args by navArgs<VideoFragmentArgs>()
 
-    @SuppressLint("SetJavaScriptEnabled")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = VideoFragmentBinding.inflate(inflater)
-
-        binding.webView.apply {
-            settings.javaScriptEnabled = true
-            webChromeClient = WebChromeClient()
-        }
+        binding = VideoFragmentBinding.inflate(inflater, container, false)
 
         return binding.root
     }
 
-    @SuppressLint("SourceLockedOrientationActivity")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         requireActivity().requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE
 
-        if (args.site == SITE_YOUTUBE) {
-            binding.webView.loadUrl("$YOUTUBE_URL${args.movieLink}")
-        }
+        setComponent()
     }
 
     override fun onDestroyView() {
@@ -54,4 +40,20 @@ class VideoFragment : Fragment() {
         super.onDestroyView()
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
+    private fun setComponent() = with(binding) {
+        webView.apply {
+            settings.javaScriptEnabled = true
+            webChromeClient = WebChromeClient()
+        }
+
+        if (args.site == SITE_YOUTUBE) {
+            webView.loadUrl("$YOUTUBE_URL${args.movieLink}")
+        }
+    }
+
+    companion object {
+        private const val YOUTUBE_URL = "https://www.youtube.com/embed/"
+        private const val SITE_YOUTUBE = "YouTube"
+    }
 }

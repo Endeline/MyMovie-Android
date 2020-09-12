@@ -8,12 +8,12 @@ import androidx.navigation.findNavController
 import com.endeline.mymovie.NavigationGraphXmlDirections
 import com.endeline.mymovie.databinding.ToolbarBinding
 
-class Toolbar @JvmOverloads constructor (
+class Toolbar @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null
 ) : Toolbar(context, attrs, androidx.appcompat.R.attr.toolbarStyle) {
 
-    private val binding =  ToolbarBinding.inflate(LayoutInflater.from(context), this, true)
+    private val binding = ToolbarBinding.inflate(LayoutInflater.from(context), this, true)
 
     init {
         binding.icSearch.setOnClickListener {
@@ -24,5 +24,4 @@ class Toolbar @JvmOverloads constructor (
             findNavController().navigate(NavigationGraphXmlDirections.navigateToUser())
         }
     }
-
 }

@@ -1,6 +1,5 @@
 package com.endeline.mymovie.ui.details
 
-import android.annotation.SuppressLint
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,11 +8,15 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.endeline.domain.uimodels.*
+import com.endeline.domain.uimodels.MovieCollectionUiModel.MovieItemUiModel
+import com.endeline.domain.uimodels.MovieDetailsUiModel.GenresUiModel
+import com.endeline.domain.uimodels.MovieDetailsUiModel.ProductionCountriesUiModel
+import com.endeline.domain.uimodels.MovieDetailsUiModel.SpokenLanguagesUiModel
+import com.endeline.domain.uimodels.MovieDetailsUiModel.ProductionCompaniesUiModel
+import com.endeline.domain.uimodels.VideoLinkCollectionUiModel.VideoLinkDetailsUiModel
 import com.endeline.mymovie.databinding.DetailsFragmentBinding
 import com.endeline.mymovie.di.ViewModelFactory
 import com.endeline.mymovie.extensions.loadPosterImage
@@ -27,64 +30,57 @@ class DetailsFragment : Fragment() {
     private val viewModelFactory: ViewModelFactory.DetailsViewModelFactory =
         ViewModelFactory.DetailsViewModelFactory()
 
-    private val viewModel by viewModels<DetailsViewModel>(factoryProducer = { viewModelFactory })
+    private val viewModel by viewModels<DetailsViewModel> {
+        viewModelFactory
+    }
 
     private val args by navArgs<DetailsFragmentArgs>()
 
     private lateinit var binding: DetailsFragmentBinding
 
-    private var movieId = 0
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DetailsFragmentBinding.inflate(inflater)
-
-        movieId = args.movieId
+        binding = DetailsFragmentBinding.inflate(inflater, container, false)
 
         return binding.root
     }
 
-    @SuppressLint("CheckResult")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
         subscribeUi()
 
-        viewModel.loadMovieData(movieId)
+        viewModel.loadMovieData(args.movieId)
     }
 
     private fun subscribeUi() = with(viewModel) {
-        getSimilarLiveData().observe(viewLifecycleOwner, Observer { onSimilarLoaded(it) })
+        similarLiveData.observe(viewLifecycleOwner) { onSimilarLoaded(it) }
 
-        getRecommendedLiveData().observe(viewLifecycleOwner, Observer { onRecommendedLoaded(it) })
+        recommendedLiveData.observe(viewLifecycleOwner) { onRecommendedLoaded(it) }
 
-        getVideoLinksLiveData().observe(viewLifecycleOwner, Observer { onVideoLinksLoaded(it) })
+        videoLinksLiveData.observe(viewLifecycleOwner) { onVideoLinksLoaded(it) }
 
-        getContentLiveData().observe(viewLifecycleOwner, Observer { onContentLoaded(it) })
+        contentLiveData.observe(viewLifecycleOwner) { onContentLoaded(it) }
 
-        getPosterLiveData().observe(viewLifecycleOwner, Observer { onPosterLoaded(it) })
+        posterLiveData.observe(viewLifecycleOwner) { onPosterLoaded(it) }
 
-        getVoteAverageLiveData().observe(viewLifecycleOwner, Observer { onVoteAverageLoaded(it) })
+        voteAverageLiveData.observe(viewLifecycleOwner) { onVoteAverageLoaded(it) }
 
-        getPopularityLiveData().observe(viewLifecycleOwner, Observer { onPopularityLoaded(it) })
+        popularityLiveData.observe(viewLifecycleOwner) { onPopularityLoaded(it) }
 
-        getGenresLiveData().observe(viewLifecycleOwner, Observer { onGenresLoaded(it) })
+        genresLiveData.observe(viewLifecycleOwner) { onGenresLoaded(it) }
 
-        getOnDataLoadedLive().observe(viewLifecycleOwner, Observer { onDataLoaded(true) })
+        onDataLoadedLiveData.observe(viewLifecycleOwner) { onDataLoaded(it) }
 
-        getProductionCountriesLiveData().observe(
-            viewLifecycleOwner,
-            Observer { onProductionCountriesDataLoaded(it) })
+        spokenLanguagesLiveData.observe(viewLifecycleOwner) { onSpokenLanguageLoaded(it) }
 
-        getSpokenLanguageLiveData().observe(
-            viewLifecycleOwner,
-            Observer { onSpokenLanguageLoaded(it) })
+        productionCompaniesLiveData.observe(viewLifecycleOwner) { onProductionCompaniesLoaded(it) }
 
-        getProductionCompaniesLiveData().observe(
-            viewLifecycleOwner,
-            Observer { onProductionCompaniesLoaded(it) })
+        productionCountriesLiveData.observe(viewLifecycleOwner) {
+            onProductionCountriesDataLoaded(it)
+        }
     }
 
     private fun onContentLoaded(content: Pair<String, String>) {
@@ -130,7 +126,7 @@ class DetailsFragment : Fragment() {
 
         genres.forEach {
             genresList.addView(TextView(root.context).apply {
-                text = it.name.toString()
+                text = it.name
             })
         }
     }
@@ -168,14 +164,13 @@ class DetailsFragment : Fragment() {
             }
         }
 
-    @Suppress("SameParameterValue")
     private fun onDataLoaded(loaded: Boolean) = with(binding) {
         if (loaded) {
             loadingProgress.visibility = View.GONE
         }
     }
 
-    private fun onSimilarLoaded(similarMovies: List<MovieCollectionItemUiModel>) = with(binding) {
+    private fun onSimilarLoaded(similarMovies: List<MovieItemUiModel>) = with(binding) {
         val movieAdapter = MovieAdapter(onClick = {
             findNavController().navigate(DetailsFragmentDirections.toDetails(it))
         })
@@ -196,7 +191,7 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private fun onRecommendedLoaded(recommendedMovies: List<MovieCollectionItemUiModel>) =
+    private fun onRecommendedLoaded(recommendedMovies: List<MovieItemUiModel>) =
         with(binding) {
             val movieAdapter = MovieAdapter(onClick = {
                 findNavController().navigate(DetailsFragmentDirections.toDetails(it))

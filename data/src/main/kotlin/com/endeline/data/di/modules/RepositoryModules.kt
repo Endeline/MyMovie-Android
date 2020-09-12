@@ -7,12 +7,11 @@ import dagger.Provides
 @Module
 class RepositoryModules {
 
+    @Provides
+    fun provideMovieDbRepository() = MOVIE_DB_REPOSITORY
+
     companion object {
         //todo correct singleton
         val MOVIE_DB_REPOSITORY = MovieDbService()
     }
-
-    @Provides
-    fun provideMovieDbRepository() = MOVIE_DB_REPOSITORY
-
 }

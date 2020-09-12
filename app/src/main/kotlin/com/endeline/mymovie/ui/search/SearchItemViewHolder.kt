@@ -1,7 +1,7 @@
 package com.endeline.mymovie.ui.search
 
 import androidx.recyclerview.widget.RecyclerView
-import com.endeline.domain.uimodels.SearchItemUiModel
+import com.endeline.domain.uimodels.SearchAllUiModel.SearchItemUiModel
 import com.endeline.mymovie.databinding.SearchItemBinding
 import com.endeline.mymovie.extensions.loadLandscapeImage
 import com.endeline.mymovie.extensions.loadPosterImage
@@ -11,24 +11,22 @@ class SearchItemViewHolder(
     val onClick: (Int) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(uiModel: SearchItemUiModel) = with(binding) {
-        if (MediaType.fromString(uiModel.mediaType) == MediaType.person) {
-            //todo on click on person create person details fragment
-            uiModel.profilePath?.let {
-                image.loadPosterImage(it)
+    //todo fix it
+    fun bind(item: SearchItemUiModel) = with(binding) {
+        when (MediaType.fromString(item.mediaType)) {
+            MediaType.person -> {
+                image.loadPosterImage(item.profilePath)
             }
-        } else {
-            image.setOnClickListener {
-                onClick(uiModel.id ?: -1)
-            }
-
-            if (!uiModel.posterPath.isNullOrBlank()) {
-                uiModel.posterPath?.let {
-                    image.loadPosterImage(it)
+            MediaType.movie,
+            MediaType.tv -> {
+                image.setOnClickListener {
+                    onClick(item.id)
                 }
-            } else {
-                uiModel.backdropPath?.let {
-                    image.loadLandscapeImage(it)
+
+                if (!item.posterPath.isBlank()) {
+                    image.loadPosterImage(item.posterPath)
+                } else {
+                    image.loadLandscapeImage(item.backdropPath)
                 }
             }
         }

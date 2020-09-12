@@ -19,31 +19,24 @@ class LoadAllDataUseCase : ObservableUseCase<Boolean> {
     )
 
     @Inject
-    protected lateinit var repository: MovieDbService
+    lateinit var repository: MovieDbService
 
     init {
         DaggerRepositoryComponent.builder().build().inject(this)
     }
 
-    override fun invoke(): Observable<Boolean> =
-        Observables.combineLatest(
-                repository.getNowPlaying(),
-                repository.getPopular(),
-                repository.getTopRated(),
-                repository.getUpcoming()
-            ) { nowPlaying, popular, topRated, upcoming ->
-                ResultMapper(
-                    nowPlaying,
-                    popular,
-                    topRated,
-                    upcoming
-                )
-            }.subscribeOn(Schedulers.io())
-            .flatMap {
-                Observable.just(true)
-            }.doOnError {
-                Timber.d("$it")
-                Observable.just(false)
-            }
-
+    override fun invoke(): Observable<Boolean> = Observables.combineLatest(
+        repository.nowPlaying,
+        repository.popular,
+        repository.topRated,
+        repository.upcoming
+    ) { nowPlaying, popular, topRated, upcoming ->
+        ResultMapper(nowPlaying, popular, topRated, upcoming)
+    }.subscribeOn(Schedulers.io())
+        .flatMap {
+            Observable.just(true)
+        }.doOnError {
+            Timber.e("$it")
+            Observable.just(false)
+        }
 }

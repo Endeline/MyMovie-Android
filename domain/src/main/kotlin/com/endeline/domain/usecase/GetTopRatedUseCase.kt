@@ -11,14 +11,12 @@ import javax.inject.Inject
 class GetTopRatedUseCase : ObservableUseCase<MovieCollectionUiModel> {
 
     @Inject
-    protected lateinit var repository: MovieDbService
+    lateinit var repository: MovieDbService
 
     init {
         DaggerRepositoryComponent.builder().build().inject(this)
     }
 
     override fun invoke(): Observable<MovieCollectionUiModel> =
-        repository.getTopRated()
-            .map { it.toUiModel() }
-
+        repository.topRated.map { it.toUiModel() }
 }

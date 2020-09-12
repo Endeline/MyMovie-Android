@@ -12,14 +12,12 @@ class GetLatestUseCase :
     ObservableUseCase<MovieDetailsUiModel> {
 
     @Inject
-    protected lateinit var repository: MovieDbService
+    lateinit var repository: MovieDbService
 
     init {
         DaggerRepositoryComponent.builder().build().inject(this)
     }
 
     override fun invoke(): Observable<MovieDetailsUiModel> =
-        repository.getLatest()
-            .map { it.toUiModel() }
-
+        repository.latest.map { it.toUiModel() }
 }

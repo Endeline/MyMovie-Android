@@ -1,11 +1,13 @@
 package com.endeline.mymovie.ui.user
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.endeline.domain.usecase.CheckIsUserInAppUseCase
 import com.endeline.domain.usecase.GetUserIsLoggedInUseCase
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 class UserViewModel(
@@ -13,18 +15,24 @@ class UserViewModel(
      private val getUserInAppUseCase: CheckIsUserInAppUseCase
 ) : ViewModel() {
 
-    private var changeLoginStatusLiveData = MutableLiveData<Boolean>()
+    private val subscriptions = CompositeDisposable()
 
-    fun getChangeLoginStatusLiveData(): LiveData<Boolean> = changeLoginStatusLiveData
+    private var _changeLoginStatusLiveData = MutableLiveData<Boolean>()
+
+    val changeLoginStatusLiveData: LiveData<Boolean>
+        get() = _changeLoginStatusLiveData
 
     fun isUserLogged(): Boolean = getUserIsLoggedInUseCase().blockingGet()
 
-    @SuppressLint("CheckResult")
     fun login(login: String, password: String) {
-        getUserInAppUseCase(login, password)
+        val disposable = getUserInAppUseCase(login, password)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                changeLoginStatusLiveData.postValue(it)
+                _changeLoginStatusLiveData.value = it
             }, Timber::e)
+
+        subscriptions.add(disposable)
     }
 
 }

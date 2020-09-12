@@ -6,25 +6,22 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.endeline.mymovie.R
 import com.endeline.mymovie.databinding.RegisterFragmentBinding
 import com.endeline.mymovie.di.ViewModelFactory
 import com.endeline.mymovie.extensions.isSameEditText
+import com.endeline.mymovie.extensions.isValidInput
 import com.endeline.mymovie.extensions.showOkDialog
-import com.endeline.mymovie.extensions.validate
 
 class RegisterFragment : DialogFragment() {
-
-    companion object {
-        const val REGISTER_STATUS_LIVE_DATA = "register_status"
-    }
 
     private val viewModelFactory: ViewModelFactory.RegisterViewModel =
         ViewModelFactory.RegisterViewModel()
 
-    private val viewModel by viewModels<RegisterViewModel>(factoryProducer = { viewModelFactory })
+    private val viewModel by viewModels<RegisterViewModel>{
+        viewModelFactory
+    }
 
     private lateinit var binding: RegisterFragmentBinding
 
@@ -33,7 +30,7 @@ class RegisterFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = RegisterFragmentBinding.inflate(inflater)
+        binding = RegisterFragmentBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -41,22 +38,11 @@ class RegisterFragment : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        setupComponent()
+        setComponents()
         subscribeUi()
     }
 
-    @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
-    private fun subscribeUi() {
-        viewModel.getRegisterStatusLiveData().observe(viewLifecycleOwner, Observer {
-            when (it) {
-                RegisterStatus.OK -> navigateBackWithOkRegisterStatus()
-                RegisterStatus.USER_ALREADY_EXIST -> showErrorDialog(R.string.error_user_already_exist)
-                RegisterStatus.FAILED -> showErrorDialog(R.string.error_unknown_error)
-            }
-        })
-    }
-
-    private fun setupComponent() = with(binding) {
+    private fun setComponents() = with(binding) {
         confirm.setOnClickListener {
             if (validateFields()) {
                 viewModel.registerUser(
@@ -67,16 +53,27 @@ class RegisterFragment : DialogFragment() {
         }
     }
 
+    @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
+    private fun subscribeUi() = with(viewModel) {
+        registerStatusLiveData.observe(viewLifecycleOwner) { status ->
+            when (status) {
+                RegisterStatus.OK -> navigateBackWithOkRegisterStatus()
+                RegisterStatus.USER_ALREADY_EXIST -> showErrorDialog(R.string.error_user_already_exist)
+                RegisterStatus.FAILED -> showErrorDialog(R.string.error_unknown_error)
+            }
+        }
+    }
+
     private fun validateFields(): Boolean = with(binding) {
-        val loginCorrect = inputLogin.validate(
+        val loginCorrect = inputLogin.isValidInput(
             getString(R.string.login_empty),
             getString(R.string.login_to_short)
         )
-        val passwordCorrect = inputPassword.validate(
+        val passwordCorrect = inputPassword.isValidInput(
             getString(R.string.password_empty),
             getString(R.string.password_to_short)
         )
-        val confirmPasswordCorrect = inputConfirmPassword.validate(
+        val confirmPasswordCorrect = inputConfirmPassword.isValidInput(
             getString(R.string.password_empty),
             getString(R.string.password_to_short)
         )
@@ -99,4 +96,7 @@ class RegisterFragment : DialogFragment() {
         popBackStack()
     }
 
+    companion object {
+        const val REGISTER_STATUS_LIVE_DATA = "register_status"
+    }
 }

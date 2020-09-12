@@ -11,14 +11,12 @@ import javax.inject.Inject
 class GetUpcomingUseCase : ObservableUseCase<MovieCollectionUiModel> {
 
     @Inject
-    protected lateinit var repository: MovieDbService
+    lateinit var repository: MovieDbService
 
     init {
         DaggerRepositoryComponent.builder().build().inject(this)
     }
 
     override fun invoke(): Observable<MovieCollectionUiModel> =
-        repository.getUpcoming()
-            .map { it.toUiModel() }
-
+        repository.upcoming.map { it.toUiModel() }
 }

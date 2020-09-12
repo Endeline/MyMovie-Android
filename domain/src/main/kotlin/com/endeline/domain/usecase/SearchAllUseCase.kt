@@ -11,7 +11,7 @@ import javax.inject.Inject
 class SearchAllUseCase : ObservableUseCaseWithTwoParams<String, SearchAllUiModel> {
 
     @Inject
-    protected lateinit var repository: MovieDbService
+    lateinit var repository: MovieDbService
 
     init {
         DaggerRepositoryComponent.builder().build().inject(this)
@@ -20,8 +20,5 @@ class SearchAllUseCase : ObservableUseCaseWithTwoParams<String, SearchAllUiModel
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
     override fun invoke(query: String): Observable<SearchAllUiModel> =
         repository.searchAll(query)
-            .map {
-                it.toUiModel()
-            }
-
+            .map { it.toUiModel() }
 }

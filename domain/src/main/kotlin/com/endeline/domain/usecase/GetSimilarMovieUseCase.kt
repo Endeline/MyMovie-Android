@@ -8,10 +8,10 @@ import com.endeline.domain.uimodels.MovieCollectionUiModel
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class GetSimilarMovieUseCase: ObservableUseCaseWithTwoParams<Int, MovieCollectionUiModel> {
+class GetSimilarMovieUseCase : ObservableUseCaseWithTwoParams<Int, MovieCollectionUiModel> {
 
     @Inject
-    protected lateinit var repository: MovieDbService
+    lateinit var repository: MovieDbService
 
     init {
         DaggerRepositoryComponent.builder().build().inject(this)
@@ -20,8 +20,5 @@ class GetSimilarMovieUseCase: ObservableUseCaseWithTwoParams<Int, MovieCollectio
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
     override fun invoke(id: Int): Observable<MovieCollectionUiModel> =
         repository.getSimilarMovies(id)
-            .map {
-                it.toUiModel()
-            }
-
+            .map { it.toUiModel() }
 }

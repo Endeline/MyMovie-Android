@@ -6,10 +6,11 @@ import dagger.Provides
 
 @Module
 class ServiceModules {
-    companion object {
-        val USER_SERVICE = UserService()
-    }
 
     @Provides
     fun provideUserService() = USER_SERVICE
+
+    companion object {
+        val USER_SERVICE = UserService()
+    }
 }

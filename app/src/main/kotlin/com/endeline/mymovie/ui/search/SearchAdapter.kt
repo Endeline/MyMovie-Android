@@ -2,16 +2,21 @@ package com.endeline.mymovie.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import androidx.recyclerview.widget.RecyclerView
-import com.endeline.domain.uimodels.SearchItemUiModel
+import com.endeline.domain.uimodels.SearchAllUiModel.SearchItemUiModel
 import com.endeline.mymovie.databinding.SearchItemBinding
-import com.endeline.mymovie.extensions.loadLandscapeImage
-import com.endeline.mymovie.extensions.loadPosterImage
 
 class SearchAdapter(private val onClick: (Int) -> Unit) :
     ListAdapter<SearchItemUiModel, SearchItemViewHolder>(SearchDiffer()) {
+
+    private class SearchDiffer : DiffUtil.ItemCallback<SearchItemUiModel>() {
+        override fun areItemsTheSame(oldItem: SearchItemUiModel, newItem: SearchItemUiModel) =
+            oldItem.id == newItem.id
+
+        override fun areContentsTheSame(oldItem: SearchItemUiModel, newItem: SearchItemUiModel) =
+            oldItem == newItem
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         SearchItemViewHolder(
@@ -22,5 +27,4 @@ class SearchAdapter(private val onClick: (Int) -> Unit) :
     override fun onBindViewHolder(holder: SearchItemViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
 }

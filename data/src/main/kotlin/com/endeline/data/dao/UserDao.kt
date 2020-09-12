@@ -3,9 +3,7 @@ package com.endeline.data.dao
 import androidx.room.*
 import com.endeline.data.entities.UserEntity
 import io.reactivex.Completable
-import io.reactivex.Flowable
 import io.reactivex.Maybe
-import io.reactivex.Single
 
 @Dao
 interface UserDao {
@@ -27,5 +25,4 @@ interface UserDao {
 
     @Delete
     fun delete(user: UserEntity): Completable
-
 }

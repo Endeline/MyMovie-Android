@@ -104,7 +104,7 @@ class ViewModelFactory {
     class TopRatedViewModelFactory : ViewModelProvider.Factory {
 
         @Inject
-        protected lateinit var getTopRatedUseCase: GetTopRatedUseCase
+        lateinit var getTopRatedUseCase: GetTopRatedUseCase
 
         init {
             DaggerUseCaseComponent.builder().build().inject(this)
@@ -119,7 +119,7 @@ class ViewModelFactory {
     class UpcomingViewModel : ViewModelProvider.Factory {
 
         @Inject
-        protected lateinit var getUpcomingUseCase: GetUpcomingUseCase
+        lateinit var getUpcomingUseCase: GetUpcomingUseCase
 
         init {
             DaggerUseCaseComponent.builder().build().inject(this)
@@ -134,7 +134,7 @@ class ViewModelFactory {
     class MainActivityViewModel : ViewModelProvider.Factory {
 
         @Inject
-        protected lateinit var initializeUserServiceUseCase: InitializeUserServiceUseCase
+        lateinit var initializeUserServiceUseCase: InitializeUserServiceUseCase
 
         init {
             DaggerUseCaseComponent.builder().build().inject(this)
