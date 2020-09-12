@@ -7,11 +7,19 @@
 
     <action
         android:id="@+id/navigateToSearch"
-        app:destination="@id/searchFragment" />
+        app:destination="@id/searchFragment"
+        app:enterAnim="@anim/slide_in_up"
+        app:exitAnim="@anim/slide_out_up"
+        app:popEnterAnim="@anim/slide_in_down"
+        app:popExitAnim="@anim/slide_out_down" />
 
     <action
         android:id="@+id/navigateToUser"
-        app:destination="@id/userFragment" />
+        app:destination="@id/userFragment"
+        app:enterAnim="@anim/slide_in_up"
+        app:exitAnim="@anim/slide_out_up"
+        app:popEnterAnim="@anim/slide_in_down"
+        app:popExitAnim="@anim/slide_out_down" />
 
     <fragment
         android:id="@+id/userFragment"
@@ -20,10 +28,18 @@
         tools:layout="@layout/login_fragment">
         <action
             android:id="@+id/toRegister"
-            app:destination="@id/registerFragment" />
+            app:destination="@id/registerFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/toForgotPassword"
-            app:destination="@id/forgotPassword" />
+            app:destination="@id/forgotPassword"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
 
     </fragment>
 
@@ -31,7 +47,7 @@
         android:id="@+id/forgotPassword"
         android:name="com.endeline.mymovie.ui.user.forgotpassword.ForgotPasswordFragment"
         android:label="ForgotPassword"
-        tools:layout="@layout/forgot_password_fragment"/>
+        tools:layout="@layout/forgot_password_fragment" />
 
     <fragment
         android:id="@+id/nowPlaying"
@@ -40,7 +56,12 @@
         tools:layout="@layout/movie_fragment">
         <action
             android:id="@+id/toDetails"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            tools:layout="@layout/details_fragment" />
     </fragment>
 
     <fragment
@@ -50,7 +71,12 @@
         tools:layout="@layout/movie_fragment">
         <action
             android:id="@+id/toDetails"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            tools:layout="@layout/details_fragment" />
     </fragment>
 
     <fragment
@@ -60,7 +86,12 @@
         tools:layout="@layout/movie_fragment">
         <action
             android:id="@+id/toDetails"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            tools:layout="@layout/details_fragment" />
     </fragment>
 
     <fragment
@@ -70,7 +101,12 @@
         tools:layout="@layout/movie_fragment">
         <action
             android:id="@+id/toDetails"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            tools:layout="@layout/details_fragment" />
     </fragment>
 
     <fragment
@@ -80,14 +116,18 @@
         tools:layout="@layout/search_fragment">
         <action
             android:id="@+id/toDetails"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            tools:layout="@layout/details_fragment" />
     </fragment>
 
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.endeline.mymovie.ui.details.DetailsFragment"
-        android:label="DetailsFragment"
-        tools:layout="@layout/details_fragment">
+        android:label="DetailsFragment">
         <argument
             android:name="movieId"
             android:defaultValue="-1"
@@ -95,10 +135,19 @@
 
         <action
             android:id="@+id/toDetails"
-            app:destination="@id/detailsFragment" />
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            tools:layout="@layout/details_fragment" />
         <action
             android:id="@+id/toVideo"
-            app:destination="@id/videoFragment" />
+            app:destination="@id/videoFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -118,5 +167,5 @@
         android:id="@+id/registerFragment"
         android:name="com.endeline.mymovie.ui.user.register.RegisterFragment"
         android:label="RegisterFragment"
-        tools:layout="@layout/register_fragment"/>
+        tools:layout="@layout/register_fragment" />
 </navigation>

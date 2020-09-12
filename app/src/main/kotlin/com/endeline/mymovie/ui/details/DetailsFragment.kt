@@ -12,14 +12,14 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.endeline.domain.uimodels.MovieCollectionUiModel.MovieItemUiModel
-import com.endeline.domain.uimodels.MovieDetailsUiModel.GenresUiModel
-import com.endeline.domain.uimodels.MovieDetailsUiModel.ProductionCountriesUiModel
-import com.endeline.domain.uimodels.MovieDetailsUiModel.SpokenLanguagesUiModel
-import com.endeline.domain.uimodels.MovieDetailsUiModel.ProductionCompaniesUiModel
+import com.endeline.domain.uimodels.MovieDetailsUiModel.*
 import com.endeline.domain.uimodels.VideoLinkCollectionUiModel.VideoLinkDetailsUiModel
 import com.endeline.mymovie.databinding.DetailsFragmentBinding
 import com.endeline.mymovie.di.ViewModelFactory
 import com.endeline.mymovie.extensions.loadPosterImage
+import com.endeline.mymovie.extensions.setViewsVisibility
+import com.endeline.mymovie.ui.Constants.Animation.RECYCLER_VIEW_ITEM_DURATION
+import jp.wasabeef.recyclerview.animators.SlideInRightAnimator
 
 class DetailsFragment : Fragment() {
 
@@ -36,6 +36,18 @@ class DetailsFragment : Fragment() {
 
     private val args by navArgs<DetailsFragmentArgs>()
 
+    private val videoLinksAdapter = VideoAdapter { key, site ->
+        findNavController().navigate(DetailsFragmentDirections.toVideo(key, site))
+    }
+
+    private val similarAdapter = MovieAdapter {
+        findNavController().navigate(DetailsFragmentDirections.toDetails(it))
+    }
+
+    private val recommendedAdapter = MovieAdapter {
+        findNavController().navigate(DetailsFragmentDirections.toDetails(it))
+    }
+
     private lateinit var binding: DetailsFragmentBinding
 
     override fun onCreateView(
@@ -50,9 +62,51 @@ class DetailsFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
+        setComponent()
         subscribeUi()
 
         viewModel.loadMovieData(args.movieId)
+    }
+
+    private fun setComponent() = with(binding) {
+        similarRecycleView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            adapter = similarAdapter
+            itemAnimator = SlideInRightAnimator().apply {
+                addDuration = RECYCLER_VIEW_ITEM_DURATION
+            }
+        }
+
+        recommendedRecycleView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            adapter = recommendedAdapter
+            itemAnimator = SlideInRightAnimator().apply {
+                addDuration = RECYCLER_VIEW_ITEM_DURATION
+            }
+        }
+
+        moviesRecycleView.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            adapter = videoLinksAdapter
+            itemAnimator = SlideInRightAnimator().apply {
+                addDuration = RECYCLER_VIEW_ITEM_DURATION
+            }
+        }
     }
 
     private fun subscribeUi() = with(viewModel) {
@@ -83,11 +137,9 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private fun onContentLoaded(content: Pair<String, String>) {
-        with(binding) {
-            title.text = content.first
-            description.text = content.second
-        }
+    private fun onContentLoaded(content: Pair<String, String>) = with(binding) {
+        title.text = content.first
+        description.text = content.second
     }
 
     private fun onPosterLoaded(posterPath: String) = with(binding) {
@@ -164,71 +216,24 @@ class DetailsFragment : Fragment() {
             }
         }
 
-    private fun onDataLoaded(loaded: Boolean) = with(binding) {
+    private fun onDataLoaded(loaded: Boolean) {
         if (loaded) {
-            loadingProgress.visibility = View.GONE
+            binding.loadingProgress.visibility = View.GONE
         }
     }
 
     private fun onSimilarLoaded(similarMovies: List<MovieItemUiModel>) = with(binding) {
-        val movieAdapter = MovieAdapter(onClick = {
-            findNavController().navigate(DetailsFragmentDirections.toDetails(it))
-        })
-
-        similarTitle.visibility = View.VISIBLE
-
-        similarRecycleView.apply {
-            visibility = View.VISIBLE
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-            adapter = movieAdapter
-
-            movieAdapter.submitList(similarMovies)
-        }
+        setViewsVisibility(View.VISIBLE, similarTitle, similarRecycleView)
+        similarAdapter.submitList(similarMovies)
     }
 
-    private fun onRecommendedLoaded(recommendedMovies: List<MovieItemUiModel>) =
-        with(binding) {
-            val movieAdapter = MovieAdapter(onClick = {
-                findNavController().navigate(DetailsFragmentDirections.toDetails(it))
-            })
+    private fun onRecommendedLoaded(recommendedMovies: List<MovieItemUiModel>) {
+        binding.recommendedTitle.visibility = View.VISIBLE
+        recommendedAdapter.submitList(recommendedMovies)
+    }
 
-            recommendedTitle.visibility = View.VISIBLE
-
-            recommendedRecycleView.apply {
-                visibility = View.VISIBLE
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(
-                    requireContext(),
-                    LinearLayoutManager.HORIZONTAL,
-                    false
-                )
-                adapter = movieAdapter
-
-                movieAdapter.submitList(recommendedMovies)
-            }
-        }
-
-    private fun onVideoLinksLoaded(videoLinks: List<VideoLinkDetailsUiModel>) = with(binding) {
-        val videoAdapter = VideoAdapter(clickListener = { key, site ->
-            findNavController().navigate(DetailsFragmentDirections.toVideo(key, site))
-        })
-
-        moviesRecycleView.apply {
-            visibility = View.VISIBLE
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-            adapter = videoAdapter
-        }
-
-        videoAdapter.submitList(videoLinks)
+    private fun onVideoLinksLoaded(videoLinks: List<VideoLinkDetailsUiModel>) {
+        binding.moviesRecycleView.visibility = View.VISIBLE
+        videoLinksAdapter.submitList(videoLinks)
     }
 }

@@ -12,7 +12,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.endeline.domain.uimodels.SearchAllUiModel.SearchItemUiModel
 import com.endeline.mymovie.databinding.SearchFragmentBinding
 import com.endeline.mymovie.di.ViewModelFactory
+import com.endeline.mymovie.extensions.setViewsVisibility
+import com.endeline.mymovie.ui.Constants.Animation.RECYCLER_VIEW_ITEM_DURATION
+import jp.wasabeef.recyclerview.animators.SlideInRightAnimator
 
+//todo feature create tabs ??
 class SearchFragment : Fragment() {
 
     private val viewModelFactory: ViewModelFactory.SearchViewModelFactory =
@@ -20,6 +24,18 @@ class SearchFragment : Fragment() {
 
     private val viewModel by viewModels<SearchViewModel> {
         viewModelFactory
+    }
+
+    private val personAdapter = SearchAdapter {
+        //todo create person details
+    }
+
+    private val tvAdapter = SearchAdapter {
+        //todo create tv details or upgrade current details
+    }
+
+    private val movieAdapter = SearchAdapter {
+        findNavController().navigate(SearchFragmentDirections.toDetails(it))
     }
 
     private lateinit var binding: SearchFragmentBinding
@@ -48,6 +64,48 @@ class SearchFragment : Fragment() {
                 }
             }
         }
+
+        personRecycle.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            adapter = personAdapter
+            itemAnimator = SlideInRightAnimator().apply {
+                addDuration = RECYCLER_VIEW_ITEM_DURATION
+                removeDuration = RECYCLER_VIEW_ITEM_DURATION
+            }
+        }
+
+        tvRecycle.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            adapter = tvAdapter
+            itemAnimator = SlideInRightAnimator().apply {
+                addDuration = RECYCLER_VIEW_ITEM_DURATION
+                removeDuration = RECYCLER_VIEW_ITEM_DURATION
+            }
+        }
+
+        moviesRecycle.apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(
+                requireContext(),
+                LinearLayoutManager.HORIZONTAL,
+                false
+            )
+            adapter = movieAdapter
+            itemAnimator = SlideInRightAnimator().apply {
+                addDuration = RECYCLER_VIEW_ITEM_DURATION
+                removeDuration = RECYCLER_VIEW_ITEM_DURATION
+            }
+        }
     }
 
     private fun subscribeUi() = with(viewModel) {
@@ -66,79 +124,28 @@ class SearchFragment : Fragment() {
 
     private fun onMovieSearchResult(collection: List<SearchItemUiModel>) = with(binding) {
         if (collection.isNotEmpty()) {
-            val searchAdapter = SearchAdapter(onClick = {
-                findNavController().navigate(SearchFragmentDirections.toDetails(it))
-            })
-
-            moviesTitle.visibility = View.VISIBLE
-
-            moviesRecycle.apply {
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(
-                    requireContext(),
-                    LinearLayoutManager.HORIZONTAL,
-                    false
-                )
-                adapter = searchAdapter
-                visibility = View.VISIBLE
-            }
-
-            searchAdapter.submitList(transform(collection))
+            setViewsVisibility(View.VISIBLE, moviesTitle, moviesRecycle)
+            movieAdapter.submitList(transform(collection))
         } else {
-            moviesTitle.visibility = View.GONE
-            moviesRecycle.visibility = View.GONE
+            setViewsVisibility(View.GONE, moviesTitle, moviesRecycle)
         }
     }
 
     private fun onTvSearchResult(collection: List<SearchItemUiModel>) = with(binding) {
         if (collection.isNotEmpty()) {
-            val searchAdapter = SearchAdapter(onClick = {
-                //todo create tv details or upgrade current details
-            })
-
-            tvTitle.visibility = View.VISIBLE
-
-            tvRecycle.apply {
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(
-                    requireContext(),
-                    LinearLayoutManager.HORIZONTAL,
-                    false
-                )
-                adapter = searchAdapter
-                visibility = View.VISIBLE
-            }
-
-            searchAdapter.submitList(transform(collection))
+            setViewsVisibility(View.VISIBLE, tvTitle, tvRecycle)
+            tvAdapter.submitList(transform(collection))
         } else {
-            tvTitle.visibility = View.GONE
-            tvRecycle.visibility = View.GONE
+            setViewsVisibility(View.GONE, tvTitle, tvRecycle)
         }
     }
 
     private fun onPersonSearchResult(collection: List<SearchItemUiModel>) = with(binding) {
         if (collection.isNotEmpty()) {
-            val searchAdapter = SearchAdapter(onClick = {
-                //todo create person details
-            })
-
-            personTitle.visibility = View.VISIBLE
-
-            personRecycle.apply {
-                setHasFixedSize(true)
-                layoutManager = LinearLayoutManager(
-                    requireContext(),
-                    LinearLayoutManager.HORIZONTAL,
-                    false
-                )
-                adapter = searchAdapter
-                visibility = View.VISIBLE
-            }
-
-            searchAdapter.submitList(transform(collection))
+            setViewsVisibility(View.VISIBLE, personTitle, personRecycle)
+            personAdapter.submitList(transform(collection))
         } else {
-            personTitle.visibility = View.GONE
-            personRecycle.visibility = View.GONE
+            setViewsVisibility(View.GONE, personTitle, personRecycle)
         }
     }
 

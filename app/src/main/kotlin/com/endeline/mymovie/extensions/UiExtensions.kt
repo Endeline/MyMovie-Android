@@ -1,5 +1,11 @@
 package com.endeline.mymovie.extensions
 
+import android.view.View
+import androidx.annotation.IntDef
+
+@IntDef(View.VISIBLE, View.INVISIBLE, View.GONE)
+annotation class Visibility
+
 inline fun <T : Any> ifLet(vararg elements: T?, closure: (List<T>) -> Unit) {
     if (elements.all { it != null }) {
         closure(elements.filterNotNull())
@@ -17,5 +23,11 @@ inline fun <T : Any> ifNotEmpty(element: T, closure: (T) -> Unit) {
 
     if (element is List<*> && element.isNotEmpty()) {
         closure(element)
+    }
+}
+
+fun setViewsVisibility(@Visibility visibility: Int, vararg views: View, ) {
+    views.forEach { view ->
+        view.visibility = visibility
     }
 }
