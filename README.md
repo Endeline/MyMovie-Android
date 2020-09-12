@@ -1,6 +1,6 @@
 # MyMovie-Android
 
-Save and rate watched movies, preview movies and meybe actors (if api delivers this functionality). 
+Save and rate watched movies, preview movies and maybe actors (if api delivers this functionality).
 All data on this moment will be save in local provider.
 Used api: https://www.themoviedb.org
 

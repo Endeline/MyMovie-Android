@@ -5,7 +5,7 @@ import androidx.appcompat.widget.AppCompatEditText
 
 private const val MINIMUM_CHARACTER_AMOUNT = 6
 
-fun AppCompatEditText.validate(emptyError: String, toShortError: String) : Boolean{
+fun AppCompatEditText.isValidInput(emptyError: String, toShortError: String): Boolean {
     var result = true
 
     if (text.isNullOrEmpty()) {
@@ -25,7 +25,7 @@ fun AppCompatEditText.validate(emptyError: String, toShortError: String) : Boole
     return result
 }
 
-fun isSameEditText(firstEditText: EditText, secondEditText: EditText, errorText: String) : Boolean {
+fun isSameEditText(firstEditText: EditText, secondEditText: EditText, errorText: String): Boolean {
     return if (firstEditText.text.toString() == secondEditText.text.toString()) {
         true
     } else {

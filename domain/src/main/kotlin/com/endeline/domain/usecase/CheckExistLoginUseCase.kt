@@ -22,5 +22,4 @@ class CheckExistLoginUseCase : ObservableUseCaseWithTwoParams<String, Boolean> {
 
         return Observable.just(user?.login == login)
     }
-
 }

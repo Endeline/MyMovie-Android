@@ -11,14 +11,12 @@ import javax.inject.Inject
 class GetPopularUseCase : ObservableUseCase<MovieCollectionUiModel> {
 
     @Inject
-    protected lateinit var repository: MovieDbService
+    lateinit var repository: MovieDbService
 
     init {
         DaggerRepositoryComponent.builder().build().inject(this)
     }
 
     override fun invoke(): Observable<MovieCollectionUiModel> =
-        repository.getPopular()
-            .map { it.toUiModel() }
-
+        repository.popular.map { it.toUiModel() }
 }

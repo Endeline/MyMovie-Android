@@ -6,7 +6,6 @@ import dagger.Component
 
 @Component(modules = [RepositoryModules::class])
 interface RepositoryComponent {
-
     fun inject(useCase: GetLatestUseCase)
     fun inject(useCase: GetNowPlayingUseCase)
     fun inject(useCase: GetPopularUseCase)
@@ -18,5 +17,4 @@ interface RepositoryComponent {
     fun inject(useCase: GetRecommendedMovieUseCase)
     fun inject(useCase: GetVideoLinksUseCase)
     fun inject(useCase: SearchAllUseCase)
-
 }

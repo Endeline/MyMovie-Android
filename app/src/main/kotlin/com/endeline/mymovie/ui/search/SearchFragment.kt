@@ -1,30 +1,26 @@
 package com.endeline.mymovie.ui.search
 
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
-import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.endeline.domain.uimodels.SearchItemUiModel
+import com.endeline.domain.uimodels.SearchAllUiModel.SearchItemUiModel
 import com.endeline.mymovie.databinding.SearchFragmentBinding
 import com.endeline.mymovie.di.ViewModelFactory
 
 class SearchFragment : Fragment() {
 
-    companion object {
-        private const val MINIMUM_TEXT_SIZE_TO_SEARCH = 3
-    }
-
     private val viewModelFactory: ViewModelFactory.SearchViewModelFactory =
         ViewModelFactory.SearchViewModelFactory()
 
-    private val viewModel by viewModels<SearchViewModel>(factoryProducer = { viewModelFactory })
+    private val viewModel by viewModels<SearchViewModel> {
+        viewModelFactory
+    }
 
     private lateinit var binding: SearchFragmentBinding
 
@@ -32,21 +28,7 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = SearchFragmentBinding.inflate(inflater)
-
-        binding.searchInput.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {}
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-                if (s?.length ?: 0 >= MINIMUM_TEXT_SIZE_TO_SEARCH) {
-                    s?.let {
-                        viewModel.search(it.toString())
-                    }
-                }
-            }
-        })
+        binding = SearchFragmentBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -54,29 +36,38 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupUi()
         subscribeUi()
     }
 
-    private fun subscribeUi() {
-        viewModel.getMovieLiveData().observe(viewLifecycleOwner, Observer {
+    private fun setupUi() = with(binding) {
+        searchInput.doOnTextChanged { text, _, _, _ ->
+            text?.let { query ->
+                if (query.length >= MINIMUM_TEXT_SIZE_TO_SEARCH) {
+                    viewModel.search(query.toString())
+                }
+            }
+        }
+    }
+
+    private fun subscribeUi() = with(viewModel) {
+        movieLiveData.observe(viewLifecycleOwner) {
             onMovieSearchResult(it)
-        })
+        }
 
-        viewModel.getTvLiveData().observe(viewLifecycleOwner, Observer {
+        tvLiveData.observe(viewLifecycleOwner) {
             onTvSearchResult(it)
-        })
+        }
 
-        viewModel.getPersonLiveData().observe(viewLifecycleOwner, Observer {
+        personLiveData.observe(viewLifecycleOwner) {
             onPersonSearchResult(it)
-        })
+        }
     }
 
     private fun onMovieSearchResult(collection: List<SearchItemUiModel>) = with(binding) {
         if (collection.isNotEmpty()) {
             val searchAdapter = SearchAdapter(onClick = {
-                findNavController().navigate(
-                    SearchFragmentDirections.toDetails(it)
-                )
+                findNavController().navigate(SearchFragmentDirections.toDetails(it))
             })
 
             moviesTitle.visibility = View.VISIBLE
@@ -151,17 +142,13 @@ class SearchFragment : Fragment() {
         }
     }
 
-    private fun transform(collection: List<SearchItemUiModel>) =
-        mutableListOf<SearchItemUiModel>().apply {
-            collection.forEach {
-                if (MediaType.fromString(it.mediaType) == MediaType.person) {
-                    if (!it.profilePath.isNullOrBlank()) {
-                        add(it)
-                    }
-                } else if (!it.backdropPath.isNullOrBlank() && !it.posterPath.isNullOrBlank()) {
-                    add(it)
-                }
-            }
+    private fun transform(collection: List<SearchItemUiModel>) : List<SearchItemUiModel>{
+        return collection.filter {
+            it.profilePath.isNotBlank() || it.backdropPath.isNotBlank() && it.posterPath.isNotBlank()
         }
+    }
 
+    companion object {
+        private const val MINIMUM_TEXT_SIZE_TO_SEARCH = 3
+    }
 }

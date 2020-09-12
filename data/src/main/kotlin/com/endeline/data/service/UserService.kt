@@ -28,30 +28,24 @@ class UserService {
         return Completable.complete()
     }
 
-    fun saveUser(userEntity: UserEntity) : Observable<UserEntity> {
+    fun saveUser(userEntity: UserEntity): Observable<UserEntity> {
         userEntity.id = userDao.insert(userEntity)
         userRepository.saveCurrentUser(userEntity)
 
         return Observable.just(userEntity)
     }
 
-    fun getCurrentUser(): Single<Boolean> {
-        return Single.just(userRepository.isAnyUser())
-    }
+    fun getCurrentUser() = Single.just(userRepository.isAnyUser())
 
-    fun getAllUsers() =
-        userDao.getAll()
+    fun getAllUsers() = userDao.getAll()
 
-    fun getUserById(id: Long) =
-        userDao.getById(id)
+    fun getUserById(id: Long) = userDao.getById(id)
 
-    fun getUserByLogin(login: String) =
-        userDao.getByLogin(login)
+    fun getUserByLogin(login: String) = userDao.getByLogin(login)
 
     fun checkUserIsInApp(login: String, password: String): Observable<Boolean> {
         val userEntity = userDao.getByLogin(login).blockingGet()
 
-        return Observable.just(userEntity?.login == login && userEntity?.password == password)
+        return Observable.just(userEntity?.login == login && userEntity.password == password)
     }
-
 }

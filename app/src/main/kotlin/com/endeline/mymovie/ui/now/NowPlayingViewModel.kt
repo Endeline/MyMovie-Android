@@ -1,29 +1,37 @@
 package com.endeline.mymovie.ui.now
 
-import android.annotation.SuppressLint
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.endeline.domain.uimodels.MovieCollectionItemUiModel
+import com.endeline.domain.uimodels.MovieCollectionUiModel.MovieItemUiModel
 import com.endeline.domain.usecase.GetNowPlayingUseCase
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-class NowPlayingViewModel(private val getNowPlayingUseCase: GetNowPlayingUseCase) : ViewModel() {
+class NowPlayingViewModel(getNowPlayingUseCase: GetNowPlayingUseCase) : ViewModel() {
 
-    private val movieItemsLiveData = MutableLiveData<List<MovieCollectionItemUiModel>>()
+    private val subscription = CompositeDisposable()
 
-    fun getMovieItemsLiveData(): LiveData<List<MovieCollectionItemUiModel>> = movieItemsLiveData
+    private val _movieItemsLiveData = MutableLiveData<List<MovieItemUiModel>>()
 
-    @SuppressLint("CheckResult")
-    fun loadNowPlaying() {
-        getNowPlayingUseCase()
+    val movieItemsLiveData: LiveData<List<MovieItemUiModel>>
+        get() = _movieItemsLiveData
+
+    init {
+        val disposable = getNowPlayingUseCase()
             .subscribeOn(Schedulers.io())
-            .subscribe(
-                {
-                    movieItemsLiveData.postValue(it.results)
-                }, Timber::e
-            )
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ collection ->
+                _movieItemsLiveData.value = collection.results
+            }, Timber::e)
+
+        subscription.add(disposable)
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        subscription.clear()
+    }
 }

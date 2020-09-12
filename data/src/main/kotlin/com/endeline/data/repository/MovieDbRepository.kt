@@ -41,5 +41,4 @@ interface MovieDbRepository {
 
     @GET("${BuildConfig.API_VERSION}/search/multi")
     fun searchAll(@Query("query") query: String): Observable<SearchAll>
-
 }

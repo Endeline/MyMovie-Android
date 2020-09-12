@@ -23,8 +23,6 @@ class RegisterUseCase : ObservableUseCaseWithThreeParams<String, String, UserUiM
         val userEntity = UserEntity(login = login, password = password)
 
         return userService.saveUser(userEntity)
-            .map {
-                it.toUiModel()
-            }
+            .map { it.toUiModel() }
     }
 }

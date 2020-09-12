@@ -11,7 +11,7 @@ import javax.inject.Inject
 class GetRecommendedMovieUseCase : ObservableUseCaseWithTwoParams<Int, MovieCollectionUiModel> {
 
     @Inject
-    protected lateinit var repository: MovieDbService
+    lateinit var repository: MovieDbService
 
     init {
         DaggerRepositoryComponent.builder().build().inject(this)
@@ -21,5 +21,4 @@ class GetRecommendedMovieUseCase : ObservableUseCaseWithTwoParams<Int, MovieColl
     override fun invoke(id: Int): Observable<MovieCollectionUiModel> =
         repository.getRecommendedMovies(id)
             .map { it.toUiModel() }
-
 }

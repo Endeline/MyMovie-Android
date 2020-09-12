@@ -1,5 +1,6 @@
 package com.endeline.mymovie.ui.search
 
+@Suppress("EnumEntryName")
 enum class MediaType {
     person,
     movie,
