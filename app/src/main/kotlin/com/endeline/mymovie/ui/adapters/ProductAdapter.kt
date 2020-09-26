@@ -4,33 +4,36 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.endeline.domain.uimodels.MovieCollectionUiModel.MovieItemUiModel
+import com.endeline.domain.uimodels.ProductsUiModel.ProductUiModel
 import com.endeline.mymovie.databinding.MovieItemBinding
 
-class MovieAdapter(
+class ProductAdapter(
+    private val viewHolderImageHeight: Int = 200,
+    private val viewHolderImageWidth: Int = 150,
     private val clickListener: (Int) -> Unit
-) : ListAdapter<MovieItemUiModel, MovieItemHolder>(MovieDiffer()) {
+) : ListAdapter<ProductUiModel, ProductViewHolder>(MovieDiffer()) {
 
-    private class MovieDiffer : DiffUtil.ItemCallback<MovieItemUiModel>() {
+    private class MovieDiffer : DiffUtil.ItemCallback<ProductUiModel>() {
         override fun areItemsTheSame(
-            oldItem: MovieItemUiModel,
-            newItem: MovieItemUiModel
+            oldItem: ProductUiModel,
+            newItem: ProductUiModel
         ) = oldItem.id == newItem.id
 
         override fun areContentsTheSame(
-            oldItem: MovieItemUiModel,
-            newItem: MovieItemUiModel
+            oldItem: ProductUiModel,
+            newItem: ProductUiModel
         ) = oldItem == newItem
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
-        MovieItemHolder(
+        ProductViewHolder(
             MovieItemBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-            clickListener
+            clickListener,
+            viewHolderImageHeight,
+            viewHolderImageWidth
         )
 
-    override fun onBindViewHolder(holder: MovieItemHolder, position: Int) {
+    override fun onBindViewHolder(holder: ProductViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
-
 }

@@ -8,9 +8,6 @@ import dagger.Provides
 class UseCaseModules {
 
     @Provides
-    fun provideGetLatestUseCase() = GetLatestUseCase()
-
-    @Provides
     fun provideGetNowPlayingUseCase() = GetNowPlayingUseCase()
 
     @Provides
@@ -57,4 +54,10 @@ class UseCaseModules {
 
     @Provides
     fun provideRegisterUseCase() = RegisterUseCase()
+
+    @Provides
+    fun provideGetTheAirUseUseCase() = GetTheAirUseUseCase()
+
+    @Provides
+    fun provideGetAiringTodayUseCase() = GetAiringTodayUseCase()
 }

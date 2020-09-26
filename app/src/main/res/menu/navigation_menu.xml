@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/nowPlaying"
-        android:title="@string/menu_now_playing"
-        android:icon="@drawable/ic_now_playing"/>
+    <item android:id="@+id/homeFragment"
+        android:title="@string/menu_home"/>
+<!--        android:icon="@drawable/ic_now_playing"/>-->
 
-    <item android:id="@+id/popular"
-        android:title="@string/menu_popular"
-        android:icon="@drawable/ic_popular"/>
+    <item android:id="@+id/moviesFragment"
+        android:title="@string/menu_movies"/>
+<!--        android:icon="@drawable/ic_popular"/>-->
 
-    <item android:id="@+id/topRated"
-        android:title="@string/menu_top_rated"
-        android:icon="@drawable/ic_top_rated"/>
+    <item android:id="@+id/tvFragment"
+        android:title="@string/menu_tv"/>
+<!--        android:icon="@drawable/ic_top_rated"/>-->
 
-    <item android:id="@+id/upcoming"
-        android:title="@string/menu_upcoming"
-        android:icon="@drawable/ic_upcoming"/>
+    <item android:id="@+id/userFragment"
+        android:title="@string/menu_user"/>
+<!--        android:icon="@drawable/ic_upcoming"/>-->
 
 </menu>

@@ -1,11 +1,16 @@
 package com.endeline.domain.extensions
 
 
-import com.endeline.data.models.MovieCollection.MovieItem
-import com.endeline.domain.uimodels.MovieCollectionUiModel.MovieItemUiModel
+import com.endeline.data.models.Products.Product
+import com.endeline.domain.ProductType
+import com.endeline.domain.uimodels.ProductsUiModel.ProductUiModel
 import java.util.*
 
-fun MovieItem.toUiModel() = MovieItemUiModel(
+fun Product.toUiModel(productType: ProductType) = ProductUiModel(
+    firstAirDate = this.firstAirDate ?: "",
+    originCountry = this.originCountry ?: emptyList(),
+    originalName = this.originalName ?: "",
+    name = this.name ?: "",
     posterPath = this@toUiModel.posterPath ?: "",
     adult = this@toUiModel.adult ?: false,
     overview = this@toUiModel.overview ?: "",
@@ -19,7 +24,9 @@ fun MovieItem.toUiModel() = MovieItemUiModel(
     popularity = this@toUiModel.popularity ?: -1.0,
     voteCount = this@toUiModel.voteCount ?: -1,
     video = this@toUiModel.video ?: false,
-    voteAverage = this@toUiModel.voteAverage ?: -1.0
+    voteAverage = this@toUiModel.voteAverage ?: -1.0,
+    productType = productType
+
 )
 
-fun List<MovieItem>.toUiModel() = this.map { it.toUiModel() }
+fun List<Product>.toUiModel(productType: ProductType) = this.map { it.toUiModel(productType) }

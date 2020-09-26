@@ -3,11 +3,11 @@ package com.endeline.mymovie.ui.details
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.endeline.domain.uimodels.MovieCollectionUiModel.MovieItemUiModel
-import com.endeline.domain.uimodels.MovieDetailsUiModel.ProductionCompaniesUiModel
-import com.endeline.domain.uimodels.MovieDetailsUiModel.SpokenLanguagesUiModel
-import com.endeline.domain.uimodels.MovieDetailsUiModel.ProductionCountriesUiModel
-import com.endeline.domain.uimodels.MovieDetailsUiModel.GenresUiModel
+import com.endeline.domain.uimodels.ProductsUiModel.ProductUiModel
+import com.endeline.domain.uimodels.ProductDetailsUiModel.ProductionCompaniesUiModel
+import com.endeline.domain.uimodels.ProductDetailsUiModel.SpokenLanguagesUiModel
+import com.endeline.domain.uimodels.ProductDetailsUiModel.ProductionCountriesUiModel
+import com.endeline.domain.uimodels.ProductDetailsUiModel.GenresUiModel
 import com.endeline.domain.uimodels.VideoLinkCollectionUiModel.VideoLinkDetailsUiModel
 import com.endeline.domain.usecase.GetMovieDetailsUseCase
 import com.endeline.domain.usecase.GetRecommendedMovieUseCase
@@ -32,14 +32,14 @@ class DetailsViewModel(
 
     private var movieId = Constants.NO_ID
 
-    private val _similarLiveData = MutableLiveData<List<MovieItemUiModel>>()
+    private val _similarLiveData = MutableLiveData<List<ProductUiModel>>()
 
-    val similarLiveData: LiveData<List<MovieItemUiModel>>
+    val similarLiveData: LiveData<List<ProductUiModel>>
         get() = _similarLiveData
 
-    private val _recommendedLiveData = MutableLiveData<List<MovieItemUiModel>>()
+    private val _recommendedLiveData = MutableLiveData<List<ProductUiModel>>()
 
-    val recommendedLiveData: LiveData<List<MovieItemUiModel>>
+    val recommendedLiveData: LiveData<List<ProductUiModel>>
         get() = _recommendedLiveData
 
     private val _videoLinksLiveData = MutableLiveData<List<VideoLinkDetailsUiModel>>()

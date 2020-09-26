@@ -27,17 +27,21 @@ class SplashViewModel(private val loadAllDataUseCase: LoadAllDataUseCase) : View
         subscriptions.clear()
     }
 
+    //TODO change this to load only home data not all
     fun loadData() {
-        val disposable = loadAllDataUseCase()
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribe({
-                _dataLoadedLiveData.value = true
-            }, {
-                Timber.e(it)
-                _dataLoadedLiveData.value = false
-            })
 
-        subscriptions.add(disposable)
+        _dataLoadedLiveData.value = true
+
+//        val disposable = loadAllDataUseCase()
+//            .subscribeOn(Schedulers.io())
+//            .observeOn(AndroidSchedulers.mainThread())
+//            .subscribe({
+//                _dataLoadedLiveData.value = true
+//            }, {
+//                Timber.e(it)
+//                _dataLoadedLiveData.value = false
+//            })
+//
+//        subscriptions.add(disposable)
     }
 }

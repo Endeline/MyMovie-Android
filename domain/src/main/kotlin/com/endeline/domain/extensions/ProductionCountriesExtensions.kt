@@ -1,7 +1,7 @@
 package com.endeline.domain.extensions
 
-import com.endeline.data.models.MovieDetails.ProductionCountries
-import com.endeline.domain.uimodels.MovieDetailsUiModel.ProductionCountriesUiModel
+import com.endeline.data.models.ProductDetails.ProductionCountries
+import com.endeline.domain.uimodels.ProductDetailsUiModel.ProductionCountriesUiModel
 
 fun ProductionCountries.toUiModel() = ProductionCountriesUiModel(
     iso_3166_1 = this@toUiModel.iso_3166_1 ?: "",

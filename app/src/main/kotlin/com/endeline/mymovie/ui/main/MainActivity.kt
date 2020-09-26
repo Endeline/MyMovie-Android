@@ -30,10 +30,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private val topLevelDestination = setOf(
-        R.id.nowPlaying,
-        R.id.popular,
-        R.id.topRated,
-        R.id.upcoming
+        R.id.homeFragment,
+        R.id.moviesFragment,
+        R.id.tvFragment,
+        R.id.userFragment
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {

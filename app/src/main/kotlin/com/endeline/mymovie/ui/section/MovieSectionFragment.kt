@@ -1,4 +1,4 @@
-package com.endeline.mymovie.ui.popular
+package com.endeline.mymovie.ui.section
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,32 +8,35 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.endeline.mymovie.databinding.MovieFragmentBinding
+import com.endeline.domain.ProductType
+import com.endeline.mymovie.databinding.SectionFragmentBinding
 import com.endeline.mymovie.di.ViewModelFactory
 import com.endeline.mymovie.ui.Constants
-import com.endeline.mymovie.ui.adapters.MovieAdapter
+import com.endeline.mymovie.ui.adapters.ProductAdapter
+import com.endeline.mymovie.ui.movies.MoviesFragmentDirections
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
-class PopularFragment : Fragment() {
+class MovieSectionFragment : Fragment() {
 
-    private val viewModelFactory: ViewModelFactory.PopularViewModelFactory =
-        ViewModelFactory.PopularViewModelFactory()
+    private val viewModelFactory: ViewModelFactory.SectionViewModelFactory =
+        ViewModelFactory.SectionViewModelFactory()
 
-    private val viewModel by viewModels<PopularViewModel> {
+    private val viewModel by viewModels<MovieSectionViewModel> {
         viewModelFactory
     }
 
-    private lateinit var binding: MovieFragmentBinding
-
-    private val movieAdapter = MovieAdapter {
-        findNavController().navigate(PopularFragmentDirections.toDetails(it))
+    private val movieAdapter = ProductAdapter {
+        findNavController().navigate(MoviesFragmentDirections.toDetails(it))
     }
 
+    private lateinit var binding: SectionFragmentBinding
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = MovieFragmentBinding.inflate(inflater, container, false)
+        binding = SectionFragmentBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -54,11 +57,19 @@ class PopularFragment : Fragment() {
                 addDuration = Constants.Animation.RECYCLER_VIEW_ITEM_DURATION
             }
         }
+
+        arguments?.getString(MOVIE_SECTION_TYPE)?.let {
+            viewModel.loadSection(it, ProductType.movie)
+        }
     }
 
     private fun subscribeUi() {
-        viewModel.popularLiveData.observe(viewLifecycleOwner) {
+        viewModel.items.observe(viewLifecycleOwner) {
             movieAdapter.submitList(it)
         }
+    }
+
+    companion object {
+        const val MOVIE_SECTION_TYPE = "MOVIE_SECTION_TYPE"
     }
 }

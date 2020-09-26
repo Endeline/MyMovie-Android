@@ -9,12 +9,9 @@ interface UseCaseComponent {
 
     fun inject(app: ViewModelFactory.SplashScreenViewModelFactory)
     fun inject(app: ViewModelFactory.DetailsViewModelFactory)
-    fun inject(app: ViewModelFactory.NowPlayingViewModelFactory)
-    fun inject(app: ViewModelFactory.PopularViewModelFactory)
     fun inject(app: ViewModelFactory.SearchViewModelFactory)
-    fun inject(app: ViewModelFactory.TopRatedViewModelFactory)
-    fun inject(app: ViewModelFactory.UpcomingViewModel)
     fun inject(app: ViewModelFactory.MainActivityViewModel)
     fun inject(app: ViewModelFactory.UserViewModel)
     fun inject(app: ViewModelFactory.RegisterViewModel)
+    fun inject(app: ViewModelFactory.SectionViewModelFactory)
 }

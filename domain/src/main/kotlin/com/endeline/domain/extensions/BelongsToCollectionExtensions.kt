@@ -1,7 +1,7 @@
 package com.endeline.domain.extensions
 
-import com.endeline.data.models.MovieDetails.BelongsToCollection
-import com.endeline.domain.uimodels.MovieDetailsUiModel.BelongsToCollectionUiModel
+import com.endeline.data.models.ProductDetails.BelongsToCollection
+import com.endeline.domain.uimodels.ProductDetailsUiModel.BelongsToCollectionUiModel
 
 
 fun BelongsToCollection.toUiModel() = BelongsToCollectionUiModel(

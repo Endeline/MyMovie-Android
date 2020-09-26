@@ -1,7 +1,7 @@
 package com.endeline.domain.extensions
 
-import com.endeline.data.models.MovieDetails.ProductionCompanies
-import com.endeline.domain.uimodels.MovieDetailsUiModel.ProductionCompaniesUiModel
+import com.endeline.data.models.ProductDetails.ProductionCompanies
+import com.endeline.domain.uimodels.ProductDetailsUiModel.ProductionCompaniesUiModel
 
 fun ProductionCompanies.toUiModel() = ProductionCompaniesUiModel(
     id = this@toUiModel.id ?: -1,
