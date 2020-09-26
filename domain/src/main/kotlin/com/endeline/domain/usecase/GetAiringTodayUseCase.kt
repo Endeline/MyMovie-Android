@@ -10,7 +10,7 @@ import com.endeline.domain.usecase.types.ObservableUseCaseWithTwoParams
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class GetUpcomingUseCase : ObservableUseCaseWithTwoParams<ProductType, ProductsUiModel> {
+class GetAiringTodayUseCase : ObservableUseCaseWithTwoParams<ProductType, ProductsUiModel> {
 
     @Inject
     lateinit var repository: MovieDbService
@@ -21,5 +21,5 @@ class GetUpcomingUseCase : ObservableUseCaseWithTwoParams<ProductType, ProductsU
 
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
     override fun invoke(productType: ProductType): Observable<ProductsUiModel> =
-        repository.getUpcoming(productType.name).map { it.toUiModel(productType) }
+        repository.getAiringToday(productType.name).map { it.toUiModel(productType) }
 }

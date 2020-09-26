@@ -7,12 +7,15 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="?android:actionBarSize"
+        app:contentInsetStart="0dp"
+        android:background="@android:color/black">
 
         <com.endeline.mymovie.ui.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?android:actionBarSize" />
+            android:layout_height="match_parent"
+            app:contentInsetStart="0dp" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <ScrollView

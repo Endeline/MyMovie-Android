@@ -1,6 +1,6 @@
 package com.endeline.domain.usecase
 
-import com.endeline.data.models.MovieCollection
+import com.endeline.data.models.Products
 import com.endeline.data.services.MovieDbService
 import com.endeline.domain.di.components.DaggerRepositoryComponent
 import com.endeline.domain.usecase.types.ObservableUseCase
@@ -12,10 +12,10 @@ import javax.inject.Inject
 
 class LoadAllDataUseCase : ObservableUseCase<Boolean> {
     private data class ResultMapper(
-        var nowPlaying: MovieCollection,
-        var popular: MovieCollection,
-        var topRated: MovieCollection,
-        var upcoming: MovieCollection
+//        var nowPlaying: Products,
+        var popular: Products,
+        var topRated: Products,
+        var upcoming: Products
     )
 
     @Inject
@@ -25,18 +25,22 @@ class LoadAllDataUseCase : ObservableUseCase<Boolean> {
         DaggerRepositoryComponent.builder().build().inject(this)
     }
 
-    override fun invoke(): Observable<Boolean> = Observables.combineLatest(
-        repository.nowPlaying,
-        repository.popular,
-        repository.topRated,
-        repository.upcoming
-    ) { nowPlaying, popular, topRated, upcoming ->
-        ResultMapper(nowPlaying, popular, topRated, upcoming)
-    }.subscribeOn(Schedulers.io())
-        .flatMap {
-            Observable.just(true)
-        }.doOnError {
-            Timber.e("$it")
-            Observable.just(false)
-        }
+    //TODO CHANGE THIS TO LOAD ONLY HOME -> DiSCOVERY??
+
+    override fun invoke(): Observable<Boolean> = Observable.just(true)
+
+//        Observables.combineLatest(
+////        repository.nowPlaying,
+//        repository.popular,
+//        repository.topRated,
+//        repository.upcoming
+//    ) {  popular, topRated, upcoming ->
+//        ResultMapper( popular, topRated, upcoming)
+//    }.subscribeOn(Schedulers.io())
+//        .flatMap {
+//            Observable.just(true)
+//        }.doOnError {
+//            Timber.e("$it")
+//            Observable.just(false)
+//        }
 }

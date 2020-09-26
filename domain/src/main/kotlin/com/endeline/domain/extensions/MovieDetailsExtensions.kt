@@ -1,11 +1,11 @@
 package com.endeline.domain.extensions
 
-import com.endeline.data.models.MovieDetails
-import com.endeline.data.models.MovieDetails.BelongsToCollection
-import com.endeline.domain.uimodels.MovieDetailsUiModel
+import com.endeline.data.models.ProductDetails
+import com.endeline.data.models.ProductDetails.BelongsToCollection
+import com.endeline.domain.uimodels.ProductDetailsUiModel
 import java.util.*
 
-fun MovieDetails.toUiModel() = MovieDetailsUiModel(
+fun ProductDetails.toUiModel() = ProductDetailsUiModel(
     adult = this@toUiModel.adult ?: false,
     backdropPath = this@toUiModel.backdropPath ?: "",
     budget = this@toUiModel.budget ?: -1,

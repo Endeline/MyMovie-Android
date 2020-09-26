@@ -4,22 +4,22 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.endeline.domain.uimodels.MovieCollectionUiModel.MovieItemUiModel
+import com.endeline.domain.uimodels.ProductsUiModel.ProductUiModel
 import com.endeline.mymovie.databinding.SimilarRecommendationMovieBinding
 
 class MovieAdapter(
     private val onClick: (Int) -> Unit
-) : ListAdapter<MovieItemUiModel, MovieViewHolder>(MovieDiffer()) {
+) : ListAdapter<ProductUiModel, MovieViewHolder>(MovieDiffer()) {
 
-    private class MovieDiffer : DiffUtil.ItemCallback<MovieItemUiModel>() {
+    private class MovieDiffer : DiffUtil.ItemCallback<ProductUiModel>() {
         override fun areItemsTheSame(
-            oldItem: MovieItemUiModel,
-            newItem: MovieItemUiModel
+            oldItem: ProductUiModel,
+            newItem: ProductUiModel
         ) = oldItem.id == newItem.id
 
         override fun areContentsTheSame(
-            oldItem: MovieItemUiModel,
-            newItem: MovieItemUiModel
+            oldItem: ProductUiModel,
+            newItem: ProductUiModel
         ) = oldItem == newItem
     }
 

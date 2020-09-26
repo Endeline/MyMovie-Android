@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph.xml"
-    app:startDestination="@id/nowPlaying">
+    app:startDestination="@id/homeFragment">
 
     <action
         android:id="@+id/navigateToSearch"
@@ -48,66 +48,6 @@
         android:name="com.endeline.mymovie.ui.user.forgotpassword.ForgotPasswordFragment"
         android:label="ForgotPassword"
         tools:layout="@layout/forgot_password_fragment" />
-
-    <fragment
-        android:id="@+id/nowPlaying"
-        android:name="com.endeline.mymovie.ui.now.NowPlayingFragment"
-        android:label="NowPlayingFragment"
-        tools:layout="@layout/movie_fragment">
-        <action
-            android:id="@+id/toDetails"
-            app:destination="@id/detailsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            tools:layout="@layout/details_fragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/popular"
-        android:name="com.endeline.mymovie.ui.popular.PopularFragment"
-        android:label="PopularFragment"
-        tools:layout="@layout/movie_fragment">
-        <action
-            android:id="@+id/toDetails"
-            app:destination="@id/detailsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            tools:layout="@layout/details_fragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/upcoming"
-        android:name="com.endeline.mymovie.ui.upcoming.UpcomingFragment"
-        android:label="UpcomingFragment"
-        tools:layout="@layout/movie_fragment">
-        <action
-            android:id="@+id/toDetails"
-            app:destination="@id/detailsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            tools:layout="@layout/details_fragment" />
-    </fragment>
-
-    <fragment
-        android:id="@+id/topRated"
-        android:name="com.endeline.mymovie.ui.top.TopRatedFragment"
-        android:label="TopRatedFragment"
-        tools:layout="@layout/movie_fragment">
-        <action
-            android:id="@+id/toDetails"
-            app:destination="@id/detailsFragment"
-            app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            tools:layout="@layout/details_fragment" />
-    </fragment>
 
     <fragment
         android:id="@+id/searchFragment"
@@ -168,4 +108,31 @@
         android:name="com.endeline.mymovie.ui.user.register.RegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/register_fragment" />
+
+    <fragment
+        android:id="@+id/homeFragment"
+        android:name="com.endeline.mymovie.ui.home.HomeFragment"
+        android:label="HomeFragment"
+        tools:layout="@layout/home_fragment" />
+
+    <fragment
+        android:id="@+id/moviesFragment"
+        android:name="com.endeline.mymovie.ui.movies.MoviesFragment"
+        android:label="MoviesFragment"
+        tools:layout="@layout/section_fragment">
+        <action
+            android:id="@+id/toDetails"
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            tools:layout="@layout/details_fragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/tvFragment"
+        android:name="com.endeline.mymovie.ui.tv.TvFragment"
+        android:label="TvFragment"
+        tools:layout="@layout/search_fragment" />
 </navigation>

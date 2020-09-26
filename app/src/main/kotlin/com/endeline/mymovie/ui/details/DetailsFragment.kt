@@ -11,8 +11,8 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.endeline.domain.uimodels.MovieCollectionUiModel.MovieItemUiModel
-import com.endeline.domain.uimodels.MovieDetailsUiModel.*
+import com.endeline.domain.uimodels.ProductsUiModel.ProductUiModel
+import com.endeline.domain.uimodels.ProductDetailsUiModel.*
 import com.endeline.domain.uimodels.VideoLinkCollectionUiModel.VideoLinkDetailsUiModel
 import com.endeline.mymovie.databinding.DetailsFragmentBinding
 import com.endeline.mymovie.di.ViewModelFactory
@@ -222,12 +222,12 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private fun onSimilarLoaded(similarMovies: List<MovieItemUiModel>) = with(binding) {
+    private fun onSimilarLoaded(similarMovies: List<ProductUiModel>) = with(binding) {
         setViewsVisibility(View.VISIBLE, similarTitle, similarRecycleView)
         similarAdapter.submitList(similarMovies)
     }
 
-    private fun onRecommendedLoaded(recommendedMovies: List<MovieItemUiModel>) {
+    private fun onRecommendedLoaded(recommendedMovies: List<ProductUiModel>) {
         binding.recommendedTitle.visibility = View.VISIBLE
         recommendedAdapter.submitList(recommendedMovies)
     }

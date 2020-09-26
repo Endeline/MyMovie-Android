@@ -19,9 +19,5 @@ class Toolbar @JvmOverloads constructor(
         binding.icSearch.setOnClickListener {
             findNavController().navigate(NavigationGraphXmlDirections.navigateToSearch())
         }
-
-        binding.icProfile.setOnClickListener {
-            findNavController().navigate(NavigationGraphXmlDirections.navigateToUser())
-        }
     }
 }

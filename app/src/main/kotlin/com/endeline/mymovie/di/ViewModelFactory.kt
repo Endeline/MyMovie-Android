@@ -56,33 +56,46 @@ class ViewModelFactory {
         }
     }
 
-    class NowPlayingViewModelFactory : ViewModelProvider.Factory {
+    class SectionViewModelFactory : ViewModelProvider.Factory {
 
         @Inject
         lateinit var getNowPlayingUseCase: GetNowPlayingUseCase
 
-        init {
-            DaggerUseCaseComponent.builder().build().inject(this)
-        }
-
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return modelClass.getConstructor(GetNowPlayingUseCase::class.java)
-                .newInstance(getNowPlayingUseCase)
-        }
-    }
-
-    class PopularViewModelFactory : ViewModelProvider.Factory {
-
         @Inject
         lateinit var getPopularUseCase: GetPopularUseCase
 
+        @Inject
+        lateinit var getTopRatedUseCase: GetTopRatedUseCase
+
+        @Inject
+        lateinit var getUpcomingUseCase: GetUpcomingUseCase
+
+        @Inject
+        lateinit var getAiringTodayUseCase: GetAiringTodayUseCase
+
+        @Inject
+        lateinit var getTheAirUseUseCase: GetTheAirUseUseCase
+
         init {
             DaggerUseCaseComponent.builder().build().inject(this)
         }
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return modelClass.getConstructor(GetPopularUseCase::class.java)
-                .newInstance(getPopularUseCase)
+            return modelClass.getConstructor(
+                GetNowPlayingUseCase::class.java,
+                GetPopularUseCase::class.java,
+                GetTopRatedUseCase::class.java,
+                GetUpcomingUseCase::class.java,
+                GetAiringTodayUseCase::class.java,
+                GetTheAirUseUseCase::class.java
+            ).newInstance(
+                getNowPlayingUseCase,
+                getPopularUseCase,
+                getTopRatedUseCase,
+                getUpcomingUseCase,
+                getAiringTodayUseCase,
+                getTheAirUseUseCase
+            )
         }
     }
 
@@ -98,36 +111,6 @@ class ViewModelFactory {
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
             return modelClass.getConstructor(SearchAllUseCase::class.java)
                 .newInstance(searchAllUseCase)
-        }
-    }
-
-    class TopRatedViewModelFactory : ViewModelProvider.Factory {
-
-        @Inject
-        lateinit var getTopRatedUseCase: GetTopRatedUseCase
-
-        init {
-            DaggerUseCaseComponent.builder().build().inject(this)
-        }
-
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return modelClass.getConstructor(GetTopRatedUseCase::class.java)
-                .newInstance(getTopRatedUseCase)
-        }
-    }
-
-    class UpcomingViewModel : ViewModelProvider.Factory {
-
-        @Inject
-        lateinit var getUpcomingUseCase: GetUpcomingUseCase
-
-        init {
-            DaggerUseCaseComponent.builder().build().inject(this)
-        }
-
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return modelClass.getConstructor(GetUpcomingUseCase::class.java)
-                .newInstance(getUpcomingUseCase)
         }
     }
 

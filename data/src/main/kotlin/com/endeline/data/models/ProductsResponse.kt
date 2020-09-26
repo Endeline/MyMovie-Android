@@ -3,14 +3,18 @@ package com.endeline.data.models
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class MovieCollection(
+data class Products(
     @SerializedName("page") val page: Int?,
-    @SerializedName("results") val results: List<MovieItem>?,
+    @SerializedName("results") val results: List<Product>?,
     @SerializedName("dates") val dates: Dates?,
     @SerializedName("total_pages") val totalPages: Int?,
     @SerializedName("total_results") val totalResults: Int?
 ) {
-    data class MovieItem(
+    data class Product(
+        @SerializedName("first_air_date") val firstAirDate: String?,
+        @SerializedName("origin_country") val originCountry: List<String>?,
+        @SerializedName("original_name") val originalName: String?,
+        @SerializedName("name") val name: String?,
         @SerializedName("poster_path") val posterPath: String?,
         @SerializedName("adult") val adult: Boolean?,
         @SerializedName("overview") val overview: String?,

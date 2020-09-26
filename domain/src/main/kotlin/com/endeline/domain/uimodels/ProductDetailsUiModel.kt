@@ -2,7 +2,7 @@ package com.endeline.domain.uimodels
 
 import java.util.*
 
-data class MovieDetailsUiModel(
+data class ProductDetailsUiModel(
     val adult: Boolean,
     val backdropPath: String,
     val belongsToCollection: BelongsToCollectionUiModel,

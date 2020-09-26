@@ -1,7 +1,7 @@
 package com.endeline.domain.extensions
 
-import com.endeline.data.models.MovieDetails.Genres
-import com.endeline.domain.uimodels.MovieDetailsUiModel.GenresUiModel
+import com.endeline.data.models.ProductDetails.Genres
+import com.endeline.domain.uimodels.ProductDetailsUiModel.GenresUiModel
 
 fun Genres.toUiModel() = GenresUiModel(
     id = this@toUiModel.id ?: -1,

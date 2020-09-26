@@ -3,7 +3,7 @@ package com.endeline.data.models
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class MovieDetails(
+data class ProductDetails(
     @SerializedName("adult") val adult: Boolean?,
     @SerializedName("backdrop_path") val backdropPath: String?,
     @SerializedName("budget") val budget: Int?,

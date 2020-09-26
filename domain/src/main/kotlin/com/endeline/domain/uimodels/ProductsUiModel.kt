@@ -1,10 +1,11 @@
 package com.endeline.domain.uimodels
 
+import com.endeline.domain.ProductType
 import java.util.*
 
-data class MovieCollectionUiModel(
+data class ProductsUiModel(
     val page: Int,
-    val results: List<MovieItemUiModel>,
+    val results: List<ProductUiModel>,
     val dates: DatesUiModel,
     val totalPages: Int,
     val totalResults: Int
@@ -14,7 +15,12 @@ data class MovieCollectionUiModel(
         val minimum: String
     )
 
-    data class MovieItemUiModel(
+    data class ProductUiModel(
+        val productType: ProductType,
+        val firstAirDate: String,
+        val originCountry: List<String>,
+        val originalName: String,
+        val name: String,
         val posterPath: String,
         val adult: Boolean,
         val overview: String,
