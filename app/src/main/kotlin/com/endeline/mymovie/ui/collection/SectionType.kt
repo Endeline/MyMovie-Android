@@ -1,4 +1,4 @@
-package com.endeline.mymovie.ui.section
+package com.endeline.mymovie.ui.collection
 
 enum class SectionType {
     POPULAR,
