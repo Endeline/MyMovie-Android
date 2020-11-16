@@ -2,7 +2,7 @@ package com.endeline.domain.usecase
 
 import com.endeline.data.models.Products
 import com.endeline.data.service.MovieDbService
-import com.endeline.domain.di.components.DaggerRepositoryComponent
+import com.endeline.domain.di.components.DaggerDomainComponents
 import com.endeline.domain.usecase.types.ObservableUseCase
 import io.reactivex.Observable
 import javax.inject.Inject
@@ -19,7 +19,7 @@ class LoadAllDataUseCase : ObservableUseCase<Boolean> {
     lateinit var repository: MovieDbService
 
     init {
-        DaggerRepositoryComponent.builder().build().inject(this)
+        DaggerDomainComponents.create().inject(this)
     }
 
     //TODO CHANGE THIS TO LOAD ONLY HOME -> DiSCOVERY??

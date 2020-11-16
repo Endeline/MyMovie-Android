@@ -23,7 +23,7 @@
 
     <fragment
         android:id="@+id/userFragment"
-        android:name="com.endeline.mymovie.ui.user.UserFragment"
+        android:name="com.endeline.mymovie.ui.gui.user.UserFragment"
         android:label="UserFragment"
         tools:layout="@layout/login_fragment">
         <action
@@ -45,13 +45,13 @@
 
     <fragment
         android:id="@+id/forgotPassword"
-        android:name="com.endeline.mymovie.ui.user.forgotpassword.ForgotPasswordFragment"
+        android:name="com.endeline.mymovie.ui.gui.user.forgotpassword.ForgotPasswordFragment"
         android:label="ForgotPassword"
         tools:layout="@layout/forgot_password_fragment" />
 
     <fragment
         android:id="@+id/searchFragment"
-        android:name="com.endeline.mymovie.ui.search.SearchFragment"
+        android:name="com.endeline.mymovie.ui.gui.search.SearchFragment"
         android:label="SearchFragment"
         tools:layout="@layout/search_fragment">
         <action
@@ -66,7 +66,7 @@
 
     <fragment
         android:id="@+id/detailsFragment"
-        android:name="com.endeline.mymovie.ui.details.DetailsFragment"
+        android:name="com.endeline.mymovie.ui.gui.details.DetailsFragment"
         android:label="DetailsFragment">
         <argument
             android:name="movieId"
@@ -92,7 +92,7 @@
 
     <fragment
         android:id="@+id/videoFragment"
-        android:name="com.endeline.mymovie.ui.video.VideoFragment"
+        android:name="com.endeline.mymovie.ui.gui.video.VideoFragment"
         android:label="VideoFragment"
         tools:layout="@layout/video_fragment">
         <argument
@@ -105,25 +105,25 @@
 
     <fragment
         android:id="@+id/registerFragment"
-        android:name="com.endeline.mymovie.ui.user.register.RegisterFragment"
+        android:name="com.endeline.mymovie.ui.gui.user.register.RegisterFragment"
         android:label="RegisterFragment"
         tools:layout="@layout/register_fragment" />
 
     <fragment
         android:id="@+id/homeFragment"
-        android:name="com.endeline.mymovie.ui.home.HomeFragment"
+        android:name="com.endeline.mymovie.ui.gui.home.HomeFragment"
         android:label="HomeFragment"
         tools:layout="@layout/home_fragment" />
 
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.endeline.mymovie.ui.collection.CollectionFragment"
+        android:name="com.endeline.mymovie.ui.gui.collection.CollectionFragment"
         android:label="MoviesFragment"
         tools:layout="@layout/section_fragment">
         <argument
             android:name="type"
             android:defaultValue="MOVIES"
-            app:argType="com.endeline.mymovie.ui.collection.CollectionType" />
+            app:argType="com.endeline.mymovie.ui.gui.collection.CollectionType" />
         <action
             android:id="@+id/toDetails"
             app:destination="@id/detailsFragment"
@@ -136,13 +136,13 @@
 
     <fragment
         android:id="@+id/tvFragment"
-        android:name="com.endeline.mymovie.ui.collection.CollectionFragment"
+        android:name="com.endeline.mymovie.ui.gui.collection.CollectionFragment"
         android:label="TvFragment"
         tools:layout="@layout/section_fragment">
         <argument
             android:name="type"
             android:defaultValue="TV"
-            app:argType="com.endeline.mymovie.ui.collection.CollectionType" />
+            app:argType="com.endeline.mymovie.ui.gui.collection.CollectionType" />
         <action
             android:id="@+id/toDetails"
             app:destination="@id/detailsFragment"

@@ -3,7 +3,7 @@ package com.endeline.mymovie.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.endeline.domain.usecase.*
-import com.endeline.mymovie.di.components.DaggerUseCaseComponent
+import com.endeline.mymovie.di.components.DaggerViewModelComponent
 import javax.inject.Inject
 
 class ViewModelFactory {
@@ -14,7 +14,7 @@ class ViewModelFactory {
         lateinit var loadAllDataUseCase: LoadAllDataUseCase
 
         init {
-            DaggerUseCaseComponent.builder().build().inject(this)
+            DaggerViewModelComponent.builder().build().inject(this)
         }
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -38,7 +38,7 @@ class ViewModelFactory {
         lateinit var getVideoLinksUseCase: GetVideoLinksUseCase
 
         init {
-            DaggerUseCaseComponent.builder().build().inject(this)
+            DaggerViewModelComponent.builder().build().inject(this)
         }
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -77,7 +77,7 @@ class ViewModelFactory {
         lateinit var getTheAirUseUseCase: GetTheAirUseUseCase
 
         init {
-            DaggerUseCaseComponent.builder().build().inject(this)
+            DaggerViewModelComponent.builder().build().inject(this)
         }
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -105,7 +105,7 @@ class ViewModelFactory {
         lateinit var searchAllUseCase: SearchAllUseCase
 
         init {
-            DaggerUseCaseComponent.builder().build().inject(this)
+            DaggerViewModelComponent.builder().build().inject(this)
         }
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -120,7 +120,7 @@ class ViewModelFactory {
         lateinit var initializeUserServiceUseCase: InitializeUserServiceUseCase
 
         init {
-            DaggerUseCaseComponent.builder().build().inject(this)
+            DaggerViewModelComponent.builder().build().inject(this)
         }
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -140,7 +140,7 @@ class ViewModelFactory {
 
 
         init {
-            DaggerUseCaseComponent.builder().build().inject(this)
+            DaggerViewModelComponent.builder().build().inject(this)
         }
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
@@ -160,7 +160,7 @@ class ViewModelFactory {
         lateinit var registerUseCase: RegisterUseCase
 
         init {
-            DaggerUseCaseComponent.builder().build().inject(this)
+            DaggerViewModelComponent.builder().build().inject(this)
         }
 
         override fun <T : ViewModel?> create(modelClass: Class<T>): T {
