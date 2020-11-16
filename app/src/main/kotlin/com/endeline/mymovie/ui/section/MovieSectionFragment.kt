@@ -13,7 +13,7 @@ import com.endeline.mymovie.databinding.SectionFragmentBinding
 import com.endeline.mymovie.di.ViewModelFactory
 import com.endeline.mymovie.ui.Constants
 import com.endeline.mymovie.ui.adapters.ProductAdapter
-import com.endeline.mymovie.ui.movies.MoviesFragmentDirections
+import com.endeline.mymovie.ui.collection.CollectionFragmentDirections
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class MovieSectionFragment : Fragment() {
@@ -26,7 +26,7 @@ class MovieSectionFragment : Fragment() {
     }
 
     private val movieAdapter = ProductAdapter {
-        findNavController().navigate(MoviesFragmentDirections.toDetails(it))
+        findNavController().navigate(CollectionFragmentDirections.toDetails(it))
     }
 
     private var _binding: SectionFragmentBinding? = null

@@ -117,9 +117,13 @@
 
     <fragment
         android:id="@+id/moviesFragment"
-        android:name="com.endeline.mymovie.ui.movies.MoviesFragment"
+        android:name="com.endeline.mymovie.ui.collection.CollectionFragment"
         android:label="MoviesFragment"
         tools:layout="@layout/section_fragment">
+        <argument
+            android:name="type"
+            android:defaultValue="MOVIES"
+            app:argType="com.endeline.mymovie.ui.collection.CollectionType" />
         <action
             android:id="@+id/toDetails"
             app:destination="@id/detailsFragment"
@@ -132,7 +136,20 @@
 
     <fragment
         android:id="@+id/tvFragment"
-        android:name="com.endeline.mymovie.ui.tv.TvFragment"
+        android:name="com.endeline.mymovie.ui.collection.CollectionFragment"
         android:label="TvFragment"
-        tools:layout="@layout/search_fragment" />
+        tools:layout="@layout/section_fragment">
+        <argument
+            android:name="type"
+            android:defaultValue="TV"
+            app:argType="com.endeline.mymovie.ui.collection.CollectionType" />
+        <action
+            android:id="@+id/toDetails"
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            tools:layout="@layout/details_fragment" />
+    </fragment>
 </navigation>
