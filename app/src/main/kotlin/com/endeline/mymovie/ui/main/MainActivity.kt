@@ -10,6 +10,7 @@ import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupWithNavController
+import com.endeline.mymovie.BuildConfig
 import com.endeline.mymovie.R
 import com.endeline.mymovie.databinding.ActivityMainBinding
 import com.endeline.mymovie.di.ViewModelFactory
@@ -50,23 +51,28 @@ class MainActivity : AppCompatActivity() {
         return navigationController.navigateUp() || super.onSupportNavigateUp()
     }
 
-    private fun init() {
-        Timber.plant(DebugTree())
+    private fun init() = with(binding) {
+        if (BuildConfig.DEBUG) {
+            Timber.plant(DebugTree())
+        }
 
-        viewModel.initializeServices(this)
+        viewModel.initializeServices(this@MainActivity)
 
         navigationController = findNavController(R.id.navigation_host)
         appBarConfiguration = AppBarConfiguration(topLevelDestination)
 
-        binding.navigationView.setupWithNavController(navigationController)
+        navigationView.setupWithNavController(navigationController)
 
         navigationController.addOnDestinationChangedListener { _, destination, _ ->
-            binding.navigationView.visibility = if (destination.id == R.id.videoFragment) {
+            navigationView.visibility = if (destination.id == R.id.videoFragment) {
                 View.GONE
             } else {
                 View.VISIBLE
             }
         }
+
+        navigationView.menu.findItem(R.id.homeFragment).isVisible = false
+        navigationView.menu.findItem(R.id.userFragment).isVisible = false
     }
 
     companion object {

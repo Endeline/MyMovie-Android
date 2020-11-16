@@ -1,4 +1,4 @@
-package com.endeline.data.services
+package com.endeline.data.service
 
 import com.endeline.data.BuildConfig
 import com.endeline.data.repository.MovieDbRepository
@@ -187,7 +187,13 @@ class MovieDbService {
                     it.proceed(request)
                 }
                 .addInterceptor(
-                    HttpLoggingInterceptor().apply { level = HttpLoggingInterceptor.Level.BODY }
+                    HttpLoggingInterceptor().apply {
+                        level = if (BuildConfig.DEBUG) {
+                            HttpLoggingInterceptor.Level.BODY
+                        } else {
+                            HttpLoggingInterceptor.Level.NONE
+                        }
+                    }
                 )
                 .build())
             .addConverterFactory(GsonConverterFactory.create())

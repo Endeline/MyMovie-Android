@@ -1,13 +1,10 @@
 package com.endeline.domain.usecase
 
 import com.endeline.data.models.Products
-import com.endeline.data.services.MovieDbService
+import com.endeline.data.service.MovieDbService
 import com.endeline.domain.di.components.DaggerRepositoryComponent
 import com.endeline.domain.usecase.types.ObservableUseCase
 import io.reactivex.Observable
-import io.reactivex.rxkotlin.Observables
-import io.reactivex.schedulers.Schedulers
-import timber.log.Timber
 import javax.inject.Inject
 
 class LoadAllDataUseCase : ObservableUseCase<Boolean> {
