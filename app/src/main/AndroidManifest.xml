@@ -10,8 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.NoActionBar">
-        <activity android:name=".ui.main.MainActivity" />
-        <activity android:name=".ui.splash.SplashScreenActivity">
+        <activity android:name="com.endeline.mymovie.ui.gui.main.MainActivity" />
+        <activity android:name="com.endeline.mymovie.ui.gui.splash.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
