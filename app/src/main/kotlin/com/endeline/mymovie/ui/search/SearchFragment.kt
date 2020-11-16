@@ -38,13 +38,14 @@ class SearchFragment : Fragment() {
         findNavController().navigate(SearchFragmentDirections.toDetails(it))
     }
 
-    private lateinit var binding: SearchFragmentBinding
+    private var _binding: SearchFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = SearchFragmentBinding.inflate(inflater, container, false)
+        _binding = SearchFragmentBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -54,6 +55,11 @@ class SearchFragment : Fragment() {
 
         setupUi()
         subscribeUi()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setupUi() = with(binding) {

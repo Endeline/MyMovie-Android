@@ -40,8 +40,8 @@ android {
         main.java.srcDirs += 'src/main/kotlin'
     }
 
-    viewBinding {
-        enabled = true
+    buildFeatures {
+        viewBinding true
     }
 }
 
@@ -52,7 +52,7 @@ dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation "androidx.appcompat:appcompat:$project.ext.appCompact"
     implementation "com.google.android.material:material:$project.ext.material"
 
@@ -76,7 +76,7 @@ dependencies {
 
     implementation "androidx.lifecycle:lifecycle-extensions:$project.ext.lifecycle"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$project.ext.lifecycle"
-    implementation "androidx.lifecycle:lifecycle-reactivestreams:$project.ext.lifecycle"
+    implementation "androidx.lifecycle:lifecycle-reactivestreams-ktx:$project.ext.lifecycle"
 
     implementation "com.google.dagger:dagger-android:$project.ext.dagger2"
     implementation "com.google.dagger:dagger-android-support:$project.ext.dagger2"

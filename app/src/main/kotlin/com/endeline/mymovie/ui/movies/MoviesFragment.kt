@@ -10,14 +10,15 @@ import com.google.android.material.tabs.TabLayoutMediator
 
 class MoviesFragment : Fragment() {
 
-    private lateinit var binding: ProductListFragmentBinding
+    private var _binding: ProductListFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = ProductListFragmentBinding.inflate(inflater, container, false)
+        _binding = ProductListFragmentBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -26,6 +27,11 @@ class MoviesFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setComponent()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setComponent() = with(binding) {

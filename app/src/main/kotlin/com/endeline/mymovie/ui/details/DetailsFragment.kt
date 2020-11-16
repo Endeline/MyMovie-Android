@@ -48,24 +48,30 @@ class DetailsFragment : Fragment() {
         findNavController().navigate(DetailsFragmentDirections.toDetails(it))
     }
 
-    private lateinit var binding: DetailsFragmentBinding
+    private var _binding: DetailsFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = DetailsFragmentBinding.inflate(inflater, container, false)
+        _binding = DetailsFragmentBinding.inflate(inflater, container, false)
 
         return binding.root
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
 
         setComponent()
         subscribeUi()
 
         viewModel.loadMovieData(args.movieId)
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setComponent() = with(binding) {
@@ -227,8 +233,8 @@ class DetailsFragment : Fragment() {
         similarAdapter.submitList(similarMovies)
     }
 
-    private fun onRecommendedLoaded(recommendedMovies: List<ProductUiModel>) {
-        binding.recommendedTitle.visibility = View.VISIBLE
+    private fun onRecommendedLoaded(recommendedMovies: List<ProductUiModel>) = with(binding) {
+        setViewsVisibility(View.VISIBLE, recommendedTitle, recommendedRecycleView)
         recommendedAdapter.submitList(recommendedMovies)
     }
 
