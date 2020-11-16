@@ -13,7 +13,8 @@ import com.endeline.mymovie.databinding.VideoFragmentBinding
 
 class VideoFragment : Fragment() {
 
-    private lateinit var binding: VideoFragmentBinding
+    private var _binding: VideoFragmentBinding? = null
+    private val binding get() = _binding!!
 
     private val args by navArgs<VideoFragmentArgs>()
 
@@ -21,7 +22,7 @@ class VideoFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = VideoFragmentBinding.inflate(inflater, container, false)
+        _binding = VideoFragmentBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -38,7 +39,11 @@ class VideoFragment : Fragment() {
         activity?.requestedOrientation = ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED
 
         super.onDestroyView()
+
+        _binding = null
     }
+
+
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun setComponent() = with(binding) {

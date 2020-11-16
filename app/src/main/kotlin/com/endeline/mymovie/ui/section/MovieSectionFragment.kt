@@ -29,14 +29,15 @@ class MovieSectionFragment : Fragment() {
         findNavController().navigate(MoviesFragmentDirections.toDetails(it))
     }
 
-    private lateinit var binding: SectionFragmentBinding
+    private var _binding: SectionFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = SectionFragmentBinding.inflate(inflater, container, false)
+        _binding = SectionFragmentBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -46,6 +47,11 @@ class MovieSectionFragment : Fragment() {
 
         setupComponent()
         subscribeUi()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setupComponent() {

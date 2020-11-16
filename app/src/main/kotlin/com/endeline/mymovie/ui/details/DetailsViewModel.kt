@@ -98,12 +98,14 @@ class DetailsViewModel(
     }
 
     fun loadMovieData(id: Int) {
-        movieId = id
+        if (movieId != id) {
+            movieId = id
 
-        loadMovieDetails()
-        loadSimilarMovies()
-        loadRecommendedMovies()
-        loadVideoLinks()
+            loadMovieDetails()
+            loadSimilarMovies()
+            loadRecommendedMovies()
+            loadVideoLinks()
+        }
     }
 
     private fun loadMovieDetails() {

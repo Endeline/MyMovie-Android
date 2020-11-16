@@ -23,14 +23,15 @@ class RegisterFragment : DialogFragment() {
         viewModelFactory
     }
 
-    private lateinit var binding: RegisterFragmentBinding
+    private var _binding: RegisterFragmentBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = RegisterFragmentBinding.inflate(inflater, container, false)
+        _binding = RegisterFragmentBinding.inflate(inflater, container, false)
 
         return binding.root
     }
@@ -40,6 +41,11 @@ class RegisterFragment : DialogFragment() {
 
         setComponents()
         subscribeUi()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     private fun setComponents() = with(binding) {
