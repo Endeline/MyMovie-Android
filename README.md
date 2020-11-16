@@ -20,6 +20,8 @@ Used:
 
 Other library:
 - https://github.com/tankery/CircularSeekBar
+- https://github.com/wasabeef/recyclerview-animators
+- https://github.com/bumptech/glide
 
 Feature
  - Save data on server side if i will make spring backend app for this
