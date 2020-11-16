@@ -1,6 +1,6 @@
 package com.endeline.domain.usecase
 
-import com.endeline.data.services.MovieDbService
+import com.endeline.data.service.MovieDbService
 import com.endeline.domain.di.components.DaggerRepositoryComponent
 import com.endeline.domain.extensions.toUiModel
 import com.endeline.domain.uimodels.VideoLinkCollectionUiModel

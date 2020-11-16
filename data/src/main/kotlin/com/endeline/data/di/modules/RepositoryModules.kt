@@ -1,6 +1,6 @@
 package com.endeline.data.di.modules
 
-import com.endeline.data.services.MovieDbService
+import com.endeline.data.service.MovieDbService
 import dagger.Module
 import dagger.Provides
 
