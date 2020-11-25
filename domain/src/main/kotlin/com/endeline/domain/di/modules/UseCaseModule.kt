@@ -60,4 +60,13 @@ class UseCaseModule {
 
     @Provides
     fun provideGetAiringTodayUseCase() = GetAiringTodayUseCase()
+
+    @Provides
+    fun provideGetProductImagesUseCase() = GetProductImagesUseCase()
+
+    @Provides
+    fun provideGetProductReviewUseCase() = GetProductReviewUseCase()
+
+    @Provides
+    fun provideGetProductCreditsUseCase() = GetProductCreditsUseCase()
 }

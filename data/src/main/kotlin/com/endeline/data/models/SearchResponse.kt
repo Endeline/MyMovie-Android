@@ -3,7 +3,7 @@ package com.endeline.data.models
 import com.google.gson.annotations.SerializedName
 import java.util.*
 
-data class SearchAll(
+data class Search(
     @SerializedName("page") val page: Int?,
     @SerializedName("total_results") val totalResults: Int?,
     @SerializedName("total_pages") val totalPages: Int?,

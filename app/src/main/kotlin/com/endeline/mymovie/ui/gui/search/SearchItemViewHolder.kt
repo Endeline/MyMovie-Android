@@ -1,9 +1,9 @@
 package com.endeline.mymovie.ui.gui.search
 
 import androidx.recyclerview.widget.RecyclerView
-import com.endeline.domain.uimodels.SearchAllUiModel.SearchItemUiModel
+import com.endeline.domain.uimodels.SearchUiModel.SearchItemUiModel
 import com.endeline.mymovie.databinding.SearchItemBinding
-import com.endeline.mymovie.extensions.loadLandscapeImage
+import com.endeline.mymovie.extensions.loadBackdropImage
 import com.endeline.mymovie.extensions.loadPosterImage
 
 class SearchItemViewHolder(
@@ -26,7 +26,7 @@ class SearchItemViewHolder(
                 if (!item.posterPath.isBlank()) {
                     image.loadPosterImage(item.posterPath)
                 } else {
-                    image.loadLandscapeImage(item.backdropPath)
+                    image.loadBackdropImage(item.backdropPath)
                 }
             }
         }

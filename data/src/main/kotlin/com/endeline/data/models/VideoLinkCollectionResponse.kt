@@ -2,11 +2,11 @@ package com.endeline.data.models
 
 import com.google.gson.annotations.SerializedName
 
-data class VideoLinkCollection(
+data class VideoLinks(
 	@SerializedName("id") val id: Int?,
-	@SerializedName("results") val results: List<LinkDetails>?
+	@SerializedName("results") val results: List<Link>?
 ) {
-	data class LinkDetails(
+	data class Link(
 		@SerializedName("id") val id: String?,
 		@SerializedName("iso_639_1") val iso_639_1: String?,
 		@SerializedName("iso_3166_1") val iso_3166_1: String?,

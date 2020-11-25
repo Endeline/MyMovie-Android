@@ -6,28 +6,35 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.endeline.domain.uimodels.ProductsUiModel.ProductUiModel
-import com.endeline.domain.uimodels.ProductDetailsUiModel.*
-import com.endeline.domain.uimodels.VideoLinkCollectionUiModel.VideoLinkDetailsUiModel
+import androidx.recyclerview.widget.PagerSnapHelper
+import com.endeline.domain.uimodels.ImagesUiModel.ImageUiModel
 import com.endeline.mymovie.databinding.DetailsFragmentBinding
 import com.endeline.mymovie.di.ViewModelFactory
 import com.endeline.mymovie.di.components.DaggerAppComponent
-import com.endeline.mymovie.extensions.loadPosterImage
 import com.endeline.mymovie.extensions.setViewsVisibility
-import com.endeline.mymovie.ui.Constants.Animation.RECYCLER_VIEW_ITEM_DURATION
-import jp.wasabeef.recyclerview.animators.SlideInRightAnimator
+import com.endeline.mymovie.extensions.setupWithAdapter
+import com.endeline.mymovie.ui.common.imagecarousel.ImagesCarouselAdapter
+import com.endeline.mymovie.ui.common.autoscroll.RecyclerViewAutoScroll
+import com.endeline.mymovie.ui.common.autoscroll.RecyclerViewAutoScroll.Companion.MINIMUM_BACKDROP_SIZE
+import com.endeline.mymovie.ui.common.credits.CreditsAdapter
+import com.endeline.mymovie.ui.common.reviews.ReviewsAdapter
 import javax.inject.Inject
 
 class DetailsFragment : Fragment() {
 
-    //todo section ->
-    // reviews -> opinion
-    // person -> find in api!!!
+    @Inject
+    lateinit var imagesAdapter: ImagesCarouselAdapter
+
+    @Inject
+    lateinit var recyclerViewAutoScroll: RecyclerViewAutoScroll
+
+    @Inject
+    lateinit var reviewsAdapter: ReviewsAdapter
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory.DetailsViewModelFactory
@@ -50,13 +57,18 @@ class DetailsFragment : Fragment() {
         findNavController().navigate(DetailsFragmentDirections.toDetails(it))
     }
 
+    //TODO di
+    private val castAdapter = CreditsAdapter()
+    //TODO di
+    private val crewAdapter = CreditsAdapter()
+
     private var _binding: DetailsFragmentBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         DaggerAppComponent.create().inject(this)
 
         _binding = DetailsFragmentBinding.inflate(inflater, container, false)
@@ -75,75 +87,80 @@ class DetailsFragment : Fragment() {
 
     override fun onDestroyView() {
         super.onDestroyView()
+        recyclerViewAutoScroll.stopScrolling()
         _binding = null
     }
 
     private fun setComponent() = with(binding) {
-        similarRecycleView.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-            adapter = similarAdapter
-            itemAnimator = SlideInRightAnimator().apply {
-                addDuration = RECYCLER_VIEW_ITEM_DURATION
-            }
-        }
+        similarRecycler.setupWithAdapter(similarAdapter)
+        recommendedRecycler.setupWithAdapter(recommendedAdapter)
+        moviesRecycler.setupWithAdapter(videoLinksAdapter)
+        backdropsRecycler.setupWithAdapter(imagesAdapter)
+        reviewsRecycler.setupWithAdapter(reviewsAdapter)
+        castRecycler.setupWithAdapter(castAdapter)
+        crewRecycler.setupWithAdapter(crewAdapter)
 
-        recommendedRecycleView.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-            adapter = recommendedAdapter
-            itemAnimator = SlideInRightAnimator().apply {
-                addDuration = RECYCLER_VIEW_ITEM_DURATION
-            }
-        }
-
-        moviesRecycleView.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-            adapter = videoLinksAdapter
-            itemAnimator = SlideInRightAnimator().apply {
-                addDuration = RECYCLER_VIEW_ITEM_DURATION
-            }
+        PagerSnapHelper().apply {
+            attachToRecyclerView(backdropsRecycler)
         }
     }
 
     private fun subscribeUi() = with(viewModel) {
-        similarLiveData.observe(viewLifecycleOwner) { onSimilarLoaded(it) }
-
-        recommendedLiveData.observe(viewLifecycleOwner) { onRecommendedLoaded(it) }
-
-        videoLinksLiveData.observe(viewLifecycleOwner) { onVideoLinksLoaded(it) }
-
         contentLiveData.observe(viewLifecycleOwner) { onContentLoaded(it) }
-
-        posterLiveData.observe(viewLifecycleOwner) { onPosterLoaded(it) }
 
         voteAverageLiveData.observe(viewLifecycleOwner) { onVoteAverageLoaded(it) }
 
         popularityLiveData.observe(viewLifecycleOwner) { onPopularityLoaded(it) }
 
-        genresLiveData.observe(viewLifecycleOwner) { onGenresLoaded(it) }
-
         onDataLoadedLiveData.observe(viewLifecycleOwner) { onDataLoaded(it) }
 
-        spokenLanguagesLiveData.observe(viewLifecycleOwner) { onSpokenLanguageLoaded(it) }
+        backdropsLiveData.observe(viewLifecycleOwner) {
+            onBackdropsLoaded(it)
+        }
 
-        productionCompaniesLiveData.observe(viewLifecycleOwner) { onProductionCompaniesLoaded(it) }
+        genresLiveData.observe(viewLifecycleOwner) {
+            onDataLoaded(binding.genresTitle, binding.genresList, it)
+        }
+
+        spokenLanguagesLiveData.observe(viewLifecycleOwner) {
+            onDataLoaded(binding.languageTitle, binding.languageList, it)
+        }
+
+        productionCompaniesLiveData.observe(viewLifecycleOwner) {
+            onDataLoaded(binding.companiesTitle, binding.companiesList, it)
+        }
 
         productionCountriesLiveData.observe(viewLifecycleOwner) {
-            onProductionCountriesDataLoaded(it)
+            onDataLoaded(binding.countriesTitle, binding.countriesList, it)
+        }
+
+        reviewsLiveData.observe(viewLifecycleOwner) {
+            onDataLoaded(it, reviewsAdapter, binding.reviewsTitle, binding.reviewsRecycler)
+        }
+
+        castLiveData.observe(viewLifecycleOwner) {
+            onDataLoaded(it, castAdapter, binding.castTitle, binding.castRecycler)
+        }
+
+        crewLiveData.observe(viewLifecycleOwner) {
+            onDataLoaded(it, crewAdapter, binding.crewTitle, binding.crewRecycler)
+        }
+
+        similarLiveData.observe(viewLifecycleOwner) {
+            onDataLoaded(it, similarAdapter, binding.similarTitle, binding.similarRecycler)
+        }
+
+        videoLinksLiveData.observe(viewLifecycleOwner) {
+            onDataLoaded(it, videoLinksAdapter, binding.moviesTitle, binding.moviesRecycler)
+        }
+
+        recommendedLiveData.observe(viewLifecycleOwner) {
+            onDataLoaded(
+                it,
+                recommendedAdapter,
+                binding.recommendedTitle,
+                binding.recommendedRecycler
+            )
         }
     }
 
@@ -152,16 +169,10 @@ class DetailsFragment : Fragment() {
         description.text = content.second
     }
 
-    private fun onPosterLoaded(posterPath: String) = with(binding) {
-        poster.apply {
-            loadPosterImage(posterPath)
-            visibility = View.VISIBLE
-        }
-    }
-
     private fun onVoteAverageLoaded(vote: Double) = with(binding) {
+        setViewsVisibility(View.VISIBLE, rating, voteAverage)
+
         rating.apply {
-            visibility = View.VISIBLE
             max = 10f
             progress = vote.toFloat()
             circleColor = Color.TRANSPARENT
@@ -174,7 +185,6 @@ class DetailsFragment : Fragment() {
 
         voteAverage.apply {
             text = vote.toInt().toString()
-            visibility = View.VISIBLE
         }
     }
 
@@ -183,48 +193,15 @@ class DetailsFragment : Fragment() {
         popularityTitle.visibility = View.VISIBLE
     }
 
-    private fun onGenresLoaded(genres: List<GenresUiModel>) = with(binding) {
-        genresTitle.visibility = View.VISIBLE
+    private fun onDataLoaded(title: View, container: LinearLayoutCompat, texts: List<String>) {
+        title.visibility = View.VISIBLE
 
-        genres.forEach {
-            genresList.addView(TextView(root.context).apply {
-                text = it.name
+        texts.forEach {
+            container.addView(TextView(container.context).apply {
+                text = it
             })
         }
     }
-
-    private fun onProductionCountriesDataLoaded(productionCountries: List<ProductionCountriesUiModel>) =
-        with(binding) {
-            countriesTitle.visibility = View.VISIBLE
-
-            productionCountries.forEach {
-                countriesList.addView(TextView(root.context).apply {
-                    text = it.name
-                })
-            }
-        }
-
-    private fun onSpokenLanguageLoaded(spokenLanguages: List<SpokenLanguagesUiModel>) =
-        with(binding) {
-            languageTitle.visibility = View.VISIBLE
-
-            spokenLanguages.forEach {
-                languageList.addView(TextView(root.context).apply {
-                    text = it.name
-                })
-            }
-        }
-
-    private fun onProductionCompaniesLoaded(productionCompanies: List<ProductionCompaniesUiModel>) =
-        with(binding) {
-            productionCompanies.forEach {
-                companiesTitle.visibility = View.VISIBLE
-
-                companiesList.addView(TextView(root.context).apply {
-                    text = it.name
-                })
-            }
-        }
 
     private fun onDataLoaded(loaded: Boolean) {
         if (loaded) {
@@ -232,18 +209,24 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private fun onSimilarLoaded(similarMovies: List<ProductUiModel>) = with(binding) {
-        setViewsVisibility(View.VISIBLE, similarTitle, similarRecycleView)
-        similarAdapter.submitList(similarMovies)
+    private fun <T : Any> onDataLoaded(
+        items: List<T>,
+        adapter: androidx.recyclerview.widget.ListAdapter<T, *>,
+        vararg views: View
+    ) {
+        setViewsVisibility(View.VISIBLE, *views)
+        adapter.submitList(items)
     }
 
-    private fun onRecommendedLoaded(recommendedMovies: List<ProductUiModel>) = with(binding) {
-        setViewsVisibility(View.VISIBLE, recommendedTitle, recommendedRecycleView)
-        recommendedAdapter.submitList(recommendedMovies)
-    }
+    private fun onBackdropsLoaded(backdropsList: List<ImageUiModel>) = with(binding) {
+        backdropsRecycler.visibility = View.VISIBLE
+        imagesAdapter.submitList(backdropsList)
 
-    private fun onVideoLinksLoaded(videoLinks: List<VideoLinkDetailsUiModel>) {
-        binding.moviesRecycleView.visibility = View.VISIBLE
-        videoLinksAdapter.submitList(videoLinks)
+        if (backdropsList.size > MINIMUM_BACKDROP_SIZE) {
+            indicator.attachToRecyclerView(backdropsRecycler)
+            indicator.visibility = View.VISIBLE
+            recyclerViewAutoScroll.setup(binding.backdropsRecycler, imagesAdapter.itemCount)
+            recyclerViewAutoScroll.startScrolling()
+        }
     }
 }

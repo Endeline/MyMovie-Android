@@ -1,6 +1,6 @@
 package com.endeline.domain.usecase
 
-import com.endeline.data.service.MovieDbService
+import com.endeline.data.service.ProductService
 import com.endeline.domain.ProductType
 import com.endeline.domain.di.components.DaggerDomainComponents
 import com.endeline.domain.extensions.toUiModel
@@ -12,7 +12,7 @@ import javax.inject.Inject
 class GetNowPlayingUseCase : ObservableUseCaseWithTwoParams<ProductType, ProductsUiModel> {
 
     @Inject
-    lateinit var repository: MovieDbService
+    lateinit var productService: ProductService
 
     init {
         DaggerDomainComponents.create().inject(this)
@@ -20,5 +20,5 @@ class GetNowPlayingUseCase : ObservableUseCaseWithTwoParams<ProductType, Product
 
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
     override fun invoke(productType: ProductType): Observable<ProductsUiModel> =
-        repository.getNowPlaying(productType.name).map { it.toUiModel(productType) }
+        productService.getNowPlaying(productType.name).map { it.toUiModel(productType) }
 }

@@ -1,6 +1,6 @@
 package com.endeline.data.di.modules
 
-import com.endeline.data.service.MovieDbService
+import com.endeline.data.service.ProductService
 import dagger.Module
 import dagger.Provides
 
@@ -12,6 +12,6 @@ class RepositoryModules {
 
     companion object {
         //todo correct singleton
-        val MOVIE_DB_REPOSITORY = MovieDbService()
+        val MOVIE_DB_REPOSITORY = ProductService()
     }
 }

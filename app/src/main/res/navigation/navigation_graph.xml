@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/navigation_graph.xml"
-    app:startDestination="@id/homeFragment">
+    app:startDestination="@id/moviesFragment">
+    <!--    app:startDestination="@id/homeFragment">-->
 
     <action
         android:id="@+id/navigateToSearch"
@@ -14,12 +15,8 @@
         app:popExitAnim="@anim/slide_out_down" />
 
     <action
-        android:id="@+id/navigateToUser"
-        app:destination="@id/userFragment"
-        app:enterAnim="@anim/slide_in_up"
-        app:exitAnim="@anim/slide_out_up"
-        app:popEnterAnim="@anim/slide_in_down"
-        app:popExitAnim="@anim/slide_out_down" />
+        android:id="@+id/navigateToReview"
+        app:destination="@id/review_fragment" />
 
     <fragment
         android:id="@+id/userFragment"
@@ -67,7 +64,8 @@
     <fragment
         android:id="@+id/detailsFragment"
         android:name="com.endeline.mymovie.ui.gui.details.DetailsFragment"
-        android:label="DetailsFragment">
+        android:label="DetailsFragment"
+        tools:layout="@layout/details_fragment">
         <argument
             android:name="movieId"
             android:defaultValue="-1"
@@ -152,4 +150,23 @@
             app:popExitAnim="@anim/slide_out_right"
             tools:layout="@layout/details_fragment" />
     </fragment>
+
+    <dialog
+        android:id="@+id/review_fragment"
+        android:name="com.endeline.mymovie.ui.gui.ReviewFragment"
+        android:label="@string/reviews"
+        tools:layout="@layout/review_fragment">
+        <argument
+            android:name="author"
+            app:argType="string" />
+        <argument
+            android:name="content"
+            app:argType="string" />
+        <argument
+            android:name="avatarPath"
+            app:argType="string" />
+        <argument
+            android:name="rating"
+            app:argType="integer" />
+    </dialog>
 </navigation>

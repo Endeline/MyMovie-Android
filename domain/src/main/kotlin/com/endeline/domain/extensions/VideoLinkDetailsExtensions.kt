@@ -1,9 +1,9 @@
 package com.endeline.domain.extensions
 
-import com.endeline.data.models.VideoLinkCollection.LinkDetails
+import com.endeline.data.models.VideoLinks.Link
 import com.endeline.domain.uimodels.VideoLinkCollectionUiModel.VideoLinkDetailsUiModel
 
-fun LinkDetails.toUiModel() = VideoLinkDetailsUiModel(
+fun Link.toUiModel() = VideoLinkDetailsUiModel(
         id = this@toUiModel.id ?: "",
         iso_639_1 = this@toUiModel.iso_639_1 ?: "",
         iso_3166_1 = this@toUiModel.iso_3166_1 ?: "",
@@ -14,4 +14,4 @@ fun LinkDetails.toUiModel() = VideoLinkDetailsUiModel(
         type = this@toUiModel.type ?: ""
     )
 
-fun List<LinkDetails>.toUiModel() = this.map { it.toUiModel() }
+fun List<Link>.toUiModel() = this.map { it.toUiModel() }

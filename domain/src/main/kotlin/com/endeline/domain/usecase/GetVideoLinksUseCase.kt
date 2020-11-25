@@ -1,6 +1,6 @@
 package com.endeline.domain.usecase
 
-import com.endeline.data.service.MovieDbService
+import com.endeline.data.service.ProductService
 import com.endeline.domain.di.components.DaggerDomainComponents
 import com.endeline.domain.extensions.toUiModel
 import com.endeline.domain.uimodels.VideoLinkCollectionUiModel
@@ -10,7 +10,7 @@ import javax.inject.Inject
 class GetVideoLinksUseCase : ObservableUseCaseWithTwoParams<Int, VideoLinkCollectionUiModel> {
 
     @Inject
-    lateinit var repository: MovieDbService
+    lateinit var productService: ProductService
 
     init {
         DaggerDomainComponents.create().inject(this)
@@ -18,6 +18,5 @@ class GetVideoLinksUseCase : ObservableUseCaseWithTwoParams<Int, VideoLinkCollec
 
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
     override fun invoke(id: Int) =
-        repository.getVideoLink(id)
-            .map { it.toUiModel() }
+        productService.getVideoLink(id).map { it.toUiModel() }
 }

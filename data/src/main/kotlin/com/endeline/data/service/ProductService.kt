@@ -1,27 +1,26 @@
 package com.endeline.data.service
 
 import com.endeline.data.BuildConfig
-import com.endeline.data.repository.MovieDbRepository
-import com.endeline.data.models.Products
-import com.endeline.data.models.ProductDetails
-import com.endeline.data.models.VideoLinkCollection
+import com.endeline.data.models.*
+import com.endeline.data.repository.ProductRepository
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Observable
-import io.reactivex.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Singleton
 
+//TODO create new cache system
+
 @Singleton
-class MovieDbService {
+class ProductService {
 
     private val cache = mutableMapOf<String, Any>().apply {
         put(CACHE_MOVIE_DETAILS, mutableListOf<ProductDetails>())
         put(CACHE_SIMILAR_MOVIES, mutableMapOf<Int, Products>())
         put(CACHE_RECOMMENDATION_MOVIES, mutableMapOf<Int, Products>())
-        put(CACHE_VIDEO_LINK, mutableMapOf<Int, VideoLinkCollection>())
+        put(CACHE_VIDEO_LINK, mutableMapOf<Int, VideoLinks>())
     }
 
     fun getNowPlaying(productType: String) =
@@ -29,7 +28,6 @@ class MovieDbService {
 //        Observable.just(cache[CACHE_NOW_PLAYING] as Products)
 //    } else {
         service.getNowPlaying(productType)
-            .subscribeOn(Schedulers.io())
             .flatMap {
 //                cache[CACHE_NOW_PLAYING] = it
                 Observable.just(it)
@@ -41,7 +39,6 @@ class MovieDbService {
 //        Observable.just(cache[CACHE_POPULAR] as Products)
 //    } else {
         service.getPopular(productType)
-            .subscribeOn(Schedulers.io())
             .flatMap {
 //                cache[CACHE_POPULAR] = it
                 Observable.just(it)
@@ -53,7 +50,6 @@ class MovieDbService {
 //        Observable.just(cache[CACHE_TOP_RATED] as Products)
 //    } else {
         service.getTopRated(productType)
-            .subscribeOn(Schedulers.io())
             .flatMap {
 //                cache[CACHE_TOP_RATED] = it
                 Observable.just(it)
@@ -65,7 +61,6 @@ class MovieDbService {
 //        Observable.just(cache[CACHE_UPCOMING] as Products)
 //    } else {
         service.getUpcoming(productType)
-            .subscribeOn(Schedulers.io())
             .flatMap {
 //                cache[CACHE_UPCOMING] = it
                 Observable.just(it)
@@ -74,7 +69,6 @@ class MovieDbService {
 
     fun getOnTheAir(productType: String) =
         service.getOnTheAir(productType)
-            .subscribeOn(Schedulers.io())
             .flatMap {
 //                cache[CACHE_UPCOMING] = it
                 Observable.just(it)
@@ -82,7 +76,6 @@ class MovieDbService {
 
     fun getAiringToday(productType: String) =
         service.getAiringToday(productType)
-            .subscribeOn(Schedulers.io())
             .flatMap {
 //                cache[CACHE_UPCOMING] = it
                 Observable.just(it)
@@ -99,7 +92,6 @@ class MovieDbService {
             Observable.just(details)
         } else {
             service.getMovieDetails(id)
-                .subscribeOn(Schedulers.io())
                 .flatMap { movieDetails ->
                     (cache[CACHE_MOVIE_DETAILS] as MutableList<ProductDetails>).add(movieDetails)
                     Observable.just(movieDetails)
@@ -115,7 +107,6 @@ class MovieDbService {
             Observable.just(similar[id])
         } else {
             service.getSimilarMovies(id)
-                .subscribeOn(Schedulers.io())
                 .flatMap { collection ->
                     similar[id] = collection
                     Observable.just(collection)
@@ -131,7 +122,6 @@ class MovieDbService {
             Observable.just(recommended[id])
         } else {
             service.getRecommendedMovies(id)
-                .subscribeOn(Schedulers.io())
                 .flatMap { collection ->
                     recommended[id] = collection
                     Observable.just(collection)
@@ -140,20 +130,39 @@ class MovieDbService {
     }
 
     //todo fix
-    fun getVideoLink(id: Int): Observable<VideoLinkCollection> {
-        val links = cache[CACHE_VIDEO_LINK] as MutableMap<Int, VideoLinkCollection>
+    fun getVideoLink(id: Int): Observable<VideoLinks> {
+        val links = cache[CACHE_VIDEO_LINK] as MutableMap<Int, VideoLinks>
 
         return if (links.containsKey(id)) {
             Observable.just(links[id])
         } else {
             service.getVideoLinks(id)
-                .subscribeOn(Schedulers.io())
                 .flatMap { collection ->
                     links[id] = collection
                     Observable.just(collection)
                 }
         }
     }
+
+    //todo cache
+    fun getVideoImages(id: Int) = service.getVideoImages(id)
+            .flatMap { images ->
+                //todo cache
+                Observable.just(images)
+            }
+
+
+    fun getProductReviews(id: Int) = service.getMovieReviews(id)
+        .flatMap { reviews ->
+            //TODO cache
+            Observable.just(reviews)
+        }
+
+    fun getProductCredits(id: Int) = service.getMovieCredits(id)
+        .flatMap { credits ->
+            //TODO cache
+            Observable.just(credits)
+        }
 
     fun searchAll(query: String) = service.searchAll(query)
 
@@ -200,6 +209,6 @@ class MovieDbService {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
 
-        private val service = retrofit.create(MovieDbRepository::class.java)
+        private val service = retrofit.create(ProductRepository::class.java)
     }
 }

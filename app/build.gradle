@@ -91,4 +91,6 @@ dependencies {
     implementation "me.tankery.lib:circularSeekBar:$project.ext.circularSeekBar"
 
     implementation 'jp.wasabeef:recyclerview-animators:4.0.0'
+
+    implementation "ru.tinkoff.scrollingpagerindicator:scrollingpagerindicator:1.2.1"
 }

@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.endeline.domain.uimodels.SearchAllUiModel.SearchItemUiModel
+import com.endeline.domain.uimodels.SearchUiModel.SearchItemUiModel
 import com.endeline.mymovie.databinding.SearchItemBinding
 
 class SearchAdapter(private val onClick: (Int) -> Unit) :
