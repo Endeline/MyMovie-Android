@@ -37,6 +37,15 @@ class ViewModelFactory {
         @Inject
         lateinit var getVideoLinksUseCase: GetVideoLinksUseCase
 
+        @Inject
+        lateinit var getProductImagesUseCase: GetProductImagesUseCase
+
+        @Inject
+        lateinit var getProductReviewUseCase: GetProductReviewUseCase
+
+        @Inject
+        lateinit var getProductCreditsUseCase: GetProductCreditsUseCase
+
         init {
             DaggerViewModelComponent.builder().build().inject(this)
         }
@@ -46,12 +55,18 @@ class ViewModelFactory {
                 GetMovieDetailsUseCase::class.java,
                 GetSimilarMovieUseCase::class.java,
                 GetRecommendedMovieUseCase::class.java,
-                GetVideoLinksUseCase::class.java
+                GetVideoLinksUseCase::class.java,
+                GetProductImagesUseCase::class.java,
+                GetProductReviewUseCase::class.java,
+                GetProductCreditsUseCase::class.java
             ).newInstance(
                 getMovieDetailsViewModel,
                 getSimilarMovieUseCase,
                 getRecommendedMovieUseCase,
-                getVideoLinksUseCase
+                getVideoLinksUseCase,
+                getProductImagesUseCase,
+                getProductReviewUseCase,
+                getProductCreditsUseCase
             )
         }
     }

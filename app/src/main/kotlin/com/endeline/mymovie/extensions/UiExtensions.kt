@@ -29,7 +29,7 @@ inline fun <T : Any> ifNotEmpty(element: T, closure: (T) -> Unit) {
     }
 }
 
-fun setViewsVisibility(@Visibility visibility: Int, vararg views: View, ) {
+fun setViewsVisibility(@Visibility visibility: Int, vararg views: View) {
     views.forEach { view ->
         view.visibility = visibility
     }

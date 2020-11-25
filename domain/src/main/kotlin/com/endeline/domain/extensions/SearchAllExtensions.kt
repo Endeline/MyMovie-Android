@@ -1,9 +1,9 @@
 package com.endeline.domain.extensions
 
-import com.endeline.data.models.SearchAll
-import com.endeline.domain.uimodels.SearchAllUiModel
+import com.endeline.data.models.Search
+import com.endeline.domain.uimodels.SearchUiModel
 
-fun SearchAll.toUiModel() = SearchAllUiModel(
+fun Search.toUiModel() = SearchUiModel(
     page = this@toUiModel.page ?: -1,
     totalResults = this@toUiModel.totalResults ?: -1,
     totalPages = this@toUiModel.totalPages ?: -1,

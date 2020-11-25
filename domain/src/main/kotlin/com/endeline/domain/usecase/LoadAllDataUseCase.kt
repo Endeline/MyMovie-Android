@@ -1,7 +1,7 @@
 package com.endeline.domain.usecase
 
 import com.endeline.data.models.Products
-import com.endeline.data.service.MovieDbService
+import com.endeline.data.service.ProductService
 import com.endeline.domain.di.components.DaggerDomainComponents
 import com.endeline.domain.usecase.types.ObservableUseCase
 import io.reactivex.Observable
@@ -16,7 +16,7 @@ class LoadAllDataUseCase : ObservableUseCase<Boolean> {
     )
 
     @Inject
-    lateinit var repository: MovieDbService
+    lateinit var productService: ProductService
 
     init {
         DaggerDomainComponents.create().inject(this)

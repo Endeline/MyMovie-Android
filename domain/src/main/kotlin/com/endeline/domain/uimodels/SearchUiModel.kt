@@ -2,7 +2,7 @@ package com.endeline.domain.uimodels
 
 import java.util.*
 
-data class SearchAllUiModel(
+data class SearchUiModel(
     val page: Int,
     val totalResults: Int,
     val totalPages: Int,

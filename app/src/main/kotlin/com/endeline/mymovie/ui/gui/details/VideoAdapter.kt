@@ -24,7 +24,7 @@ class VideoAdapter(private val clickListener: (String, String) -> Unit) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         VideoViewHolder(
-            VideoLinkBinding.inflate(LayoutInflater.from(parent.context)),
+            VideoLinkBinding.inflate(LayoutInflater.from(parent.context), parent, false),
             clickListener
         )
 

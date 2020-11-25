@@ -1,6 +1,6 @@
 package com.endeline.domain.usecase
 
-import com.endeline.data.service.MovieDbService
+import com.endeline.data.service.ProductService
 import com.endeline.domain.ProductType
 import com.endeline.domain.di.components.DaggerDomainComponents
 import com.endeline.domain.extensions.toUiModel
@@ -12,7 +12,7 @@ import javax.inject.Inject
 class GetSimilarMovieUseCase : ObservableUseCaseWithTwoParams<Int, ProductsUiModel> {
 
     @Inject
-    lateinit var repository: MovieDbService
+    lateinit var productService: ProductService
 
     init {
         DaggerDomainComponents.builder().build().inject(this)
@@ -20,6 +20,5 @@ class GetSimilarMovieUseCase : ObservableUseCaseWithTwoParams<Int, ProductsUiMod
 
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
     override fun invoke(id: Int): Observable<ProductsUiModel> =
-        repository.getSimilarMovies(id)
-            .map { it.toUiModel(ProductType.other) }
+        productService.getSimilarMovies(id).map { it.toUiModel(ProductType.other) }
 }

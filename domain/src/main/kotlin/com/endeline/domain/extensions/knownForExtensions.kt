@@ -1,7 +1,7 @@
 package com.endeline.domain.extensions
 
-import com.endeline.data.models.SearchAll.KnownFor
-import com.endeline.domain.uimodels.SearchAllUiModel.KnownForUiModel
+import com.endeline.data.models.Search.KnownFor
+import com.endeline.domain.uimodels.SearchUiModel.KnownForUiModel
 import java.util.*
 
 fun KnownFor.toUiModel() = KnownForUiModel(

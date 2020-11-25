@@ -3,7 +3,7 @@ package com.endeline.mymovie.ui.gui.search
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.endeline.domain.uimodels.SearchAllUiModel.SearchItemUiModel
+import com.endeline.domain.uimodels.SearchUiModel.SearchItemUiModel
 import com.endeline.domain.usecase.SearchAllUseCase
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

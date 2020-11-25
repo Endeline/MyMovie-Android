@@ -1,7 +1,7 @@
 package com.endeline.domain.extensions
 
-import com.endeline.data.models.SearchAll.SearchItem
-import com.endeline.domain.uimodels.SearchAllUiModel.SearchItemUiModel
+import com.endeline.data.models.Search.SearchItem
+import com.endeline.domain.uimodels.SearchUiModel.SearchItemUiModel
 import java.util.*
 
 fun SearchItem.toUiModel() = SearchItemUiModel(
