@@ -8,14 +8,12 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.LinearLayoutManager
-import com.endeline.domain.uimodels.SearchUiModel.SearchItemUiModel
+import com.endeline.mymovie.NavigationGraphXmlDirections
 import com.endeline.mymovie.databinding.SearchFragmentBinding
 import com.endeline.mymovie.di.ViewModelFactory
 import com.endeline.mymovie.di.components.DaggerAppComponent
 import com.endeline.mymovie.extensions.setViewsVisibility
-import com.endeline.mymovie.ui.Constants.Animation.RECYCLER_VIEW_ITEM_DURATION
-import jp.wasabeef.recyclerview.animators.SlideInRightAnimator
+import com.endeline.mymovie.extensions.setupWithAdapterAndRemoveAnimation
 import javax.inject.Inject
 
 //todo feature create tabs ??
@@ -28,14 +26,17 @@ class SearchFragment : Fragment() {
         viewModelFactory
     }
 
+    //TODO di?
     private val personAdapter = SearchAdapter {
-        //todo create person details
+        findNavController().navigate(NavigationGraphXmlDirections.navigateToPerson(it))
     }
 
+    //TODO di?
     private val tvAdapter = SearchAdapter {
         //todo create tv details or upgrade current details
     }
 
+    //TODO di?
     private val movieAdapter = SearchAdapter {
         findNavController().navigate(SearchFragmentDirections.toDetails(it))
     }
@@ -46,7 +47,7 @@ class SearchFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         DaggerAppComponent.create().inject(this)
 
         _binding = SearchFragmentBinding.inflate(inflater, container, false)
@@ -75,93 +76,36 @@ class SearchFragment : Fragment() {
             }
         }
 
-        personRecycle.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-            adapter = personAdapter
-            itemAnimator = SlideInRightAnimator().apply {
-                addDuration = RECYCLER_VIEW_ITEM_DURATION
-                removeDuration = RECYCLER_VIEW_ITEM_DURATION
-            }
-        }
-
-        tvRecycle.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-            adapter = tvAdapter
-            itemAnimator = SlideInRightAnimator().apply {
-                addDuration = RECYCLER_VIEW_ITEM_DURATION
-                removeDuration = RECYCLER_VIEW_ITEM_DURATION
-            }
-        }
-
-        moviesRecycle.apply {
-            setHasFixedSize(true)
-            layoutManager = LinearLayoutManager(
-                requireContext(),
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
-            adapter = movieAdapter
-            itemAnimator = SlideInRightAnimator().apply {
-                addDuration = RECYCLER_VIEW_ITEM_DURATION
-                removeDuration = RECYCLER_VIEW_ITEM_DURATION
-            }
-        }
+        personRecycle.setupWithAdapterAndRemoveAnimation(personAdapter)
+        tvRecycle.setupWithAdapterAndRemoveAnimation(tvAdapter)
+        moviesRecycle.setupWithAdapterAndRemoveAnimation(movieAdapter)
     }
 
     private fun subscribeUi() = with(viewModel) {
-        movieLiveData.observe(viewLifecycleOwner) {
-            onMovieSearchResult(it)
+        movie.observe(viewLifecycleOwner) {
+            onDataLoaded(it, movieAdapter, binding.moviesTitle, binding.moviesRecycle)
         }
 
-        tvLiveData.observe(viewLifecycleOwner) {
-            onTvSearchResult(it)
+        tv.observe(viewLifecycleOwner) {
+            onDataLoaded(it, tvAdapter, binding.tvTitle, binding.tvRecycle)
         }
 
-        personLiveData.observe(viewLifecycleOwner) {
-            onPersonSearchResult(it)
+        person.observe(viewLifecycleOwner) {
+            onDataLoaded(it, personAdapter, binding.personTitle, binding.personRecycle)
         }
     }
 
-    private fun onMovieSearchResult(collection: List<SearchItemUiModel>) = with(binding) {
-        if (collection.isNotEmpty()) {
-            setViewsVisibility(View.VISIBLE, moviesTitle, moviesRecycle)
-            movieAdapter.submitList(transform(collection))
+    //TODO maybe to uiExtensions
+    private fun <T : Any> onDataLoaded(
+        items: List<T>,
+        adapter: androidx.recyclerview.widget.ListAdapter<T, *>,
+        vararg views: View
+    ) {
+        if (items.isNotEmpty()) {
+            setViewsVisibility(View.VISIBLE, *views)
+            adapter.submitList(items)
         } else {
-            setViewsVisibility(View.GONE, moviesTitle, moviesRecycle)
-        }
-    }
-
-    private fun onTvSearchResult(collection: List<SearchItemUiModel>) = with(binding) {
-        if (collection.isNotEmpty()) {
-            setViewsVisibility(View.VISIBLE, tvTitle, tvRecycle)
-            tvAdapter.submitList(transform(collection))
-        } else {
-            setViewsVisibility(View.GONE, tvTitle, tvRecycle)
-        }
-    }
-
-    private fun onPersonSearchResult(collection: List<SearchItemUiModel>) = with(binding) {
-        if (collection.isNotEmpty()) {
-            setViewsVisibility(View.VISIBLE, personTitle, personRecycle)
-            personAdapter.submitList(transform(collection))
-        } else {
-            setViewsVisibility(View.GONE, personTitle, personRecycle)
-        }
-    }
-
-    private fun transform(collection: List<SearchItemUiModel>) : List<SearchItemUiModel>{
-        return collection.filter {
-            it.profilePath.isNotBlank() || it.backdropPath.isNotBlank() && it.posterPath.isNotBlank()
+            setViewsVisibility(View.GONE, *views)
         }
     }
 

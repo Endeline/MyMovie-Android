@@ -11,16 +11,16 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 class UserViewModel(
-     private val getUserIsLoggedInUseCase: GetUserIsLoggedInUseCase,
-     private val getUserInAppUseCase: CheckIsUserInAppUseCase
+    private val getUserIsLoggedInUseCase: GetUserIsLoggedInUseCase,
+    private val getUserInAppUseCase: CheckIsUserInAppUseCase
 ) : ViewModel() {
 
     private val subscriptions = CompositeDisposable()
 
-    private var _changeLoginStatusLiveData = MutableLiveData<Boolean>()
+    private var _changeLoginStatus = MutableLiveData<Boolean>()
 
-    val changeLoginStatusLiveData: LiveData<Boolean>
-        get() = _changeLoginStatusLiveData
+    val changeLoginStatus: LiveData<Boolean>
+        get() = _changeLoginStatus
 
     fun isUserLogged(): Boolean = getUserIsLoggedInUseCase().blockingGet()
 
@@ -29,7 +29,7 @@ class UserViewModel(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
-                _changeLoginStatusLiveData.value = it
+                _changeLoginStatus.value = it
             }, Timber::e)
 
         subscriptions.add(disposable)

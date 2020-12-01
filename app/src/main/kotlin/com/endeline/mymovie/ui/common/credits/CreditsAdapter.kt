@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.endeline.domain.uimodels.CreditsUiModel.PersonUiModel
+import com.endeline.domain.uimodels.PersonUiModel
 import com.endeline.mymovie.databinding.CreditItemBinding
 
 class CreditsAdapter : ListAdapter<PersonUiModel, CreditsViewHolder>(CreditsDiffer()) {

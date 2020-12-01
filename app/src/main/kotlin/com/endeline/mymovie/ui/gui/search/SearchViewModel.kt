@@ -14,20 +14,20 @@ class SearchViewModel(private val searchAllUseCase: SearchAllUseCase) : ViewMode
 
     private val subscription = CompositeDisposable()
 
-    private val _personLiveData = MutableLiveData<List<SearchItemUiModel>>()
+    private val _person = MutableLiveData<List<SearchItemUiModel>>()
 
-    val personLiveData: LiveData<List<SearchItemUiModel>>
-        get() = _personLiveData
+    val person: LiveData<List<SearchItemUiModel>>
+        get() = _person
 
-    private val _movieLiveData = MutableLiveData<List<SearchItemUiModel>>()
+    private val _movie = MutableLiveData<List<SearchItemUiModel>>()
 
-    val movieLiveData: LiveData<List<SearchItemUiModel>>
-        get() = _movieLiveData
+    val movie: LiveData<List<SearchItemUiModel>>
+        get() = _movie
 
-    private val _tvLiveData = MutableLiveData<List<SearchItemUiModel>>()
+    private val _tv = MutableLiveData<List<SearchItemUiModel>>()
 
-    val tvLiveData: LiveData<List<SearchItemUiModel>>
-        get() = _tvLiveData
+    val tv: LiveData<List<SearchItemUiModel>>
+        get() = _tv
 
     override fun onCleared() {
         super.onCleared()
@@ -45,19 +45,24 @@ class SearchViewModel(private val searchAllUseCase: SearchAllUseCase) : ViewMode
                     }
 
                     resultMap[MediaType.person]?.let {
-                        _personLiveData.value = it
+                        _person.value = filter(it)
                     }
 
                     resultMap[MediaType.movie]?.let {
-                        _movieLiveData.value = it
+                        _movie.value = filter(it)
                     }
 
                     resultMap[MediaType.tv]?.let {
-                        _tvLiveData.value = it
+                        _tv.value = filter(it)
                     }
                 }
             }, Timber::e)
 
         subscription.add(disposable)
     }
+
+    private fun filter(items: List<SearchItemUiModel>) =
+        items.filter { item ->
+            item.profilePath.isNotBlank() || item.backdropPath.isNotBlank() && item.posterPath.isNotBlank()
+        }
 }

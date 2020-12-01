@@ -20,11 +20,14 @@ class ViewModelModule {
     fun provideSearchViewModel() = ViewModelFactory.SearchViewModelFactory()
 
     @Provides
-    fun providesMainActivityViewModel() = ViewModelFactory.MainActivityViewModel()
+    fun providesMainActivityViewModel() = ViewModelFactory.MainActivityViewModelFactory()
 
     @Provides
-    fun providesUserViewModel() = ViewModelFactory.UserViewModel()
+    fun providesUserViewModel() = ViewModelFactory.UserViewModelFactory()
 
     @Provides
-    fun providesRegisterViewModel() = ViewModelFactory.RegisterViewModel()
+    fun providesRegisterViewModel() = ViewModelFactory.RegisterViewModelFactory()
+
+    @Provides
+    fun providePersonViewModel() = ViewModelFactory.PersonViewModelFactory()
 }

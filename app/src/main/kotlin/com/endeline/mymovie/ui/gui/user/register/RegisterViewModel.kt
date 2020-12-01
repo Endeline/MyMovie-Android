@@ -17,10 +17,10 @@ class RegisterViewModel(
 
     private val subscription = CompositeDisposable()
 
-    private val _registerStatusLiveData = MutableLiveData<RegisterStatus>()
+    private val _registerStatus = MutableLiveData<RegisterStatus>()
 
-    val registerStatusLiveData: LiveData<RegisterStatus>
-        get() = _registerStatusLiveData
+    val registerStatus: LiveData<RegisterStatus>
+        get() = _registerStatus
 
     fun registerUser(login: String, password: String) {
         val disposable = checkExistLoginUseCase(login)
@@ -28,7 +28,7 @@ class RegisterViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ userExist ->
                 if (userExist) {
-                    _registerStatusLiveData.value = RegisterStatus.USER_ALREADY_EXIST
+                    _registerStatus.value = RegisterStatus.USER_ALREADY_EXIST
                 } else {
                     register(login, password)
                 }
@@ -42,7 +42,7 @@ class RegisterViewModel(
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ user ->
-                _registerStatusLiveData.postValue(
+                _registerStatus.postValue(
                     if (user.id != null) {
                         RegisterStatus.OK
                     } else {
@@ -56,6 +56,6 @@ class RegisterViewModel(
 
     private fun registerPostFailed(error: Throwable) {
         Timber.e(error)
-        _registerStatusLiveData.postValue(RegisterStatus.FAILED)
+        _registerStatus.postValue(RegisterStatus.FAILED)
     }
 }

@@ -14,13 +14,12 @@ class ViewModelFactory {
         lateinit var loadAllDataUseCase: LoadAllDataUseCase
 
         init {
-            DaggerViewModelComponent.builder().build().inject(this)
+            DaggerViewModelComponent.create().inject(this)
         }
 
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return modelClass.getConstructor(LoadAllDataUseCase::class.java)
+        override fun <T : ViewModel?> create(modelClass: Class<T>) =
+            modelClass.getConstructor(LoadAllDataUseCase::class.java)
                 .newInstance(loadAllDataUseCase)
-        }
     }
 
     class DetailsViewModelFactory : ViewModelProvider.Factory {
@@ -47,11 +46,11 @@ class ViewModelFactory {
         lateinit var getProductCreditsUseCase: GetProductCreditsUseCase
 
         init {
-            DaggerViewModelComponent.builder().build().inject(this)
+            DaggerViewModelComponent.create().inject(this)
         }
 
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return modelClass.getConstructor(
+        override fun <T : ViewModel?> create(modelClass: Class<T>) =
+            modelClass.getConstructor(
                 GetMovieDetailsUseCase::class.java,
                 GetSimilarMovieUseCase::class.java,
                 GetRecommendedMovieUseCase::class.java,
@@ -68,7 +67,6 @@ class ViewModelFactory {
                 getProductReviewUseCase,
                 getProductCreditsUseCase
             )
-        }
     }
 
     class SectionViewModelFactory : ViewModelProvider.Factory {
@@ -92,11 +90,11 @@ class ViewModelFactory {
         lateinit var getTheAirUseUseCase: GetTheAirUseUseCase
 
         init {
-            DaggerViewModelComponent.builder().build().inject(this)
+            DaggerViewModelComponent.create().inject(this)
         }
 
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return modelClass.getConstructor(
+        override fun <T : ViewModel?> create(modelClass: Class<T>) =
+            modelClass.getConstructor(
                 GetNowPlayingUseCase::class.java,
                 GetPopularUseCase::class.java,
                 GetTopRatedUseCase::class.java,
@@ -111,7 +109,6 @@ class ViewModelFactory {
                 getAiringTodayUseCase,
                 getTheAirUseUseCase
             )
-        }
     }
 
     class SearchViewModelFactory : ViewModelProvider.Factory {
@@ -120,32 +117,30 @@ class ViewModelFactory {
         lateinit var searchAllUseCase: SearchAllUseCase
 
         init {
-            DaggerViewModelComponent.builder().build().inject(this)
+            DaggerViewModelComponent.create().inject(this)
         }
 
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return modelClass.getConstructor(SearchAllUseCase::class.java)
+        override fun <T : ViewModel?> create(modelClass: Class<T>) =
+            modelClass.getConstructor(SearchAllUseCase::class.java)
                 .newInstance(searchAllUseCase)
-        }
     }
 
-    class MainActivityViewModel : ViewModelProvider.Factory {
+    class MainActivityViewModelFactory : ViewModelProvider.Factory {
 
         @Inject
         lateinit var initializeUserServiceUseCase: InitializeUserServiceUseCase
 
         init {
-            DaggerViewModelComponent.builder().build().inject(this)
+            DaggerViewModelComponent.create().inject(this)
         }
 
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return modelClass.getConstructor(
+        override fun <T : ViewModel?> create(modelClass: Class<T>) =
+            modelClass.getConstructor(
                 InitializeUserServiceUseCase::class.java
             ).newInstance(initializeUserServiceUseCase)
-        }
     }
 
-    class UserViewModel : ViewModelProvider.Factory {
+    class UserViewModelFactory : ViewModelProvider.Factory {
 
         @Inject
         lateinit var getUserIsLoggedIn: GetUserIsLoggedInUseCase
@@ -155,18 +150,17 @@ class ViewModelFactory {
 
 
         init {
-            DaggerViewModelComponent.builder().build().inject(this)
+            DaggerViewModelComponent.create().inject(this)
         }
 
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return modelClass.getConstructor(
+        override fun <T : ViewModel?> create(modelClass: Class<T>) =
+            modelClass.getConstructor(
                 GetUserIsLoggedInUseCase::class.java,
                 CheckIsUserInAppUseCase::class.java
             ).newInstance(getUserIsLoggedIn, checkIsUserInAppUseCase)
-        }
     }
 
-    class RegisterViewModel : ViewModelProvider.Factory {
+    class RegisterViewModelFactory : ViewModelProvider.Factory {
 
         @Inject
         lateinit var checkExistLoginUseCase: CheckExistLoginUseCase
@@ -175,14 +169,27 @@ class ViewModelFactory {
         lateinit var registerUseCase: RegisterUseCase
 
         init {
-            DaggerViewModelComponent.builder().build().inject(this)
+            DaggerViewModelComponent.create().inject(this)
         }
 
-        override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-            return modelClass.getConstructor(
+        override fun <T : ViewModel?> create(modelClass: Class<T>) =
+            modelClass.getConstructor(
                 CheckExistLoginUseCase::class.java,
                 RegisterUseCase::class.java
             ).newInstance(checkExistLoginUseCase, registerUseCase)
+    }
+
+    class PersonViewModelFactory : ViewModelProvider.Factory {
+
+        @Inject
+        lateinit var getPersonDetailsUseCase: GetPersonDetailsUseCase
+
+        init {
+            DaggerViewModelComponent.create().inject(this)
         }
+
+        override fun <T : ViewModel?> create(modelClass: Class<T>) =
+            modelClass.getConstructor(GetPersonDetailsUseCase::class.java)
+                .newInstance(getPersonDetailsUseCase)
     }
 }

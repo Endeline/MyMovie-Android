@@ -3,15 +3,14 @@ package com.endeline.mymovie.ui.gui.details
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.endeline.domain.uimodels.CreditsUiModel.PersonUiModel
 import com.endeline.domain.uimodels.ImagesUiModel.ImageUiModel
+import com.endeline.domain.uimodels.PersonUiModel
 import com.endeline.domain.uimodels.ProductsUiModel.ProductUiModel
 import com.endeline.domain.uimodels.ReviewsUiModel.ReviewUiModel
 import com.endeline.domain.uimodels.VideoLinkCollectionUiModel.VideoLinkDetailsUiModel
 import com.endeline.domain.usecase.*
 import com.endeline.mymovie.extensions.ifLet
 import com.endeline.mymovie.extensions.ifNotEmpty
-import com.endeline.mymovie.ui.Constants
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -29,109 +28,103 @@ class DetailsViewModel(
 
     private val subscriptions = CompositeDisposable()
 
-    private var movieId = Constants.NO_ID
+    private val _similar = MutableLiveData<List<ProductUiModel>>()
 
-    private val _similarLiveData = MutableLiveData<List<ProductUiModel>>()
+    val similar: LiveData<List<ProductUiModel>>
+        get() = _similar
 
-    val similarLiveData: LiveData<List<ProductUiModel>>
-        get() = _similarLiveData
+    private val _recommended = MutableLiveData<List<ProductUiModel>>()
 
-    private val _recommendedLiveData = MutableLiveData<List<ProductUiModel>>()
+    val recommended: LiveData<List<ProductUiModel>>
+        get() = _recommended
 
-    val recommendedLiveData: LiveData<List<ProductUiModel>>
-        get() = _recommendedLiveData
+    private val _videoLinks = MutableLiveData<List<VideoLinkDetailsUiModel>>()
 
-    private val _videoLinksLiveData = MutableLiveData<List<VideoLinkDetailsUiModel>>()
+    val videoLinks: LiveData<List<VideoLinkDetailsUiModel>>
+        get() = _videoLinks
 
-    val videoLinksLiveData: LiveData<List<VideoLinkDetailsUiModel>>
-        get() = _videoLinksLiveData
+    private val _content = MutableLiveData<Pair<String, String>>()
 
-    private val _contentLiveData = MutableLiveData<Pair<String, String>>()
-
-    val contentLiveData: LiveData<Pair<String, String>>
-        get() = _contentLiveData
+    val content: LiveData<Pair<String, String>>
+        get() = _content
 
     private val _voteAverage = MutableLiveData<Double>()
 
-    val voteAverageLiveData: LiveData<Double>
+    val voteAverage: LiveData<Double>
         get() = _voteAverage
 
-    private val _popularityLiveData = MutableLiveData<Double>()
+    private val _popularity = MutableLiveData<Double>()
 
-    val popularityLiveData: LiveData<Double>
-        get() = _popularityLiveData
+    val popularity: LiveData<Double>
+        get() = _popularity
 
-    private val _genresLiveData = MutableLiveData<List<String>>()
+    private val _genres = MutableLiveData<List<String>>()
 
-    val genresLiveData: LiveData<List<String>>
-        get() = _genresLiveData
+    val genres: LiveData<List<String>>
+        get() = _genres
 
-    private val _productionCountriesLiveData = MutableLiveData<List<String>>()
+    private val _productionCountries = MutableLiveData<List<String>>()
 
-    val productionCountriesLiveData: LiveData<List<String>>
-        get() = _productionCountriesLiveData
+    val productionCountries: LiveData<List<String>>
+        get() = _productionCountries
 
-    private val _spokenLanguagesLiveData = MutableLiveData<List<String>>()
+    private val _spokenLanguages = MutableLiveData<List<String>>()
 
-    val spokenLanguagesLiveData: LiveData<List<String>>
-        get() = _spokenLanguagesLiveData
+    val spokenLanguages: LiveData<List<String>>
+        get() = _spokenLanguages
 
-    private val _productionCompaniesLiveData = MutableLiveData<List<String>>()
+    private val _productionCompanies = MutableLiveData<List<String>>()
 
-    val productionCompaniesLiveData: LiveData<List<String>>
-        get() = _productionCompaniesLiveData
+    val productionCompanies: LiveData<List<String>>
+        get() = _productionCompanies
 
-    private val _onDataLoadedLiveData = MutableLiveData<Boolean>()
+    private val _onDataLoaded = MutableLiveData<Boolean>()
 
-    val onDataLoadedLiveData: LiveData<Boolean>
-        get() = _onDataLoadedLiveData
+    val onDataLoaded: LiveData<Boolean>
+        get() = _onDataLoaded
 
-    private val _backdropsLiveData = MutableLiveData<List<ImageUiModel>>()
+    private val _backdrops = MutableLiveData<List<ImageUiModel>>()
 
-    val backdropsLiveData: LiveData<List<ImageUiModel>>
-        get() = _backdropsLiveData
+    val backdrops: LiveData<List<ImageUiModel>>
+        get() = _backdrops
 
-    private val _reviewsLiveData = MutableLiveData<List<ReviewUiModel>>()
+    private val _reviews = MutableLiveData<List<ReviewUiModel>>()
 
-    val reviewsLiveData: LiveData<List<ReviewUiModel>>
-        get() = _reviewsLiveData
+    val reviews: LiveData<List<ReviewUiModel>>
+        get() = _reviews
 
-    private val _castLiveData = MutableLiveData<List<PersonUiModel>>()
+    private val _cast = MutableLiveData<List<PersonUiModel>>()
 
-    val castLiveData: LiveData<List<PersonUiModel>>
-        get() = _castLiveData
+    val cast: LiveData<List<PersonUiModel>>
+        get() = _cast
 
-    private val _crewLiveData = MutableLiveData<List<PersonUiModel>>()
+    private val _crew = MutableLiveData<List<PersonUiModel>>()
 
-    val crewLiveData: LiveData<List<PersonUiModel>>
-        get() = _crewLiveData
+    val crew: LiveData<List<PersonUiModel>>
+        get() = _crew
 
     override fun onCleared() {
         super.onCleared()
         subscriptions.clear()
     }
 
-    fun loadMovieData(id: Int) {
-        if (movieId != id) {
-            movieId = id
-
-            loadMovieDetails()
-            loadSimilarMovies()
-            loadRecommendedMovies()
-            loadVideoLinks()
-            loadVideoImages()
-            loadReviews()
-            loadCredits()
-        }
+    fun loadMovieData(movieId: Int) {
+        loadMovieDetails(movieId)
+        loadSimilarMovies(movieId)
+        loadRecommendedMovies(movieId)
+        loadVideoLinks(movieId)
+        loadVideoImages(movieId)
+        loadReviews(movieId)
+        loadCredits(movieId)
     }
 
-    private fun loadMovieDetails() {
+    private fun loadMovieDetails(movieId: Int) {
         val disposable = getMovieDetailsViewModel(movieId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ details ->
                 ifLet(details.title, details.overview) { (title, overview) ->
-                    _contentLiveData.value = Pair(title, overview)
+                    _content.value = Pair(title, overview)
                 }
 
                 ifNotEmpty(details.voteAverage) { vote ->
@@ -141,105 +134,105 @@ class DetailsViewModel(
                 }
 
                 ifNotEmpty(details.popularity) {
-                    _popularityLiveData.value = it
+                    _popularity.value = it
                 }
 
                 ifNotEmpty(details.genres) {
-                    _genresLiveData.value = it.map { it.name }
+                    _genres.value = it.map { it.name }
                 }
 
                 ifNotEmpty(details.productionCountries) {
-                    _productionCountriesLiveData.value = it.map { it.name }
+                    _productionCountries.value = it.map { it.name }
                 }
 
                 ifNotEmpty(details.spokenLanguages) {
-                    _spokenLanguagesLiveData.value = it.map { it.name }
+                    _spokenLanguages.value = it.map { it.name }
                 }
 
                 ifNotEmpty(details.productionCompanies) {
-                    _productionCompaniesLiveData.value = it.map { it.name }
+                    _productionCompanies.value = it.map { it.name }
                 }
 
-                _onDataLoadedLiveData.value = true
+                _onDataLoaded.value = true
             }, {
-                _onDataLoadedLiveData.value = false
+                _onDataLoaded.value = false
                 Timber.e(it)
             })
 
         subscriptions.add(disposable)
     }
 
-    private fun loadSimilarMovies() {
+    private fun loadSimilarMovies(movieId: Int) {
         val disposable = getSimilarMovieUseCase(movieId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .filter { it.results.isNotEmpty() }
             .subscribe({
-                _similarLiveData.value = it.results
+                _similar.value = it.results
             }, Timber::e)
 
         subscriptions.add(disposable)
     }
 
-    private fun loadRecommendedMovies() {
+    private fun loadRecommendedMovies(movieId: Int) {
         val disposable = getRecommendedMovieUseCase(movieId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .filter { it.results.isNotEmpty() }
             .subscribe({
-                _recommendedLiveData.value = it.results
+                _recommended.value = it.results
             }, Timber::e)
 
         subscriptions.add(disposable)
     }
 
-    private fun loadVideoLinks() {
+    private fun loadVideoLinks(movieId: Int) {
         val disposable = getVideoLinksUseCase(movieId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .filter { it.results.isNotEmpty() }
             .subscribe({
-                _videoLinksLiveData.value = it.results
+                _videoLinks.value = it.results
             }, Timber::e)
 
         subscriptions.add(disposable)
     }
 
-    private fun loadVideoImages() {
+    private fun loadVideoImages(movieId: Int) {
         val disposable = getProductImagesUseCase(movieId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .filter { it.backdrops.isNotEmpty() }
             .subscribe({
-                _backdropsLiveData.value = it.backdrops
+                _backdrops.value = it.backdrops
             }, Timber::e)
 
         subscriptions.add(disposable)
     }
 
-    private fun loadReviews() {
+    private fun loadReviews(movieId: Int) {
         val disposable = getProductReviewUseCase(movieId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .filter { it.result.isNotEmpty() }
             .subscribe({
-                _reviewsLiveData.value = it.result
+                _reviews.value = it.result
             }, Timber::e)
 
         subscriptions.add(disposable)
     }
 
-    private fun loadCredits() {
+    private fun loadCredits(movieId: Int) {
         val disposable = getProductCreditsUseCase(movieId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
                 ifNotEmpty(response.cast) {
-                    _castLiveData.value = it.filter { it.profilePath.isNotBlank() }
+                    _cast.value = it.filter { it.profilePath.isNotBlank() }
                 }
 
                 ifNotEmpty(response.crew) {
-                    _crewLiveData.value = it.filter { it.profilePath.isNotBlank() }
+                    _crew.value = it.filter { it.profilePath.isNotBlank() }
                 }
             }, Timber::e)
 

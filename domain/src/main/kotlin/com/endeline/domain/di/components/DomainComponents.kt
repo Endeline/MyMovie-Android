@@ -28,4 +28,5 @@ interface DomainComponents {
     fun inject(useCase: GetProductImagesUseCase)
     fun inject(useCase: GetProductReviewUseCase)
     fun inject(useCase: GetProductCreditsUseCase)
+    fun inject(useCase: GetPersonDetailsUseCase)
 }

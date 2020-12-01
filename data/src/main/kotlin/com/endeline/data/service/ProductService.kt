@@ -9,6 +9,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 //TODO create new cache system
@@ -164,6 +165,12 @@ class ProductService {
             Observable.just(credits)
         }
 
+    fun getPersonDetails(id: Int) = service.getPersonDetails(id)
+        .flatMap { person ->
+            //TODO cache
+            Observable.just(person)
+        }
+
     fun searchAll(query: String) = service.searchAll(query)
 
     companion object {
@@ -178,9 +185,11 @@ class ProductService {
         private const val CACHE_RECOMMENDATION_MOVIES = "recommendation_movies"
         private const val CACHE_VIDEO_LINK = "video_link"
 
+        //TODO di
         private val retrofit = Retrofit.Builder()
             .baseUrl(BuildConfig.MOVIE_DB_BASE_URL)
             .client(OkHttpClient.Builder()
+                .readTimeout(30, TimeUnit.SECONDS)
                 .addInterceptor {
                     var request = it.request()
 

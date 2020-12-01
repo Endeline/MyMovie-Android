@@ -1,4 +1,4 @@
-package com.endeline.mymovie.ui.gui
+package com.endeline.mymovie.ui.gui.review
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
@@ -46,8 +46,8 @@ class ReviewFragment : DialogFragment() {
     }
 
     override fun onDestroyView() {
-        _binding = null
         super.onDestroyView()
+        _binding = null
     }
 
     private fun setDialog() {

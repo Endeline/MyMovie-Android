@@ -50,5 +50,9 @@
     <string name="cast">Cast</string>
     <string name="crew">Crew</string>
     <string name="user_rating">User rating: %d</string>
+    <string name="user_rating_">User rating:</string>
     <string name="movies_title">Movies</string>
+    <string name="birthday">Birthday:</string>
+    <string name="deathday">Deathday:</string>
+    <string name="placeOfBirth">Place of birth:</string>
 </resources>

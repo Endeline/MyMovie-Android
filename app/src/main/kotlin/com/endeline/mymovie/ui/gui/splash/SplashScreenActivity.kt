@@ -18,7 +18,7 @@ class SplashScreenActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivitySplashScreenBinding
 
-    private val viewModel by viewModels<SplashViewModel>{
+    private val viewModel by viewModels<SplashViewModel> {
         viewModelFactory
     }
 
@@ -34,7 +34,7 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     private fun subscribeUi() = with(viewModel) {
-        dataLoadedLiveData.observe(this@SplashScreenActivity) { dataLoaded ->
+        dataLoaded.observe(this@SplashScreenActivity) { dataLoaded ->
             if (dataLoaded) {
                 MainActivity.start(this@SplashScreenActivity)
                 this@SplashScreenActivity.finish()
