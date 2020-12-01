@@ -20,7 +20,7 @@ class CollectionFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = CollectionFragmentBinding.inflate(inflater, container, false)
 
         return binding.root

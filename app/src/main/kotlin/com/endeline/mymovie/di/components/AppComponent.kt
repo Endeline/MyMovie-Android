@@ -3,6 +3,7 @@ package com.endeline.mymovie.di.components
 import com.endeline.mymovie.di.modules.CommonModule
 import com.endeline.mymovie.di.modules.ViewModelModule
 import com.endeline.mymovie.ui.gui.collection.SectionFragment
+import com.endeline.mymovie.ui.gui.credit.PersonFragment
 import com.endeline.mymovie.ui.gui.details.DetailsFragment
 import com.endeline.mymovie.ui.gui.main.MainActivity
 import com.endeline.mymovie.ui.gui.search.SearchFragment
@@ -20,4 +21,5 @@ interface AppComponent {
     fun inject(mainActivity: MainActivity)
     fun inject(userFragment: UserFragment)
     fun inject(registerFragment: RegisterFragment)
+    fun inject(creditFragment: PersonFragment)
 }

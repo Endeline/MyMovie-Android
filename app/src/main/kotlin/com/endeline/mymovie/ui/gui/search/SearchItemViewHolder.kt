@@ -10,24 +10,19 @@ class SearchItemViewHolder(
     val binding: SearchItemBinding,
     val onClick: (Int) -> Unit
 ) : RecyclerView.ViewHolder(binding.root) {
-
-    //todo fix it
+    
     fun bind(item: SearchItemUiModel) = with(binding) {
-        when (MediaType.fromString(item.mediaType)) {
-            MediaType.person -> {
-                image.loadPosterImage(item.profilePath)
-            }
-            MediaType.movie,
-            MediaType.tv -> {
-                image.setOnClickListener {
-                    onClick(item.id)
-                }
+        image.setOnClickListener {
+            onClick(item.id)
+        }
 
-                if (!item.posterPath.isBlank()) {
-                    image.loadPosterImage(item.posterPath)
-                } else {
-                    image.loadBackdropImage(item.backdropPath)
-                }
+        when (MediaType.fromString(item.mediaType)) {
+            MediaType.person -> image.loadPosterImage(item.profilePath)
+            MediaType.movie,
+            MediaType.tv -> if (item.posterPath.isNotBlank()) {
+                image.loadPosterImage(item.posterPath)
+            } else {
+                image.loadBackdropImage(item.backdropPath)
             }
         }
     }

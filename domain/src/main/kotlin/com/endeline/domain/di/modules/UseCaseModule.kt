@@ -69,4 +69,7 @@ class UseCaseModule {
 
     @Provides
     fun provideGetProductCreditsUseCase() = GetProductCreditsUseCase()
+
+    @Provides
+    fun provideGetPersonDetailUseCase() = GetPersonDetailsUseCase()
 }

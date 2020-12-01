@@ -20,7 +20,7 @@ import javax.inject.Inject
 class UserFragment : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory.UserViewModel
+    lateinit var viewModelFactory: ViewModelFactory.UserViewModelFactory
 
     private val viewModel by viewModels<UserViewModel> {
         viewModelFactory
@@ -42,7 +42,7 @@ class UserFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         DaggerAppComponent.create().inject(this)
 
         return if (viewModel.isUserLogged()) {
@@ -90,7 +90,7 @@ class UserFragment : Fragment() {
     }
 
     private fun subscribeNotLoggedUi() = with(viewModel) {
-        changeLoginStatusLiveData.observe(viewLifecycleOwner) { isLogged ->
+        changeLoginStatus.observe(viewLifecycleOwner) { isLogged ->
             if (isLogged) {
                 findNavController().popBackStack()
             } else {

@@ -40,3 +40,17 @@ fun RecyclerView.setupWithAdapter(adapter: RecyclerView.Adapter<*>) {
         addDuration = Constants.Animation.RECYCLER_VIEW_ITEM_DURATION
     }
 }
+
+fun RecyclerView.setupWithAdapterAndRemoveAnimation(adapter: RecyclerView.Adapter<*>) {
+    setHasFixedSize(true)
+    layoutManager = LinearLayoutManager(
+        context,
+        LinearLayoutManager.HORIZONTAL,
+        false
+    )
+    this.adapter = adapter
+    itemAnimator = SlideInRightAnimator().apply {
+        addDuration = Constants.Animation.RECYCLER_VIEW_ITEM_DURATION
+        removeDuration = Constants.Animation.RECYCLER_VIEW_ITEM_DURATION
+    }
+}

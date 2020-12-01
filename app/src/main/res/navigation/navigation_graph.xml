@@ -18,6 +18,15 @@
         android:id="@+id/navigateToReview"
         app:destination="@id/review_fragment" />
 
+    <action
+        android:id="@+id/navigateToPerson"
+        app:destination="@id/personFragment"
+        app:enterAnim="@anim/slide_in_right"
+        app:exitAnim="@anim/slide_out_left"
+        app:popEnterAnim="@anim/slide_in_left"
+        app:popExitAnim="@anim/slide_out_right"
+        tools:layout="@layout/details_fragment" />
+
     <fragment
         android:id="@+id/userFragment"
         android:name="com.endeline.mymovie.ui.gui.user.UserFragment"
@@ -151,9 +160,19 @@
             tools:layout="@layout/details_fragment" />
     </fragment>
 
+    <fragment
+        android:id="@+id/personFragment"
+        android:name="com.endeline.mymovie.ui.gui.credit.PersonFragment"
+        android:label="PersonFragment"
+        tools:layout="@layout/person_fragment">
+        <argument
+            android:name="personId"
+            app:argType="integer" />
+    </fragment>
+
     <dialog
         android:id="@+id/review_fragment"
-        android:name="com.endeline.mymovie.ui.gui.ReviewFragment"
+        android:name="com.endeline.mymovie.ui.gui.review.ReviewFragment"
         android:label="@string/reviews"
         tools:layout="@layout/review_fragment">
         <argument

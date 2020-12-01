@@ -10,10 +10,10 @@ class SplashViewModel(private val loadAllDataUseCase: LoadAllDataUseCase) : View
 
     private val subscriptions = CompositeDisposable()
 
-    private val _dataLoadedLiveData = MutableLiveData<Boolean>()
+    private val _dataLoaded = MutableLiveData<Boolean>()
 
-    val dataLoadedLiveData: LiveData<Boolean>
-        get() = _dataLoadedLiveData
+    val dataLoaded: LiveData<Boolean>
+        get() = _dataLoaded
 
     init {
         loadData()
@@ -27,7 +27,7 @@ class SplashViewModel(private val loadAllDataUseCase: LoadAllDataUseCase) : View
     //TODO change this to load only home data not all
     fun loadData() {
 
-        _dataLoadedLiveData.value = true
+        _dataLoaded.value = true
 
 //        val disposable = loadAllDataUseCase()
 //            .subscribeOn(Schedulers.io())

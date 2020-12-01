@@ -19,9 +19,9 @@ import javax.inject.Inject
 class RegisterFragment : DialogFragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory.RegisterViewModel
+    lateinit var viewModelFactory: ViewModelFactory.RegisterViewModelFactory
 
-    private val viewModel by viewModels<RegisterViewModel>{
+    private val viewModel by viewModels<RegisterViewModel> {
         viewModelFactory
     }
 
@@ -65,7 +65,7 @@ class RegisterFragment : DialogFragment() {
 
     @Suppress("WHEN_ENUM_CAN_BE_NULL_IN_JAVA")
     private fun subscribeUi() = with(viewModel) {
-        registerStatusLiveData.observe(viewLifecycleOwner) { status ->
+        registerStatus.observe(viewLifecycleOwner) { status ->
             when (status) {
                 RegisterStatus.OK -> navigateBackWithOkRegisterStatus()
                 RegisterStatus.USER_ALREADY_EXIST -> showErrorDialog(R.string.error_user_already_exist)

@@ -9,8 +9,9 @@ interface ViewModelComponent {
     fun inject(app: ViewModelFactory.SplashScreenViewModelFactory)
     fun inject(app: ViewModelFactory.DetailsViewModelFactory)
     fun inject(app: ViewModelFactory.SearchViewModelFactory)
-    fun inject(app: ViewModelFactory.MainActivityViewModel)
-    fun inject(app: ViewModelFactory.UserViewModel)
-    fun inject(app: ViewModelFactory.RegisterViewModel)
+    fun inject(app: ViewModelFactory.MainActivityViewModelFactory)
+    fun inject(app: ViewModelFactory.UserViewModelFactory)
+    fun inject(app: ViewModelFactory.RegisterViewModelFactory)
     fun inject(app: ViewModelFactory.SectionViewModelFactory)
+    fun inject(app: ViewModelFactory.PersonViewModelFactory)
 }

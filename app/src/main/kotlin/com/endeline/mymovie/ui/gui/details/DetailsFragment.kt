@@ -59,6 +59,7 @@ class DetailsFragment : Fragment() {
 
     //TODO di
     private val castAdapter = CreditsAdapter()
+
     //TODO di
     private val crewAdapter = CreditsAdapter()
 
@@ -106,55 +107,57 @@ class DetailsFragment : Fragment() {
     }
 
     private fun subscribeUi() = with(viewModel) {
-        contentLiveData.observe(viewLifecycleOwner) { onContentLoaded(it) }
-
-        voteAverageLiveData.observe(viewLifecycleOwner) { onVoteAverageLoaded(it) }
-
-        popularityLiveData.observe(viewLifecycleOwner) { onPopularityLoaded(it) }
-
-        onDataLoadedLiveData.observe(viewLifecycleOwner) { onDataLoaded(it) }
-
-        backdropsLiveData.observe(viewLifecycleOwner) {
-            onBackdropsLoaded(it)
+        onDataLoaded.observe(viewLifecycleOwner) { loaded ->
+            if (loaded) {
+                binding.loadingProgress.visibility = View.GONE
+            }
         }
 
-        genresLiveData.observe(viewLifecycleOwner) {
+        content.observe(viewLifecycleOwner) { onContentLoaded(it) }
+
+        voteAverage.observe(viewLifecycleOwner) { onVoteAverageLoaded(it) }
+
+        popularity.observe(viewLifecycleOwner) { onPopularityLoaded(it) }
+
+        backdrops.observe(viewLifecycleOwner) { onBackdropsLoaded(it) }
+
+        genres.observe(viewLifecycleOwner) {
             onDataLoaded(binding.genresTitle, binding.genresList, it)
         }
 
-        spokenLanguagesLiveData.observe(viewLifecycleOwner) {
+        spokenLanguages.observe(viewLifecycleOwner) {
             onDataLoaded(binding.languageTitle, binding.languageList, it)
         }
 
-        productionCompaniesLiveData.observe(viewLifecycleOwner) {
+        productionCompanies.observe(viewLifecycleOwner) {
             onDataLoaded(binding.companiesTitle, binding.companiesList, it)
         }
 
-        productionCountriesLiveData.observe(viewLifecycleOwner) {
+        productionCountries.observe(viewLifecycleOwner) {
             onDataLoaded(binding.countriesTitle, binding.countriesList, it)
         }
 
-        reviewsLiveData.observe(viewLifecycleOwner) {
+        reviews.observe(viewLifecycleOwner) {
             onDataLoaded(it, reviewsAdapter, binding.reviewsTitle, binding.reviewsRecycler)
         }
 
-        castLiveData.observe(viewLifecycleOwner) {
+        cast.observe(viewLifecycleOwner) {
             onDataLoaded(it, castAdapter, binding.castTitle, binding.castRecycler)
         }
 
-        crewLiveData.observe(viewLifecycleOwner) {
+        crew.observe(viewLifecycleOwner) {
             onDataLoaded(it, crewAdapter, binding.crewTitle, binding.crewRecycler)
         }
 
-        similarLiveData.observe(viewLifecycleOwner) {
+        similar.observe(viewLifecycleOwner) {
             onDataLoaded(it, similarAdapter, binding.similarTitle, binding.similarRecycler)
         }
 
-        videoLinksLiveData.observe(viewLifecycleOwner) {
+        videoLinks.observe(viewLifecycleOwner) {
             onDataLoaded(it, videoLinksAdapter, binding.moviesTitle, binding.moviesRecycler)
         }
 
-        recommendedLiveData.observe(viewLifecycleOwner) {
+        recommended.observe(viewLifecycleOwner) {
             onDataLoaded(
                 it,
                 recommendedAdapter,
@@ -193,6 +196,7 @@ class DetailsFragment : Fragment() {
         popularityTitle.visibility = View.VISIBLE
     }
 
+    //TODO maybe to uiExtensions
     private fun onDataLoaded(title: View, container: LinearLayoutCompat, texts: List<String>) {
         title.visibility = View.VISIBLE
 
@@ -203,12 +207,7 @@ class DetailsFragment : Fragment() {
         }
     }
 
-    private fun onDataLoaded(loaded: Boolean) {
-        if (loaded) {
-            binding.loadingProgress.visibility = View.GONE
-        }
-    }
-
+    //TODO maybe to uiExtensions
     private fun <T : Any> onDataLoaded(
         items: List<T>,
         adapter: androidx.recyclerview.widget.ListAdapter<T, *>,
