@@ -28,10 +28,7 @@ class ViewModelFactory {
         lateinit var getMovieDetailsViewModel: GetMovieDetailsUseCase
 
         @Inject
-        lateinit var getSimilarMovieUseCase: GetSimilarMovieUseCase
-
-        @Inject
-        lateinit var getRecommendedMovieUseCase: GetRecommendedMovieUseCase
+        lateinit var getProductAdditionalInformationUseCase: GetProductAdditionalInformationUseCase
 
         @Inject
         lateinit var getVideoLinksUseCase: GetVideoLinksUseCase
@@ -52,16 +49,14 @@ class ViewModelFactory {
         override fun <T : ViewModel?> create(modelClass: Class<T>) =
             modelClass.getConstructor(
                 GetMovieDetailsUseCase::class.java,
-                GetSimilarMovieUseCase::class.java,
-                GetRecommendedMovieUseCase::class.java,
+                GetProductAdditionalInformationUseCase::class.java,
                 GetVideoLinksUseCase::class.java,
                 GetProductImagesUseCase::class.java,
                 GetProductReviewUseCase::class.java,
                 GetProductCreditsUseCase::class.java
             ).newInstance(
                 getMovieDetailsViewModel,
-                getSimilarMovieUseCase,
-                getRecommendedMovieUseCase,
+                getProductAdditionalInformationUseCase,
                 getVideoLinksUseCase,
                 getProductImagesUseCase,
                 getProductReviewUseCase,
@@ -72,14 +67,14 @@ class ViewModelFactory {
     class SectionViewModelFactory : ViewModelProvider.Factory {
 
         @Inject
-        lateinit var getProductWithTypes: GetProductWithTypes
+        lateinit var getProductWithTypes: GetProductsWithTypes
 
         init {
             DaggerViewModelComponent.create().inject(this)
         }
 
         override fun <T : ViewModel?> create(modelClass: Class<T>) =
-            modelClass.getConstructor(GetProductWithTypes::class.java).newInstance(getProductWithTypes)
+            modelClass.getConstructor(GetProductsWithTypes::class.java).newInstance(getProductWithTypes)
     }
 
     class SearchViewModelFactory : ViewModelProvider.Factory {

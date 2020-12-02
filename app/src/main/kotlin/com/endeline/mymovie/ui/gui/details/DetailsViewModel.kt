@@ -3,6 +3,8 @@ package com.endeline.mymovie.ui.gui.details
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.endeline.common.ProductType
+import com.endeline.common.SectionType
 import com.endeline.domain.uimodels.ImagesUiModel.ImageUiModel
 import com.endeline.domain.uimodels.PersonUiModel
 import com.endeline.domain.uimodels.ProductsUiModel.ProductUiModel
@@ -18,8 +20,7 @@ import timber.log.Timber
 
 class DetailsViewModel(
     private val getMovieDetailsViewModel: GetMovieDetailsUseCase,
-    private val getSimilarMovieUseCase: GetSimilarMovieUseCase,
-    private val getRecommendedMovieUseCase: GetRecommendedMovieUseCase,
+    private val getProductAdditionalInformationUseCase: GetProductAdditionalInformationUseCase,
     private val getVideoLinksUseCase: GetVideoLinksUseCase,
     private val getProductImagesUseCase: GetProductImagesUseCase,
     private val getProductReviewUseCase: GetProductReviewUseCase,
@@ -163,19 +164,24 @@ class DetailsViewModel(
     }
 
     private fun loadSimilarMovies(movieId: Int) {
-        val disposable = getSimilarMovieUseCase(movieId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-            .filter { it.results.isNotEmpty() }
-            .subscribe({
-                _similar.value = it.results
-            }, Timber::e)
+        val disposable =
+            getProductAdditionalInformationUseCase(ProductType.MOVIE, movieId, SectionType.SIMILAR)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .filter { it.results.isNotEmpty() }
+                .subscribe({
+                    _similar.value = it.results
+                }, Timber::e)
 
         subscriptions.add(disposable)
     }
 
     private fun loadRecommendedMovies(movieId: Int) {
-        val disposable = getRecommendedMovieUseCase(movieId)
+        val disposable = getProductAdditionalInformationUseCase(
+            ProductType.MOVIE,
+            movieId,
+            SectionType.RECOMMENDATIONS
+        )
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .filter { it.results.isNotEmpty() }

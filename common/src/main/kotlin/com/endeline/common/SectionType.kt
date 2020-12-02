@@ -7,5 +7,9 @@ enum class SectionType(val type: String) {
     UPCOMING("upcoming"),
     AIRING_TODAY("airing_today"),
     ON_THE_AIR("on_the_air"),
+
+    SIMILAR("similar"),
+    RECOMMENDATIONS("recommendations"),
+
     NONE("")
 }

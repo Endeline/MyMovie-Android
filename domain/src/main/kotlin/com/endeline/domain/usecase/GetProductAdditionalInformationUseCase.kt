@@ -6,11 +6,12 @@ import com.endeline.data.service.ProductService
 import com.endeline.domain.di.components.DaggerDomainComponents
 import com.endeline.domain.extensions.toUiModel
 import com.endeline.domain.uimodels.ProductsUiModel
-import com.endeline.domain.usecase.types.ObservableUseCaseWithThreeParams
+import com.endeline.domain.usecase.types.ObservableUseCaseWithFourParams
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class GetProductWithTypes : ObservableUseCaseWithThreeParams<ProductType, SectionType, ProductsUiModel> {
+class GetProductAdditionalInformationUseCase :
+    ObservableUseCaseWithFourParams<ProductType, Int, SectionType, ProductsUiModel> {
 
     @Inject
     lateinit var productService: ProductService
@@ -20,7 +21,11 @@ class GetProductWithTypes : ObservableUseCaseWithThreeParams<ProductType, Sectio
     }
 
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
-    override fun invoke(productType: ProductType, sectionType: SectionType): Observable<ProductsUiModel>  {
-       return productService.getProductWithTypes(productType, sectionType).map { it.toUiModel(productType) }
-    }
+    override fun invoke(
+        productType: ProductType,
+        id: Int,
+        sectionType: SectionType
+    ): Observable<ProductsUiModel> =
+        productService.getProductAdditionalInformation(productType, id, sectionType)
+            .map { it.toUiModel(ProductType.OTHER) }
 }

@@ -14,10 +14,7 @@ class UseCaseModule {
     fun provideGetMovieDetailsUseCase() = GetMovieDetailsUseCase()
 
     @Provides
-    fun provideGetSimilarMovieUseCase() = GetSimilarMovieUseCase()
-
-    @Provides
-    fun provideGetRecommendationMovieUseCase() = GetRecommendedMovieUseCase()
+    fun provideGetProductAdditionalInformationUseCase() = GetProductAdditionalInformationUseCase()
 
     @Provides
     fun provideGetVideoLinkUseCase() = GetVideoLinksUseCase()
@@ -56,5 +53,5 @@ class UseCaseModule {
     fun provideGetPersonDetailUseCase() = GetPersonDetailsUseCase()
 
     @Provides
-    fun provideGetProductWithTypes() = GetProductWithTypes()
+    fun provideGetProductsWithTypes() = GetProductsWithTypes()
 }

@@ -9,15 +9,27 @@ import retrofit2.http.Query
 
 interface ProductRepository {
 
-    //probably do not change this
     @GET("${BuildConfig.API_VERSION}/search/multi")
     fun searchAll(@Query("query") query: String): Observable<Search>
 
-    @GET("${BuildConfig.API_VERSION}/person/{personId}")
-    fun getPersonDetails(@Path("personId") personId: Int): Observable<Person>
+    @GET("${BuildConfig.API_VERSION}/{type}/{personId}")
+    fun getPersonDetails(
+        @Path("type") type: String,
+        @Path("personId") personId: Int
+    ): Observable<Person>
 
     @GET("${BuildConfig.API_VERSION}/{type}/{sectionType}")
-    fun getProductWithTypes(@Path("type") type: String, @Path("sectionType") sectionType: String): Observable<Products>
+    fun getProductWithTypes(
+        @Path("type") type: String,
+        @Path("sectionType") sectionType: String
+    ): Observable<Products>
+
+    @GET("${BuildConfig.API_VERSION}/{type}/{id}/{sectionType}")
+    fun getProductWithIdAndTypes(
+        @Path("type") type: String,
+        @Path("id") id: Int,
+        @Path("sectionType") sectionType: String
+    ): Observable<Products>
 
 
 //todo
@@ -27,24 +39,12 @@ interface ProductRepository {
 //    /person/{person_id}/movie_credits
 //    /person/{person_id}/tv_credits
 
-
-
     //TODO in below maybe change movie in url on type and type will be provide from ui
     // and maybe change function mane from movie to product
 
     //only for movies?
     @GET("${BuildConfig.API_VERSION}/movie/{id}")
     fun getMovieDetails(@Path("id") id: Int): Observable<ProductDetails>
-
-
-    //probably refactor to movie/tv as parametr like apiversion/{type}/{id}/{what}
-    //Probably rename all movies -> product
-    @GET("${BuildConfig.API_VERSION}/movie/{id}/similar")
-    fun getSimilarMovies(@Path("id") id: Int): Observable<Products>
-
-    @GET("${BuildConfig.API_VERSION}/movie/{id}/recommendations")
-    fun getRecommendedMovies(@Path("id") id: Int): Observable<Products>
-
 
 
     //probably change movie as parametr movie/tv
