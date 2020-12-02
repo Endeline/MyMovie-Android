@@ -1,6 +1,6 @@
 package com.endeline.domain.uimodels
 
-import com.endeline.domain.ProductType
+import com.endeline.common.ProductType
 import java.util.*
 
 data class ProductsUiModel(

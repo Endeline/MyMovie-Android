@@ -72,43 +72,14 @@ class ViewModelFactory {
     class SectionViewModelFactory : ViewModelProvider.Factory {
 
         @Inject
-        lateinit var getNowPlayingUseCase: GetNowPlayingUseCase
-
-        @Inject
-        lateinit var getPopularUseCase: GetPopularUseCase
-
-        @Inject
-        lateinit var getTopRatedUseCase: GetTopRatedUseCase
-
-        @Inject
-        lateinit var getUpcomingUseCase: GetUpcomingUseCase
-
-        @Inject
-        lateinit var getAiringTodayUseCase: GetAiringTodayUseCase
-
-        @Inject
-        lateinit var getTheAirUseUseCase: GetTheAirUseUseCase
+        lateinit var getProductWithTypes: GetProductWithTypes
 
         init {
             DaggerViewModelComponent.create().inject(this)
         }
 
         override fun <T : ViewModel?> create(modelClass: Class<T>) =
-            modelClass.getConstructor(
-                GetNowPlayingUseCase::class.java,
-                GetPopularUseCase::class.java,
-                GetTopRatedUseCase::class.java,
-                GetUpcomingUseCase::class.java,
-                GetAiringTodayUseCase::class.java,
-                GetTheAirUseUseCase::class.java
-            ).newInstance(
-                getNowPlayingUseCase,
-                getPopularUseCase,
-                getTopRatedUseCase,
-                getUpcomingUseCase,
-                getAiringTodayUseCase,
-                getTheAirUseUseCase
-            )
+            modelClass.getConstructor(GetProductWithTypes::class.java).newInstance(getProductWithTypes)
     }
 
     class SearchViewModelFactory : ViewModelProvider.Factory {

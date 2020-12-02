@@ -8,18 +8,6 @@ import dagger.Provides
 class UseCaseModule {
 
     @Provides
-    fun provideGetNowPlayingUseCase() = GetNowPlayingUseCase()
-
-    @Provides
-    fun provideGetPopularUseCase() = GetPopularUseCase()
-
-    @Provides
-    fun providesTopRatedUseCase() = GetTopRatedUseCase()
-
-    @Provides
-    fun providesUpcomingUseCase() = GetUpcomingUseCase()
-
-    @Provides
     fun providesLoadAllDataUseCase() = LoadAllDataUseCase()
 
     @Provides
@@ -56,12 +44,6 @@ class UseCaseModule {
     fun provideRegisterUseCase() = RegisterUseCase()
 
     @Provides
-    fun provideGetTheAirUseUseCase() = GetTheAirUseUseCase()
-
-    @Provides
-    fun provideGetAiringTodayUseCase() = GetAiringTodayUseCase()
-
-    @Provides
     fun provideGetProductImagesUseCase() = GetProductImagesUseCase()
 
     @Provides
@@ -72,4 +54,7 @@ class UseCaseModule {
 
     @Provides
     fun provideGetPersonDetailUseCase() = GetPersonDetailsUseCase()
+
+    @Provides
+    fun provideGetProductWithTypes() = GetProductWithTypes()
 }

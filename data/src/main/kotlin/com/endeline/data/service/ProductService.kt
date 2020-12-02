@@ -1,5 +1,7 @@
 package com.endeline.data.service
 
+import com.endeline.common.ProductType
+import com.endeline.common.SectionType
 import com.endeline.data.BuildConfig
 import com.endeline.data.models.*
 import com.endeline.data.repository.ProductRepository
@@ -24,64 +26,12 @@ class ProductService {
         put(CACHE_VIDEO_LINK, mutableMapOf<Int, VideoLinks>())
     }
 
-    fun getNowPlaying(productType: String) =
-//        if (cache.containsKey(CACHE_NOW_PLAYING)) {
-//        Observable.just(cache[CACHE_NOW_PLAYING] as Products)
-//    } else {
-        service.getNowPlaying(productType)
+    fun getProductWithTypes(productType: ProductType, sectionType: SectionType) =
+        service.getProductWithTypes(productType.type, sectionType.type)
             .flatMap {
-//                cache[CACHE_NOW_PLAYING] = it
+//TODO CACHE
                 Observable.just(it)
             }
-//    }
-
-    fun getPopular(productType: String) =
-//        if (cache.containsKey(CACHE_POPULAR)) {
-//        Observable.just(cache[CACHE_POPULAR] as Products)
-//    } else {
-        service.getPopular(productType)
-            .flatMap {
-//                cache[CACHE_POPULAR] = it
-                Observable.just(it)
-            }
-//    }
-
-    fun getTopRated(productType: String) =
-//            if (cache.containsKey(CACHE_TOP_RATED)) {
-//        Observable.just(cache[CACHE_TOP_RATED] as Products)
-//    } else {
-        service.getTopRated(productType)
-            .flatMap {
-//                cache[CACHE_TOP_RATED] = it
-                Observable.just(it)
-            }
-//    }
-
-    fun getUpcoming(productType: String) =
-//        if (cache.containsKey(CACHE_UPCOMING)) {
-//        Observable.just(cache[CACHE_UPCOMING] as Products)
-//    } else {
-        service.getUpcoming(productType)
-            .flatMap {
-//                cache[CACHE_UPCOMING] = it
-                Observable.just(it)
-            }
-//    }
-
-    fun getOnTheAir(productType: String) =
-        service.getOnTheAir(productType)
-            .flatMap {
-//                cache[CACHE_UPCOMING] = it
-                Observable.just(it)
-            }
-
-    fun getAiringToday(productType: String) =
-        service.getAiringToday(productType)
-            .flatMap {
-//                cache[CACHE_UPCOMING] = it
-                Observable.just(it)
-            }
-
 
     //todo fix
     fun getMovieDetails(id: Int): Observable<ProductDetails> {

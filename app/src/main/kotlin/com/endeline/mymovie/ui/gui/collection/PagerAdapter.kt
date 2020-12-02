@@ -3,11 +3,13 @@ package com.endeline.mymovie.ui.gui.collection
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.endeline.domain.ProductType
+import com.endeline.common.ProductType
+import com.endeline.common.SectionType
 import com.endeline.mymovie.R
+import java.lang.RuntimeException
 import java.lang.UnsupportedOperationException
 
-class PagerAdapter(fragment: Fragment, private val collectionType: CollectionType) :
+class PagerAdapter(fragment: Fragment, private val collectionType: ProductType) :
     FragmentStateAdapter(fragment) {
 
     private val movieTitles = listOf(
@@ -25,14 +27,16 @@ class PagerAdapter(fragment: Fragment, private val collectionType: CollectionTyp
     )
 
     override fun getItemCount() = when (collectionType) {
-        CollectionType.MOVIES -> movieTitles.size
-        CollectionType.TV -> tvTitles.size
+        ProductType.MOVIE -> movieTitles.size
+        ProductType.TV -> tvTitles.size
+        else -> throw RuntimeException("Unsupported type")
     }
 
     override fun createFragment(position: Int): Fragment {
         val collectionTypeName = when (collectionType) {
-            CollectionType.MOVIES -> ProductType.movie.name
-            CollectionType.TV -> ProductType.tv.name
+            ProductType.MOVIE -> ProductType.MOVIE.name
+            ProductType.TV -> ProductType.TV.name
+            else -> throw RuntimeException("Unsupported type")
         }
 
         return when (position) {
@@ -40,11 +44,11 @@ class PagerAdapter(fragment: Fragment, private val collectionType: CollectionTyp
                 arguments = Bundle().apply {
                     putString(SectionFragment.COLLECTION_TYPE, collectionTypeName)
                     when (collectionType) {
-                        CollectionType.MOVIES -> putString(
+                        ProductType.MOVIE -> putString(
                             SectionFragment.SECTION_TYPE,
                             SectionType.POPULAR.name
                         )
-                        CollectionType.TV -> putString(
+                        ProductType.TV -> putString(
                             SectionFragment.SECTION_TYPE,
                             SectionType.POPULAR.name
                         )
@@ -55,11 +59,11 @@ class PagerAdapter(fragment: Fragment, private val collectionType: CollectionTyp
                 arguments = Bundle().apply {
                     putString(SectionFragment.COLLECTION_TYPE, collectionTypeName)
                     when (collectionType) {
-                        CollectionType.MOVIES -> putString(
+                        ProductType.MOVIE -> putString(
                             SectionFragment.SECTION_TYPE,
                             SectionType.TOP_RATED.name
                         )
-                        CollectionType.TV -> putString(
+                        ProductType.TV -> putString(
                             SectionFragment.SECTION_TYPE,
                             SectionType.TOP_RATED.name
                         )
@@ -70,11 +74,11 @@ class PagerAdapter(fragment: Fragment, private val collectionType: CollectionTyp
                 arguments = Bundle().apply {
                     putString(SectionFragment.COLLECTION_TYPE, collectionTypeName)
                     when (collectionType) {
-                        CollectionType.MOVIES -> putString(
+                        ProductType.MOVIE -> putString(
                             SectionFragment.SECTION_TYPE,
                             SectionType.NOW_PLAYING.name
                         )
-                        CollectionType.TV -> putString(
+                        ProductType.TV -> putString(
                             SectionFragment.SECTION_TYPE,
                             SectionType.AIRING_TODAY.name
                         )
@@ -85,13 +89,13 @@ class PagerAdapter(fragment: Fragment, private val collectionType: CollectionTyp
                 arguments = Bundle().apply {
                     putString(SectionFragment.COLLECTION_TYPE, collectionTypeName)
                     when (collectionType) {
-                        CollectionType.MOVIES -> putString(
+                        ProductType.MOVIE -> putString(
                             SectionFragment.SECTION_TYPE,
                             SectionType.UPCOMING.name
                         )
-                        CollectionType.TV -> putString(
+                        ProductType.TV -> putString(
                             SectionFragment.SECTION_TYPE,
-                            SectionType.THE_AIR.name
+                            SectionType.ON_THE_AIR.name
                         )
                     }
                 }
@@ -101,7 +105,8 @@ class PagerAdapter(fragment: Fragment, private val collectionType: CollectionTyp
     }
 
     fun getNamePosition(position: Int) = when (collectionType) {
-        CollectionType.MOVIES -> movieTitles[position]
-        CollectionType.TV -> tvTitles[position]
+        ProductType.MOVIE -> movieTitles[position]
+        ProductType.TV -> tvTitles[position]
+        else -> throw RuntimeException("Unsupported type")
     }
 }

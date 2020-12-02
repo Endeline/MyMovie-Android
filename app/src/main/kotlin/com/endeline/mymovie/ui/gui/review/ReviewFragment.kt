@@ -32,7 +32,7 @@ class ReviewFragment : DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = ReviewFragmentBinding.inflate(inflater, container, false)
 
         return binding.root

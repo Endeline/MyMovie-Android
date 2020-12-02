@@ -1,8 +1,8 @@
 package com.endeline.domain.extensions
 
 
+import com.endeline.common.ProductType
 import com.endeline.data.models.Products.Product
-import com.endeline.domain.ProductType
 import com.endeline.domain.uimodels.ProductsUiModel.ProductUiModel
 import java.util.*
 
