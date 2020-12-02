@@ -9,8 +9,7 @@ import dagger.Component
 interface DomainComponents {
     fun inject(useCase: LoadAllDataUseCase)
     fun inject(useCase: GetMovieDetailsUseCase)
-    fun inject(useCase: GetSimilarMovieUseCase)
-    fun inject(useCase: GetRecommendedMovieUseCase)
+    fun inject(useCase: GetProductAdditionalInformationUseCase)
     fun inject(useCase: GetVideoLinksUseCase)
     fun inject(useCase: SearchAllUseCase)
     fun inject(useCase: InitializeUserServiceUseCase)
@@ -23,5 +22,5 @@ interface DomainComponents {
     fun inject(useCase: GetProductReviewUseCase)
     fun inject(useCase: GetProductCreditsUseCase)
     fun inject(useCase: GetPersonDetailsUseCase)
-    fun inject(useCase: GetProductWithTypes)
+    fun inject(useCase: GetProductsWithTypes)
 }

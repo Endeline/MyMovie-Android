@@ -15,7 +15,7 @@ import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 class SectionViewModel(
-    private val getProductWithTypes: GetProductWithTypes
+    private val getProductWithTypes: GetProductsWithTypes
 ) : ViewModel() {
 
     private val subscription = CompositeDisposable()

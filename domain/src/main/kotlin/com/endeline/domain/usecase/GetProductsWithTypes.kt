@@ -1,15 +1,16 @@
 package com.endeline.domain.usecase
 
 import com.endeline.common.ProductType
+import com.endeline.common.SectionType
 import com.endeline.data.service.ProductService
 import com.endeline.domain.di.components.DaggerDomainComponents
 import com.endeline.domain.extensions.toUiModel
-import com.endeline.domain.usecase.types.ObservableUseCaseWithTwoParams
 import com.endeline.domain.uimodels.ProductsUiModel
-import io.reactivex.Observable
+import com.endeline.domain.usecase.types.ObservableUseCaseWithThreeParams
 import javax.inject.Inject
 
-class GetRecommendedMovieUseCase : ObservableUseCaseWithTwoParams<Int, ProductsUiModel> {
+class GetProductsWithTypes :
+    ObservableUseCaseWithThreeParams<ProductType, SectionType, ProductsUiModel> {
 
     @Inject
     lateinit var productService: ProductService
@@ -19,6 +20,7 @@ class GetRecommendedMovieUseCase : ObservableUseCaseWithTwoParams<Int, ProductsU
     }
 
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
-    override fun invoke(id: Int): Observable<ProductsUiModel> =
-        productService.getRecommendedMovies(id).map { it.toUiModel(ProductType.OTHER) }
+    override fun invoke(productType: ProductType, sectionType: SectionType) =
+        productService.getProductsWithTypes(productType, sectionType)
+            .map { it.toUiModel(productType) }
 }
