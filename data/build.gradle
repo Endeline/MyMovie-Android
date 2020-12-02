@@ -36,6 +36,8 @@ android {
 }
 
 dependencies {
+    implementation project(':common')
+
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     testImplementation "junit:junit:$project.ext.jUnit"

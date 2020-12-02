@@ -23,8 +23,8 @@ class SplashScreenActivity : AppCompatActivity() {
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
         DaggerAppComponent.create().inject(this)
+        super.onCreate(savedInstanceState)
 
         binding = ActivitySplashScreenBinding.inflate(layoutInflater)
 

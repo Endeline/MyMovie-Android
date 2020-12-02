@@ -1,4 +1,5 @@
 rootProject.name='MyMovie'
+include ':common'
 include ':app'
 include ':domain'
 include ':data'

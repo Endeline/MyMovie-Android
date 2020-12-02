@@ -9,7 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.endeline.domain.ProductType
+import com.endeline.common.ProductType
 import com.endeline.mymovie.databinding.SectionFragmentBinding
 import com.endeline.mymovie.di.ViewModelFactory
 import com.endeline.mymovie.di.components.DaggerAppComponent
@@ -28,7 +28,7 @@ class SectionFragment : Fragment() {
     }
 
     private val movieAdapter by lazy {
-        if (ProductType.valueOf(arguments?.getString(COLLECTION_TYPE)!!) == ProductType.movie) {
+        if (ProductType.valueOf(arguments?.getString(COLLECTION_TYPE)!!) == ProductType.MOVIE) {
             SectionAdapter {
                 findNavController().navigate(CollectionFragmentDirections.toDetails(it))
             }
@@ -51,7 +51,7 @@ class SectionFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         DaggerAppComponent.create().inject(this)
 
         _binding = SectionFragmentBinding.inflate(inflater, container, false)
@@ -76,7 +76,7 @@ class SectionFragment : Fragment() {
             setHasFixedSize(true)
 
             layoutManager =
-                if (ProductType.valueOf(arguments?.getString(COLLECTION_TYPE)!!) == ProductType.movie) {
+                if (ProductType.valueOf(arguments?.getString(COLLECTION_TYPE)!!) == ProductType.MOVIE) {
                     LinearLayoutManager(requireContext())
                 } else {
                     GridLayoutManager(requireContext(), SPAN_TWO_COLUMN)

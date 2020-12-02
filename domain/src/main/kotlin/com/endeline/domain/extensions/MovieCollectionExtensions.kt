@@ -1,8 +1,8 @@
 package com.endeline.domain.extensions
 
+import com.endeline.common.ProductType
 import com.endeline.data.models.Products
 import com.endeline.data.models.Products.Dates
-import com.endeline.domain.ProductType
 import com.endeline.domain.uimodels.ProductsUiModel
 
 fun Products.toUiModel(productType: ProductType) = ProductsUiModel(

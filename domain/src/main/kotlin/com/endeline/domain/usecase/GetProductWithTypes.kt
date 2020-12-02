@@ -1,15 +1,16 @@
 package com.endeline.domain.usecase
 
+import com.endeline.common.ProductType
+import com.endeline.common.SectionType
 import com.endeline.data.service.ProductService
-import com.endeline.domain.ProductType
 import com.endeline.domain.di.components.DaggerDomainComponents
 import com.endeline.domain.extensions.toUiModel
 import com.endeline.domain.uimodels.ProductsUiModel
-import com.endeline.domain.usecase.types.ObservableUseCaseWithTwoParams
+import com.endeline.domain.usecase.types.ObservableUseCaseWithThreeParams
 import io.reactivex.Observable
 import javax.inject.Inject
 
-class GetPopularUseCase : ObservableUseCaseWithTwoParams<ProductType, ProductsUiModel> {
+class GetProductWithTypes : ObservableUseCaseWithThreeParams<ProductType, SectionType, ProductsUiModel> {
 
     @Inject
     lateinit var productService: ProductService
@@ -19,7 +20,7 @@ class GetPopularUseCase : ObservableUseCaseWithTwoParams<ProductType, ProductsUi
     }
 
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
-    override fun invoke(productType: ProductType): Observable<ProductsUiModel> =
-        productService.getPopular(productType.name).map { it.toUiModel(productType) }
-
+    override fun invoke(productType: ProductType, sectionType: SectionType): Observable<ProductsUiModel>  {
+       return productService.getProductWithTypes(productType, sectionType).map { it.toUiModel(productType) }
+    }
 }

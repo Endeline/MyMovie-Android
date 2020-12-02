@@ -129,8 +129,8 @@
         tools:layout="@layout/section_fragment">
         <argument
             android:name="type"
-            android:defaultValue="MOVIES"
-            app:argType="com.endeline.mymovie.ui.gui.collection.CollectionType" />
+            android:defaultValue="MOVIE"
+            app:argType="com.endeline.common.ProductType" />
         <action
             android:id="@+id/toDetails"
             app:destination="@id/detailsFragment"
@@ -149,7 +149,7 @@
         <argument
             android:name="type"
             android:defaultValue="TV"
-            app:argType="com.endeline.mymovie.ui.gui.collection.CollectionType" />
+            app:argType="com.endeline.common.ProductType" />
         <action
             android:id="@+id/toDetails"
             app:destination="@id/detailsFragment"

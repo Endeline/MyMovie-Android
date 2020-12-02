@@ -16,25 +16,8 @@ interface ProductRepository {
     @GET("${BuildConfig.API_VERSION}/person/{personId}")
     fun getPersonDetails(@Path("personId") personId: Int): Observable<Person>
 
-
-    //try refactor to one function below like get apiVersion/{type}/{what}
-    @GET("${BuildConfig.API_VERSION}/{type}/now_playing")
-    fun getNowPlaying(@Path("type") type: String): Observable<Products>
-
-    @GET("${BuildConfig.API_VERSION}/{type}/popular")
-    fun getPopular(@Path("type") type: String): Observable<Products>
-
-    @GET("${BuildConfig.API_VERSION}/{type}/top_rated")
-    fun getTopRated(@Path("type") type: String): Observable<Products>
-
-    @GET("${BuildConfig.API_VERSION}/{type}/upcoming")
-    fun getUpcoming(@Path("type") type: String): Observable<Products>
-
-    @GET("${BuildConfig.API_VERSION}/{type}/on_the_air")
-    fun getOnTheAir(@Path("type") type: String): Observable<Products>
-
-    @GET("${BuildConfig.API_VERSION}/{type}/airing_today")
-    fun getAiringToday(@Path("type") type: String): Observable<Products>
+    @GET("${BuildConfig.API_VERSION}/{type}/{sectionType}")
+    fun getProductWithTypes(@Path("type") type: String, @Path("sectionType") sectionType: String): Observable<Products>
 
 
 //todo

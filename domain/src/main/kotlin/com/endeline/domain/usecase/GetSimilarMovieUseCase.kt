@@ -1,7 +1,7 @@
 package com.endeline.domain.usecase
 
+import com.endeline.common.ProductType
 import com.endeline.data.service.ProductService
-import com.endeline.domain.ProductType
 import com.endeline.domain.di.components.DaggerDomainComponents
 import com.endeline.domain.extensions.toUiModel
 import com.endeline.domain.usecase.types.ObservableUseCaseWithTwoParams
@@ -20,5 +20,5 @@ class GetSimilarMovieUseCase : ObservableUseCaseWithTwoParams<Int, ProductsUiMod
 
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
     override fun invoke(id: Int): Observable<ProductsUiModel> =
-        productService.getSimilarMovies(id).map { it.toUiModel(ProductType.other) }
+        productService.getSimilarMovies(id).map { it.toUiModel(ProductType.OTHER) }
 }

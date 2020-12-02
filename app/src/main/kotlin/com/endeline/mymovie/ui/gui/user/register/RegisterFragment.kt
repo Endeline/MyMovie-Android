@@ -32,7 +32,7 @@ class RegisterFragment : DialogFragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         DaggerAppComponent.create().inject(this)
 
         _binding = RegisterFragmentBinding.inflate(inflater, container, false)
