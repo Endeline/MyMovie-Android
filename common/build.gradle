@@ -27,11 +27,12 @@ android {
 }
 
 dependencies {
+    testImplementation "junit:junit:$project.ext.jUnit"
+
     implementation "androidx.core:core-ktx:$project.ext.coreKtx"
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-
-
 }
+
 repositories {
     mavenCentral()
 }
