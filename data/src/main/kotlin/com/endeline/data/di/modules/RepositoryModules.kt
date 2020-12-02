@@ -12,6 +12,6 @@ class RepositoryModules {
 
     companion object {
         //todo correct singleton
-        val MOVIE_DB_REPOSITORY = ProductService()
+        private val MOVIE_DB_REPOSITORY = ProductService()
     }
 }

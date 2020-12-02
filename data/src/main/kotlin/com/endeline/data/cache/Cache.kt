@@ -2,6 +2,7 @@ package com.endeline.data.cache
 
 import com.endeline.common.ProductType
 import com.endeline.common.SectionType
+import com.endeline.data.di.components.DaggerDataComponent
 import com.endeline.data.models.Person
 import com.endeline.data.models.Products
 
@@ -10,6 +11,10 @@ class Cache {
     private val memoryCache = MemoryCache()
 
     var isGetFromMemoryCache = true
+
+    init {
+        DaggerDataComponent.create().inject(this)
+    }
 
     fun contains(productType: ProductType, sectionType: SectionType) = if (isGetFromMemoryCache) {
         memoryCache.contains(productType, sectionType)

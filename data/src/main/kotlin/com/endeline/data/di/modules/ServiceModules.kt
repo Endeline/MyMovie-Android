@@ -11,6 +11,6 @@ class ServiceModules {
     fun provideUserService() = USER_SERVICE
 
     companion object {
-        val USER_SERVICE = UserService()
+        private val USER_SERVICE = UserService()
     }
 }
