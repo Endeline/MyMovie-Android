@@ -2,24 +2,28 @@ package com.endeline.data.service
 
 import com.endeline.common.ProductType
 import com.endeline.common.SectionType
-import com.endeline.data.BuildConfig
 import com.endeline.data.cache.Cache
-import com.endeline.data.models.*
+import com.endeline.data.di.components.DaggerDataComponent
+import com.endeline.data.models.Person
+import com.endeline.data.models.ProductDetails
+import com.endeline.data.models.VideoLinks
 import com.endeline.data.repository.ProductRepository
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import io.reactivex.Observable
-import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
-import retrofit2.Retrofit
-import retrofit2.converter.gson.GsonConverterFactory
-import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
 class ProductService {
 
-    //todo di
-    private val cache = Cache()
+    @Inject
+    lateinit var cache: Cache
+
+    @Inject
+    lateinit var service: ProductRepository
+
+    init {
+        DaggerDataComponent.create().inject(this)
+    }
 
     fun getProductsWithTypes(productType: ProductType, sectionType: SectionType) =
         if (cache.contains(productType, sectionType)) {
@@ -91,45 +95,4 @@ class ProductService {
             //TODO cache
             Observable.just(credits)
         }
-
-
-    companion object {
-        private const val API_KEY_PARAM = "api_key"
-        private const val TIMEOUT_SECOND = 30L
-
-        //TODO di
-        private val retrofit = Retrofit.Builder()
-            .baseUrl(BuildConfig.MOVIE_DB_BASE_URL)
-            .client(OkHttpClient.Builder()
-                .readTimeout(TIMEOUT_SECOND, TimeUnit.SECONDS)
-                .addInterceptor {
-                    var request = it.request()
-
-                    val url = request.url()
-                        .newBuilder()
-                        .addQueryParameter(API_KEY_PARAM, BuildConfig.MOVIE_API_KEY)
-                        .build()
-
-                    request = request.newBuilder()
-                        .url(url)
-                        .build()
-
-                    it.proceed(request)
-                }
-                .addInterceptor(
-                    HttpLoggingInterceptor().apply {
-                        level = if (BuildConfig.DEBUG) {
-                            HttpLoggingInterceptor.Level.BODY
-                        } else {
-                            HttpLoggingInterceptor.Level.NONE
-                        }
-                    }
-                )
-                .build())
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
-
-        private val service = retrofit.create(ProductRepository::class.java)
-    }
 }
