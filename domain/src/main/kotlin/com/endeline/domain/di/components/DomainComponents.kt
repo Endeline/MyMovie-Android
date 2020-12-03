@@ -10,7 +10,7 @@ interface DomainComponents {
     fun inject(useCase: LoadAllDataUseCase)
     fun inject(useCase: GetMovieDetailsUseCase)
     fun inject(useCase: GetProductAdditionalInformationUseCase)
-    fun inject(useCase: GetVideoLinksUseCase)
+    fun inject(useCase: GetProductVideoLinksUseCase)
     fun inject(useCase: SearchAllUseCase)
     fun inject(useCase: InitializeUserServiceUseCase)
     fun inject(useCase: GetUserByLoginUseCase)

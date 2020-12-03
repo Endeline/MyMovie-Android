@@ -21,7 +21,7 @@ import timber.log.Timber
 class DetailsViewModel(
     private val getMovieDetailsViewModel: GetMovieDetailsUseCase,
     private val getProductAdditionalInformationUseCase: GetProductAdditionalInformationUseCase,
-    private val getVideoLinksUseCase: GetVideoLinksUseCase,
+    private val getProductVideoLinksUseCase: GetProductVideoLinksUseCase,
     private val getProductImagesUseCase: GetProductImagesUseCase,
     private val getProductReviewUseCase: GetProductReviewUseCase,
     private val getProductCreditsUseCase: GetProductCreditsUseCase
@@ -193,7 +193,7 @@ class DetailsViewModel(
     }
 
     private fun loadVideoLinks(movieId: Int) {
-        val disposable = getVideoLinksUseCase(movieId)
+        val disposable = getProductVideoLinksUseCase(ProductType.MOVIE, movieId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .filter { it.results.isNotEmpty() }
@@ -205,7 +205,7 @@ class DetailsViewModel(
     }
 
     private fun loadVideoImages(movieId: Int) {
-        val disposable = getProductImagesUseCase(movieId)
+        val disposable = getProductImagesUseCase(ProductType.MOVIE, movieId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .filter { it.backdrops.isNotEmpty() }
@@ -217,7 +217,7 @@ class DetailsViewModel(
     }
 
     private fun loadReviews(movieId: Int) {
-        val disposable = getProductReviewUseCase(movieId)
+        val disposable = getProductReviewUseCase(ProductType.MOVIE, movieId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .filter { it.result.isNotEmpty() }
@@ -229,7 +229,7 @@ class DetailsViewModel(
     }
 
     private fun loadCredits(movieId: Int) {
-        val disposable = getProductCreditsUseCase(movieId)
+        val disposable = getProductCreditsUseCase(ProductType.MOVIE, movieId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->

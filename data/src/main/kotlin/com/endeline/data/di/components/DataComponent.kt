@@ -8,6 +8,6 @@ import dagger.Component
 
 @Component(modules = [RetrofitModule::class, CacheModule::class])
 interface DataComponent {
-    fun inject(productService: ProductService)
     fun inject(cache: Cache)
+    fun inject(productService: ProductService)
 }
