@@ -31,7 +31,7 @@ class ViewModelFactory {
         lateinit var getProductAdditionalInformationUseCase: GetProductAdditionalInformationUseCase
 
         @Inject
-        lateinit var getVideoLinksUseCase: GetVideoLinksUseCase
+        lateinit var getProductVideoLinksUseCase: GetProductVideoLinksUseCase
 
         @Inject
         lateinit var getProductImagesUseCase: GetProductImagesUseCase
@@ -50,14 +50,14 @@ class ViewModelFactory {
             modelClass.getConstructor(
                 GetMovieDetailsUseCase::class.java,
                 GetProductAdditionalInformationUseCase::class.java,
-                GetVideoLinksUseCase::class.java,
+                GetProductVideoLinksUseCase::class.java,
                 GetProductImagesUseCase::class.java,
                 GetProductReviewUseCase::class.java,
                 GetProductCreditsUseCase::class.java
             ).newInstance(
                 getMovieDetailsViewModel,
                 getProductAdditionalInformationUseCase,
-                getVideoLinksUseCase,
+                getProductVideoLinksUseCase,
                 getProductImagesUseCase,
                 getProductReviewUseCase,
                 getProductCreditsUseCase

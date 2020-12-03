@@ -15,13 +15,13 @@ import java.util.concurrent.TimeUnit
 class RetrofitModule {
 
     @Provides
-    fun provideRetrofitService(): ProductRepository = service
+    fun provideRetrofitService(): ProductRepository = repository
 
     companion object {
         private const val API_KEY_PARAM = "api_key"
         private const val TIMEOUT_SECOND = 30L
 
-        private val service = Retrofit.Builder()
+        private val repository = Retrofit.Builder()
             .baseUrl(BuildConfig.MOVIE_DB_BASE_URL)
             .client(OkHttpClient.Builder()
                 .readTimeout(TIMEOUT_SECOND, TimeUnit.SECONDS)

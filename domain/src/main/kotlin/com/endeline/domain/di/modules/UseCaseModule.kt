@@ -17,7 +17,7 @@ class UseCaseModule {
     fun provideGetProductAdditionalInformationUseCase() = GetProductAdditionalInformationUseCase()
 
     @Provides
-    fun provideGetVideoLinkUseCase() = GetVideoLinksUseCase()
+    fun provideGetProductVideoLinkUseCase() = GetProductVideoLinksUseCase()
 
     @Provides
     fun provideSearchAllUseCase() = SearchAllUseCase()

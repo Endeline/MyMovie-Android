@@ -8,10 +8,10 @@ import dagger.Provides
 class RepositoryModules {
 
     @Provides
-    fun provideMovieDbRepository() = MOVIE_DB_REPOSITORY
+    fun provideProductService() = PRODUCT_SERVICE
 
     companion object {
         //todo correct singleton
-        private val MOVIE_DB_REPOSITORY = ProductService()
+        private val PRODUCT_SERVICE = ProductService()
     }
 }

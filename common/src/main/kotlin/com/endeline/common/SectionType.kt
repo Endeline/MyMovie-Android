@@ -11,5 +11,10 @@ enum class SectionType(val type: String) {
     SIMILAR("similar"),
     RECOMMENDATIONS("recommendations"),
 
+    VIDEO("videos"),
+    IMAGES("images"),
+    REVIEWS("reviews"),
+    CREDITS("credits"),
+
     NONE("")
 }

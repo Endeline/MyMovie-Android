@@ -31,6 +31,34 @@ interface ProductRepository {
         @Path("sectionType") sectionType: String
     ): Observable<Products>
 
+    @GET("${BuildConfig.API_VERSION}/{type}/{id}/{sectionType}")
+    fun getProductVideoLinks(
+        @Path("type") type: String,
+        @Path("id") id: Int,
+        @Path("sectionType") sectionType: String
+    ): Observable<VideoLinks>
+
+    @GET("${BuildConfig.API_VERSION}/{type}/{id}/{sectionType}")
+    fun getProductImages(
+        @Path("type") type: String,
+        @Path("id") id: Int,
+        @Path("sectionType") sectionType: String
+    ): Observable<Images>
+
+    @GET("${BuildConfig.API_VERSION}/{type}/{id}/{sectionType}")
+    fun getProductReviews(
+        @Path("type") type: String,
+        @Path("id") id: Int,
+        @Path("sectionType") sectionType: String
+    ): Observable<Reviews>
+
+    @GET("${BuildConfig.API_VERSION}/{type}/{id}/{sectionType}")
+    fun getProductCredits(
+        @Path("type") type: String,
+        @Path("id") id: Int,
+        @Path("sectionType") sectionType: String
+    ): Observable<Credits>
+
 
 //todo
 //    /person/latest
@@ -47,16 +75,4 @@ interface ProductRepository {
     fun getMovieDetails(@Path("id") id: Int): Observable<ProductDetails>
 
 
-    //probably change movie as parametr movie/tv
-    @GET("${BuildConfig.API_VERSION}/movie/{id}/videos")
-    fun getVideoLinks(@Path("id") id: Int): Observable<VideoLinks>
-
-    @GET("${BuildConfig.API_VERSION}/movie/{id}/images")
-    fun getVideoImages(@Path("id") id: Int): Observable<Images>
-
-    @GET("${BuildConfig.API_VERSION}/movie/{id}/reviews")
-    fun getMovieReviews(@Path("id") id: Int): Observable<Reviews>
-
-    @GET("${BuildConfig.API_VERSION}/movie/{id}/credits")
-    fun getMovieCredits(@Path("id") id: Int): Observable<Credits>
 }

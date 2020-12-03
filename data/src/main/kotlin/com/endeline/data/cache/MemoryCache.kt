@@ -3,8 +3,7 @@ package com.endeline.data.cache
 import com.endeline.common.ProductType
 import com.endeline.common.SectionType
 import com.endeline.data.extensions.getCacheKey
-import com.endeline.data.models.Person
-import com.endeline.data.models.Products
+import com.endeline.data.models.*
 
 class MemoryCache {
 
@@ -27,8 +26,8 @@ class MemoryCache {
         cache[getCacheKey(productType.type, id)] = person
     }
 
-    fun add(productType: ProductType, id: Int, sectionType: SectionType, products: Products) {
-        cache[getCacheKey(productType.type, id, sectionType.type)] = products
+    fun add(productType: ProductType, id: Int, sectionType: SectionType, value: Any) {
+        cache[getCacheKey(productType.type, id, sectionType.type)] = value
     }
 
     fun get(productType: ProductType, sectionType: SectionType) =

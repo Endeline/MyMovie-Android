@@ -9,13 +9,8 @@ import dagger.Provides
 class CacheModule {
 
     @Provides
-    fun provideCache() = CACHE
+    fun provideMemoryCache() = MemoryCache()
 
     @Provides
-    fun provideMemoryCache() = MEMORY_CACHE
-
-    companion object {
-        private val CACHE = Cache()
-        private val MEMORY_CACHE = MemoryCache()
-    }
+    fun provideCache() = Cache()
 }
