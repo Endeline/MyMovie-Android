@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.endeline.mymovie">
+    package="com.endeline.movielibrary">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -10,8 +10,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.NoActionBar">
-        <activity android:name="com.endeline.mymovie.ui.gui.main.MainActivity" />
-        <activity android:name="com.endeline.mymovie.ui.gui.splash.SplashScreenActivity">
+        <activity android:name="com.endeline.movielibrary.ui.gui.main.MainActivity" />
+        <activity android:name="com.endeline.movielibrary.ui.gui.splash.SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />

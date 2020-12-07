@@ -9,7 +9,7 @@ android {
     buildToolsVersion project.ext.buildToolsVersion
 
     defaultConfig {
-        applicationId "com.endeline.mymovie"
+        applicationId "com.endeline.movielibrary"
         minSdkVersion project.ext.minSdkVersion
         targetSdkVersion project.ext.targetSdkVersion
         versionCode project.ext.versionCode
