@@ -16,6 +16,7 @@ import com.endeline.mymovie.di.components.DaggerAppComponent
 import com.endeline.mymovie.extensions.ifLet
 import com.endeline.mymovie.ui.Constants
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
+import java.lang.RuntimeException
 import javax.inject.Inject
 
 class SectionFragment : Fragment() {
@@ -28,19 +29,21 @@ class SectionFragment : Fragment() {
     }
 
     private val movieAdapter by lazy {
-        if (ProductType.valueOf(arguments?.getString(COLLECTION_TYPE)!!) == ProductType.MOVIE) {
-            SectionAdapter {
-                findNavController().navigate(CollectionFragmentDirections.toDetails(it))
-            }
-        } else {
-            SectionAdapter(
-                viewHolderImageHeight = 150,
-                viewHolderImageWidth = 100,
-                clickListener = {
-                    //todo create tv details
-                    //findNavController().navigate(MoviesFragmentDirections.toDetails(it))
+        arguments?.getString(COLLECTION_TYPE)?.let { type ->
+            when (ProductType.valueOf(type)) {
+                ProductType.MOVIE -> SectionAdapter {
+                    findNavController().navigate(CollectionFragmentDirections.toDetails(it))
                 }
-            )
+                ProductType.TV -> SectionAdapter(
+                    viewHolderImageHeight = 150,
+                    viewHolderImageWidth = 100,
+                    clickListener = {
+                        //todo create tv details
+                        //findNavController().navigate(MoviesFragmentDirections.toDetails(it))
+                    }
+                )
+                else -> throw RuntimeException("Unsupported type")
+            }
         }
     }
 
@@ -72,25 +75,25 @@ class SectionFragment : Fragment() {
     }
 
     private fun setupComponent() {
-        binding.recycleView.apply {
-            setHasFixedSize(true)
-
-            layoutManager =
-                if (ProductType.valueOf(arguments?.getString(COLLECTION_TYPE)!!) == ProductType.MOVIE) {
-                    LinearLayoutManager(requireContext())
-                } else {
-                    GridLayoutManager(requireContext(), SPAN_TWO_COLUMN)
-                }
-            adapter = movieAdapter
-            itemAnimator = SlideInUpAnimator().apply {
-                addDuration = Constants.Animation.RECYCLER_VIEW_ITEM_DURATION
-            }
-        }
-
         ifLet(
             arguments?.getString(COLLECTION_TYPE),
             arguments?.getString(SECTION_TYPE)
         ) { (collectionType, sectionType) ->
+            binding.recycleView.apply {
+                setHasFixedSize(true)
+
+                layoutManager =
+                    if (ProductType.valueOf(collectionType) == ProductType.MOVIE) {
+                        LinearLayoutManager(requireContext())
+                    } else {
+                        GridLayoutManager(requireContext(), SPAN_TWO_COLUMN)
+                    }
+                adapter = movieAdapter
+                itemAnimator = SlideInUpAnimator().apply {
+                    addDuration = Constants.Animation.RECYCLER_VIEW_ITEM_DURATION
+                }
+            }
+
             viewModel.loadSection(
                 sectionType,
                 ProductType.valueOf(collectionType)
@@ -100,7 +103,7 @@ class SectionFragment : Fragment() {
 
     private fun subscribeUi() {
         viewModel.items.observe(viewLifecycleOwner) {
-            movieAdapter.submitList(it)
+            movieAdapter?.submitList(it)
         }
     }
 

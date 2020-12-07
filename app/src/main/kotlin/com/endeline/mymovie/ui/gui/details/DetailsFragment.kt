@@ -16,6 +16,7 @@ import com.endeline.domain.uimodels.ImagesUiModel.ImageUiModel
 import com.endeline.mymovie.databinding.DetailsFragmentBinding
 import com.endeline.mymovie.di.ViewModelFactory
 import com.endeline.mymovie.di.components.DaggerAppComponent
+import com.endeline.mymovie.extensions.ifNotEmpty
 import com.endeline.mymovie.extensions.setViewsVisibility
 import com.endeline.mymovie.extensions.setupWithAdapter
 import com.endeline.mymovie.ui.common.imagecarousel.ImagesCarouselAdapter
@@ -213,8 +214,10 @@ class DetailsFragment : Fragment() {
         adapter: androidx.recyclerview.widget.ListAdapter<T, *>,
         vararg views: View
     ) {
-        setViewsVisibility(View.VISIBLE, *views)
-        adapter.submitList(items)
+        ifNotEmpty(items) {
+            setViewsVisibility(View.VISIBLE, *views)
+            adapter.submitList(it)
+        }
     }
 
     private fun onBackdropsLoaded(backdropsList: List<ImageUiModel>) = with(binding) {

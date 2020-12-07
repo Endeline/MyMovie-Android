@@ -1,36 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="130dp"
     android:layout_height="wrap_content"
     android:layout_margin="4dp"
-    android:background="@drawable/rounded_transparent_background_with_border"
-    android:orientation="vertical">
+    app:cardBackgroundColor="@android:color/transparent"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="0dp">
 
-    <TextView
-        android:id="@+id/author"
-        android:layout_width="match_parent"
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="130dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp"
-        android:ellipsize="end"
-        android:maxLines="1"
-        android:textAlignment="center"
-        android:textSize="10dp"
-        android:textStyle="bold"
-        tools:ignore="SpUsage" />
+        android:background="@drawable/light_ripple_with_rounded_transparent_border_background"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/description"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="4dp"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:maxLines="2"
-        android:textAlignment="center"
-        android:textSize="10dp"
-        tools:ignore="SpUsage" />
-</androidx.appcompat.widget.LinearLayoutCompat>
+        <TextView
+            android:id="@+id/author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textAlignment="center"
+            android:textSize="10dp"
+            android:textStyle="bold"
+            tools:ignore="SpUsage" />
+
+        <TextView
+            android:id="@+id/description"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="4dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="2"
+            android:textAlignment="center"
+            android:textSize="10dp"
+            tools:ignore="SpUsage" />
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</androidx.cardview.widget.CardView>
