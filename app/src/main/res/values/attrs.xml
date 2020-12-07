@@ -34,4 +34,9 @@
         <attr name="cs_disable_progress_glow" format="boolean"/>
         <attr name="cs_hide_progress_when_empty" format="boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="toolbar">
+        <attr name="showBackIcon" format="boolean" />
+        <attr name="showSearchIcon" format="boolean" />
+    </declare-styleable>
 </resources>

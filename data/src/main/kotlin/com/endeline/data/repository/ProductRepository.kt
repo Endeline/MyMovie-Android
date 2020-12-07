@@ -73,6 +73,4 @@ interface ProductRepository {
     //only for movies?
     @GET("${BuildConfig.API_VERSION}/movie/{id}")
     fun getMovieDetails(@Path("id") id: Int): Observable<ProductDetails>
-
-
 }

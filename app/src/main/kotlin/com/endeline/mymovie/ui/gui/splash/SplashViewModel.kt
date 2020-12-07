@@ -1,5 +1,6 @@
 package com.endeline.mymovie.ui.gui.splash
 
+import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -26,8 +27,9 @@ class SplashViewModel(private val loadAllDataUseCase: LoadAllDataUseCase) : View
 
     //TODO change this to load only home data not all
     fun loadData() {
-
-        _dataLoaded.value = true
+        Handler().postDelayed({
+            _dataLoaded.value = true
+        }, 2000)
 
 //        val disposable = loadAllDataUseCase()
 //            .subscribeOn(Schedulers.io())

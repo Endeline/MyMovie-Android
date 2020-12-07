@@ -59,6 +59,4 @@ class Cache {
 
     fun get(productType: ProductType, id: Int, sectionType: SectionType) =
         memoryCache.get(productType, id, sectionType)
-
-
 }

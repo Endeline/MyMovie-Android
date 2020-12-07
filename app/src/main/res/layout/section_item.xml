@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/light_ripple_background"
     android:padding="8dp">
 
     <ImageView
@@ -10,30 +11,28 @@
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:scaleType="centerCrop"
-        tools:src="@color/colorAccent"
-        tools:ignore="ContentDescription" />
-
+        tools:ignore="ContentDescription"
+        tools:src="@color/colorAccent" />
 
     <TextView
         android:id="@+id/title"
-        android:layout_alignTop="@id/imageView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toEndOf="@id/imageView"
+        android:layout_alignTop="@id/imageView"
         android:layout_margin="8dp"
+        android:layout_toEndOf="@id/imageView"
         android:textSize="16dp"
         android:textStyle="bold"
         android:visibility="gone"
         tools:ignore="SpUsage" />
 
-
     <TextView
         android:id="@+id/description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/title"
         android:layout_alignBottom="@id/imageView"
         android:layout_margin="8dp"
-        android:layout_below="@id/title"
         android:layout_toEndOf="@id/imageView"
         android:ellipsize="end"
         android:maxLines="6"

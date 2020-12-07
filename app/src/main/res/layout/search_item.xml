@@ -4,8 +4,9 @@
     android:id="@+id/image"
     android:layout_width="150dp"
     android:layout_height="200dp"
-    android:minHeight="200dp"
+    android:background="@drawable/light_ripple_background"
     android:minWidth="150dp"
+    android:minHeight="200dp"
     android:padding="8dp"
     android:scaleType="fitXY"
     tools:ignore="ContentDescription" />

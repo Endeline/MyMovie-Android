@@ -234,11 +234,11 @@ class DetailsViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
                 ifNotEmpty(response.cast) {
-                    _cast.value = it.filter { it.profilePath.isNotBlank() }
+                    _cast.value = it.filter { it.profilePath.isNotBlank() }.distinctBy { it.id }
                 }
 
                 ifNotEmpty(response.crew) {
-                    _crew.value = it.filter { it.profilePath.isNotBlank() }
+                    _crew.value = it.filter { it.profilePath.isNotBlank() }.distinctBy { it.id }
                 }
             }, Timber::e)
 
