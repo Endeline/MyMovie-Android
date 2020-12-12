@@ -60,9 +60,11 @@ interface ProductRepository {
     ): Observable<Credits>
 
 
-//todo
+//todo as home ??
 //    /person/latest
 //    /person/popular
+
+//todo
 //    below as new item cast?
 //    /person/{person_id}/movie_credits
 //    /person/{person_id}/tv_credits

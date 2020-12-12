@@ -14,7 +14,6 @@ import com.endeline.movielibrary.di.ViewModelFactory
 import com.endeline.movielibrary.di.components.DaggerAppComponent
 import com.endeline.movielibrary.extensions.*
 import com.endeline.movielibrary.ui.common.poster.PosterImageAdapter
-import timber.log.Timber
 import javax.inject.Inject
 
 class PersonFragment : Fragment() {
@@ -75,7 +74,7 @@ class PersonFragment : Fragment() {
         }
 
         images.observe(viewLifecycleOwner) {
-            binding.imageRecycler.visibility = View.VISIBLE
+            setViewsVisibility(View.VISIBLE, binding.imagesTitle, binding.imageRecycler)
             posterImageAdapter.submitList(it)
         }
     }

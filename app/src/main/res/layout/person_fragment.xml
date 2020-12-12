@@ -52,7 +52,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_toEndOf="@id/image"
-            android:text="@string/user_rating_" />
+            android:text="@string/user_rating_"
+            android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/user_rating_value"
@@ -71,7 +72,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_toEndOf="@id/image"
-            android:text="@string/birthday" />
+            android:text="@string/birthday"
+            android:textStyle="bold" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/birthday_date"
@@ -91,6 +93,7 @@
             android:layout_marginTop="8dp"
             android:layout_toEndOf="@+id/image"
             android:text="@string/deathday"
+            android:textStyle="bold"
             android:visibility="gone" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -112,6 +115,7 @@
             android:layout_marginTop="8dp"
             android:layout_toEndOf="@+id/image"
             android:text="@string/placeOfBirth"
+            android:textStyle="bold"
             android:visibility="gone" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -131,11 +135,22 @@
             android:layout_below="@+id/image"
             android:layout_margin="8dp" />
 
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/images_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/description"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="@string/other_images"
+            android:textStyle="bold"
+            android:visibility="gone" />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/image_recycler"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:layout_below="@id/description"
+            android:layout_below="@id/images_title"
             android:layout_marginTop="8dp"
             android:clipToPadding="false"
             android:paddingStart="8dp"

@@ -1,10 +1,13 @@
 package com.endeline.movielibrary.ui.gui.search
 
 import androidx.recyclerview.widget.RecyclerView
+import com.endeline.common.ProductType
 import com.endeline.domain.uimodels.SearchUiModel.SearchItemUiModel
 import com.endeline.movielibrary.databinding.SearchItemBinding
 import com.endeline.movielibrary.extensions.loadBackdropImage
 import com.endeline.movielibrary.extensions.loadPosterImage
+import com.endeline.movielibrary.ui.Constants.String.UNSUPPORTED_TYPE
+import java.lang.RuntimeException
 
 class SearchItemViewHolder(
     val binding: SearchItemBinding,
@@ -16,14 +19,16 @@ class SearchItemViewHolder(
             onClick(item.id)
         }
 
-        when (MediaType.fromString(item.mediaType)) {
-            MediaType.person -> image.loadPosterImage(item.profilePath)
-            MediaType.movie,
-            MediaType.tv -> if (item.posterPath.isNotBlank()) {
+        when (ProductType.fromString(item.mediaType)) {
+            ProductType.PERSON -> image.loadPosterImage(item.profilePath)
+            ProductType.MOVIE,
+            ProductType.TV -> if (item.posterPath.isNotBlank()) {
                 image.loadPosterImage(item.posterPath)
             } else {
                 image.loadBackdropImage(item.backdropPath)
             }
+            else -> throw RuntimeException(UNSUPPORTED_TYPE)
+
         }
     }
 }
