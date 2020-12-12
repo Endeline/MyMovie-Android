@@ -2,17 +2,14 @@ package com.endeline.movielibrary.ui.gui.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.endeline.domain.uimodels.SearchUiModel.SearchItemUiModel
 import com.endeline.domain.usecase.SearchAllUseCase
+import com.endeline.movielibrary.ui.gui.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
-class SearchViewModel(private val searchAllUseCase: SearchAllUseCase) : ViewModel() {
-
-    private val subscription = CompositeDisposable()
+class SearchViewModel(private val searchAllUseCase: SearchAllUseCase) : BaseViewModel() {
 
     private val _person = MutableLiveData<List<SearchItemUiModel>>()
 
@@ -29,13 +26,8 @@ class SearchViewModel(private val searchAllUseCase: SearchAllUseCase) : ViewMode
     val tv: LiveData<List<SearchItemUiModel>>
         get() = _tv
 
-    override fun onCleared() {
-        super.onCleared()
-        subscription.clear()
-    }
-
-    fun search(query: String) {
-        val disposable = searchAllUseCase(query)
+    fun search(query: String) = subscription.add(
+        searchAllUseCase(query)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ searchResult ->
@@ -57,9 +49,7 @@ class SearchViewModel(private val searchAllUseCase: SearchAllUseCase) : ViewMode
                     }
                 }
             }, Timber::e)
-
-        subscription.add(disposable)
-    }
+    )
 
     private fun filter(items: List<SearchItemUiModel>) =
         items.filter { item ->

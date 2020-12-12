@@ -3,13 +3,10 @@ package com.endeline.movielibrary.ui.gui.splash
 import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.endeline.domain.usecase.LoadAllDataUseCase
-import io.reactivex.disposables.CompositeDisposable
+import com.endeline.movielibrary.ui.gui.base.BaseViewModel
 
-class SplashViewModel(private val loadAllDataUseCase: LoadAllDataUseCase) : ViewModel() {
-
-    private val subscriptions = CompositeDisposable()
+class SplashViewModel(private val loadAllDataUseCase: LoadAllDataUseCase) : BaseViewModel() {
 
     private val _dataLoaded = MutableLiveData<Boolean>()
 
@@ -18,11 +15,6 @@ class SplashViewModel(private val loadAllDataUseCase: LoadAllDataUseCase) : View
 
     init {
         loadData()
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        subscriptions.clear()
     }
 
     //TODO change this to load only home data not all
