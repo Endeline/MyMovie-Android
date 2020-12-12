@@ -4,11 +4,13 @@ import com.endeline.common.types.ProductType
 import com.endeline.data.service.ProductService
 import com.endeline.domain.di.components.DaggerDomainComponents
 import com.endeline.domain.extensions.toUiModel
-import com.endeline.domain.uimodels.VideoLinkCollectionUiModel
+import com.endeline.domain.uimodels.PersonCreditsUiModel
 import com.endeline.domain.usecase.types.ObservableUseCaseWithThreeParams
+import io.reactivex.Observable
 import javax.inject.Inject
 
-class GetProductVideoLinksUseCase : ObservableUseCaseWithThreeParams<ProductType, Int, VideoLinkCollectionUiModel> {
+class GetPersonCreditsUseCase :
+    ObservableUseCaseWithThreeParams<ProductType, Int, PersonCreditsUiModel> {
 
     @Inject
     lateinit var productService: ProductService
@@ -18,6 +20,6 @@ class GetProductVideoLinksUseCase : ObservableUseCaseWithThreeParams<ProductType
     }
 
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
-    override fun invoke(productType: ProductType, id: Int)=
-        productService.getProductVideoLinks(productType, id).map { it.toUiModel() }
+    override fun invoke(productType: ProductType, id: Int): Observable<PersonCreditsUiModel> =
+        productService.getPersonCredits(productType, id).map { it.toUiModel() }
 }

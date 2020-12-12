@@ -9,8 +9,6 @@ import com.endeline.movielibrary.databinding.PosterImageBinding
 
 class PosterImageAdapter : ListAdapter<ImageUiModel, PosterImageViewHolder>(ImagePosterDiffer()) {
 
-    var listener: (String) -> Unit = {}
-
     private class ImagePosterDiffer : DiffUtil.ItemCallback<ImageUiModel>() {
         override fun areItemsTheSame(oldItem: ImageUiModel, newItem: ImageUiModel) =
             oldItem.filePath == newItem.filePath
@@ -18,6 +16,8 @@ class PosterImageAdapter : ListAdapter<ImageUiModel, PosterImageViewHolder>(Imag
         override fun areContentsTheSame(oldItem: ImageUiModel, newItem: ImageUiModel) =
             oldItem == newItem
     }
+
+    var listener: (String) -> Unit = {}
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         PosterImageViewHolder(

@@ -92,8 +92,7 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            tools:layout="@layout/details_fragment" />
+            app:popExitAnim="@anim/slide_out_right" />
         <action
             android:id="@+id/toVideo"
             app:destination="@id/videoFragment"
@@ -136,15 +135,14 @@
         <argument
             android:name="type"
             android:defaultValue="MOVIE"
-            app:argType="com.endeline.common.ProductType" />
+            app:argType="com.endeline.common.types.ProductType" />
         <action
             android:id="@+id/toDetails"
             app:destination="@id/detailsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            tools:layout="@layout/details_fragment" />
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -155,15 +153,14 @@
         <argument
             android:name="type"
             android:defaultValue="TV"
-            app:argType="com.endeline.common.ProductType" />
+            app:argType="com.endeline.common.types.ProductType" />
         <action
             android:id="@+id/toDetails"
             app:destination="@id/detailsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            tools:layout="@layout/details_fragment" />
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -178,6 +175,14 @@
         <action
             android:id="@+id/toPreviewImage"
             app:destination="@+id/preview_image" />
+
+        <action
+            android:id="@+id/toDetails"
+            app:destination="@id/detailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <dialog

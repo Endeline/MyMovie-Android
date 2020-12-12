@@ -4,10 +4,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.endeline.movielibrary.extensions.runOnUiThread
 import com.endeline.movielibrary.extensions.smoothSnapToPosition
-import com.endeline.movielibrary.ui.Constants.Duation.AUTO_SCROLLING_DELAY_TIME
-import com.endeline.movielibrary.ui.Constants.Duation.AUTO_SCROLLING_PERIOD_TIME
-import com.endeline.movielibrary.ui.Constants.Values.VALUE_ONE
-import com.endeline.movielibrary.ui.Constants.Values.VALUE_ZERO
+import com.endeline.movielibrary.Constants.Duration.AUTO_SCROLLING_DELAY_TIME
+import com.endeline.movielibrary.Constants.Duration.AUTO_SCROLLING_PERIOD_TIME
+import com.endeline.movielibrary.Constants.Values.VALUE_ONE
+import com.endeline.movielibrary.Constants.Values.VALUE_ZERO
 import java.util.*
 
 class RecyclerViewAutoScroll {

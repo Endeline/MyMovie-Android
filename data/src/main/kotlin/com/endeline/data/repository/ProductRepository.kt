@@ -53,21 +53,22 @@ interface ProductRepository {
     ): Observable<Reviews>
 
     @GET("${BuildConfig.API_VERSION}/{type}/{id}/{sectionType}")
+    fun getPersonCredits(
+        @Path("type") type: String,
+        @Path("id") id: Int,
+        @Path("sectionType") sectionType: String
+    ): Observable<PersonCredits>
+
+    @GET("${BuildConfig.API_VERSION}/{type}/{id}/{sectionType}")
     fun getProductCredits(
         @Path("type") type: String,
         @Path("id") id: Int,
         @Path("sectionType") sectionType: String
-    ): Observable<Credits>
-
+    ): Observable<ProductCredits>
 
 //todo as home ??
 //    /person/latest
 //    /person/popular
-
-//todo
-//    below as new item cast?
-//    /person/{person_id}/movie_credits
-//    /person/{person_id}/tv_credits
 
     //TODO in below maybe change movie in url on type and type will be provide from ui
     // and maybe change function mane from movie to product

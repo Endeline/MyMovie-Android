@@ -5,8 +5,8 @@ import android.util.DisplayMetrics
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
-import com.endeline.movielibrary.ui.Constants.Duation.DEFAULT_SPEED
-import com.endeline.movielibrary.ui.Constants.Duation.RECYCLER_VIEW_ITEM_DURATION
+import com.endeline.movielibrary.Constants.Duration.DEFAULT_SPEED
+import com.endeline.movielibrary.Constants.Duration.RECYCLER_VIEW_ITEM_DURATION
 import jp.wasabeef.recyclerview.animators.SlideInRightAnimator
 
 fun RecyclerView.runOnUiThread(block: () -> Unit) {

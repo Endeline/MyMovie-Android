@@ -47,11 +47,14 @@ class UseCaseModule {
     fun provideGetProductReviewUseCase() = GetProductReviewUseCase()
 
     @Provides
-    fun provideGetProductCreditsUseCase() = GetProductCreditsUseCase()
+    fun provideGetPersonCreditsUseCase() = GetPersonCreditsUseCase()
 
     @Provides
     fun provideGetPersonDetailUseCase() = GetPersonDetailsUseCase()
 
     @Provides
     fun provideGetProductsWithTypes() = GetProductsWithTypes()
+
+    @Provides
+    fun provideGetProductCreditsUseCase() = GetProductCreditsUseCase()
 }

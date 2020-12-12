@@ -2,17 +2,17 @@ package com.endeline.movielibrary.ui.gui.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.endeline.common.ProductType
-import com.endeline.common.SectionType
+import com.endeline.common.types.ProductType
+import com.endeline.common.types.SectionType
 import com.endeline.domain.uimodels.ImagesUiModel.ImageUiModel
 import com.endeline.domain.uimodels.PersonUiModel
-import com.endeline.domain.uimodels.ProductsUiModel.ProductUiModel
+import com.endeline.domain.uimodels.ProductUiModel
 import com.endeline.domain.uimodels.ReviewsUiModel.ReviewUiModel
 import com.endeline.domain.uimodels.VideoLinkCollectionUiModel.VideoLinkDetailsUiModel
 import com.endeline.domain.usecase.*
 import com.endeline.movielibrary.extensions.ifLet
 import com.endeline.movielibrary.extensions.ifNotEmpty
-import com.endeline.movielibrary.ui.Constants.Values.VALUE_ZERO
+import com.endeline.movielibrary.Constants.Values.VALUE_ZERO
 import com.endeline.movielibrary.ui.gui.base.BaseViewModel
 import timber.log.Timber
 
@@ -22,7 +22,7 @@ class DetailsViewModel(
     private val getProductVideoLinksUseCase: GetProductVideoLinksUseCase,
     private val getImagesUseCase: GetImagesUseCase,
     private val getProductReviewUseCase: GetProductReviewUseCase,
-    private val getProductCreditsUseCase: GetProductCreditsUseCase
+    private val getPersonCreditsUseCase: GetPersonCreditsUseCase
 ) : BaseViewModel() {
 
     private val _similar = MutableLiveData<List<ProductUiModel>>()
@@ -199,7 +199,7 @@ class DetailsViewModel(
     )
 
     private fun loadCredits(movieId: Int) = subscription.add(
-        getProductCreditsUseCase(ProductType.MOVIE, movieId)
+        getPersonCreditsUseCase(ProductType.MOVIE, movieId)
             .subscribe({ response ->
                 ifNotEmpty(response.cast) {
                     _cast.value = it.filter { it.profilePath.isNotBlank() }.distinctBy { it.id }

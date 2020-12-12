@@ -2,9 +2,9 @@ package com.endeline.movielibrary.ui.gui.collection
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.endeline.common.ProductType
-import com.endeline.common.SectionType
-import com.endeline.domain.uimodels.ProductsUiModel.ProductUiModel
+import com.endeline.common.types.ProductType
+import com.endeline.common.types.SectionType
+import com.endeline.domain.uimodels.ProductUiModel
 import com.endeline.domain.usecase.GetProductsWithTypes
 import com.endeline.movielibrary.ui.gui.base.BaseViewModel
 import timber.log.Timber

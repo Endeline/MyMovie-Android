@@ -1,7 +1,7 @@
 package com.endeline.data.cache
 
-import com.endeline.common.ProductType
-import com.endeline.common.SectionType
+import com.endeline.common.types.ProductType
+import com.endeline.common.types.SectionType
 import com.endeline.data.extensions.getCacheKey
 import com.endeline.data.models.*
 

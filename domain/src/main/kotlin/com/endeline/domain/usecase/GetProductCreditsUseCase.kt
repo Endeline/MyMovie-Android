@@ -1,16 +1,16 @@
 package com.endeline.domain.usecase
 
-import com.endeline.common.ProductType
+import com.endeline.common.types.ProductType
+import com.endeline.common.types.SectionType
 import com.endeline.data.service.ProductService
 import com.endeline.domain.di.components.DaggerDomainComponents
 import com.endeline.domain.extensions.toUiModel
-import com.endeline.domain.uimodels.CreditsUiModel
-import com.endeline.domain.usecase.types.ObservableUseCaseWithThreeParams
-import io.reactivex.Observable
+import com.endeline.domain.uimodels.ProductCreditsUiModel
+import com.endeline.domain.usecase.types.ObservableUseCaseWithFourParams
 import javax.inject.Inject
 
 class GetProductCreditsUseCase :
-    ObservableUseCaseWithThreeParams<ProductType, Int, CreditsUiModel> {
+    ObservableUseCaseWithFourParams<ProductType, Int, SectionType, ProductCreditsUiModel> {
 
     @Inject
     lateinit var productService: ProductService
@@ -20,6 +20,7 @@ class GetProductCreditsUseCase :
     }
 
     @Suppress("PARAMETER_NAME_CHANGED_ON_OVERRIDE")
-    override fun invoke(productType: ProductType, id: Int): Observable<CreditsUiModel> =
-        productService.getProductCredits(productType, id).map { it.toUiModel() }
+    override fun invoke(productType: ProductType, id: Int, sectionType: SectionType) =
+        productService.getproductCredits(productType, id, sectionType)
+            .map { it.toUiModel(productType) }
 }

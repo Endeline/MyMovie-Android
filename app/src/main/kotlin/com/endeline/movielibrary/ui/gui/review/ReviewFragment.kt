@@ -15,8 +15,8 @@ import com.endeline.movielibrary.databinding.ReviewFragmentBinding
 import com.endeline.movielibrary.extensions.ifNotEmpty
 import com.endeline.movielibrary.extensions.loadImage
 import com.endeline.movielibrary.extensions.px
-import com.endeline.movielibrary.ui.Constants.Size.WINDOW_HEIGHT
-import com.endeline.movielibrary.ui.Constants.Size.WINDOW_WIDTH
+import com.endeline.movielibrary.Constants.Size.WINDOW_HEIGHT
+import com.endeline.movielibrary.Constants.Size.WINDOW_WIDTH
 
 class ReviewFragment : DialogFragment() {
 

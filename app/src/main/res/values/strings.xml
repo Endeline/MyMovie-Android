@@ -56,4 +56,6 @@
     <string name="deathday">Deathday:</string>
     <string name="placeOfBirth">Place of birth:</string>
     <string name="other_images">Other images</string>
+    <string name="movie_cast">In other movies: </string>
+    <string name="tv_cast">In other tv:</string>
 </resources>

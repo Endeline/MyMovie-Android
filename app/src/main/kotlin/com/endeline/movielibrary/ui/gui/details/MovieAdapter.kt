@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.endeline.domain.uimodels.ProductsUiModel.ProductUiModel
+import com.endeline.domain.uimodels.ProductUiModel
 import com.endeline.movielibrary.databinding.PosterImageBinding
 
 class MovieAdapter(
