@@ -22,7 +22,7 @@ class DetailsViewModel(
     private val getMovieDetailsViewModel: GetMovieDetailsUseCase,
     private val getProductAdditionalInformationUseCase: GetProductAdditionalInformationUseCase,
     private val getProductVideoLinksUseCase: GetProductVideoLinksUseCase,
-    private val getProductImagesUseCase: GetProductImagesUseCase,
+    private val getImagesUseCase: GetImagesUseCase,
     private val getProductReviewUseCase: GetProductReviewUseCase,
     private val getProductCreditsUseCase: GetProductCreditsUseCase
 ) : ViewModel() {
@@ -205,7 +205,7 @@ class DetailsViewModel(
     }
 
     private fun loadVideoImages(movieId: Int) {
-        val disposable = getProductImagesUseCase(ProductType.MOVIE, movieId)
+        val disposable = getImagesUseCase(ProductType.MOVIE, movieId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .filter { it.backdrops.isNotEmpty() }

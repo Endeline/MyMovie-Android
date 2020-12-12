@@ -111,7 +111,8 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:layout_toEndOf="@+id/image"
-            android:text="@string/placeOfBirth" />
+            android:text="@string/placeOfBirth"
+            android:visibility="gone" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/place_of_birth_text"
@@ -120,7 +121,8 @@
             android:layout_below="@id/place_of_birth"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:layout_toEndOf="@+id/image" />
+            android:layout_toEndOf="@+id/image"
+            android:visibility="gone" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/description"
@@ -128,5 +130,16 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/image"
             android:layout_margin="8dp" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/image_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_below="@id/description"
+            android:layout_marginTop="8dp"
+            android:clipToPadding="false"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:visibility="gone" />
     </RelativeLayout>
 </androidx.core.widget.NestedScrollView>

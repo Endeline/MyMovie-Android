@@ -18,7 +18,7 @@ interface DomainComponents {
     fun inject(useCase: CheckIsUserInAppUseCase)
     fun inject(useCase: CheckExistLoginUseCase)
     fun inject(useCase: RegisterUseCase)
-    fun inject(useCase: GetProductImagesUseCase)
+    fun inject(useCase: GetImagesUseCase)
     fun inject(useCase: GetProductReviewUseCase)
     fun inject(useCase: GetProductCreditsUseCase)
     fun inject(useCase: GetPersonDetailsUseCase)

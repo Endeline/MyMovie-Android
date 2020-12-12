@@ -14,7 +14,7 @@ fun Product.toUiModel(productType: ProductType) = ProductUiModel(
     posterPath = this@toUiModel.posterPath ?: "",
     adult = this@toUiModel.adult ?: false,
     overview = this@toUiModel.overview ?: "",
-    releaseDate = this@toUiModel.releaseDate ?: Date(),
+    releaseDate = this@toUiModel.releaseDate ?: "",
     genreIds = this@toUiModel.genreIds ?: emptyList(),
     id = this@toUiModel.id ?: -1,
     originalTitle = this@toUiModel.originalTitle ?: "",
@@ -26,7 +26,6 @@ fun Product.toUiModel(productType: ProductType) = ProductUiModel(
     video = this@toUiModel.video ?: false,
     voteAverage = this@toUiModel.voteAverage ?: -1.0,
     productType = productType
-
 )
 
 fun List<Product>.toUiModel(productType: ProductType) = this.map { it.toUiModel(productType) }

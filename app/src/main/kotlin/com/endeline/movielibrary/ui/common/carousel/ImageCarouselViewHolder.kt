@@ -1,4 +1,4 @@
-package com.endeline.movielibrary.ui.common.imagecarousel
+package com.endeline.movielibrary.ui.common.carousel
 
 import androidx.recyclerview.widget.RecyclerView
 import com.endeline.domain.uimodels.ImagesUiModel.ImageUiModel

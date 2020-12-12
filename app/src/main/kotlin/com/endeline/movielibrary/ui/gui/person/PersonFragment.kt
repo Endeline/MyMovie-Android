@@ -1,4 +1,4 @@
-package com.endeline.movielibrary.ui.gui.credit
+package com.endeline.movielibrary.ui.gui.person
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,20 +6,24 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.endeline.domain.uimodels.PersonUiModel
 import com.endeline.movielibrary.databinding.PersonFragmentBinding
 import com.endeline.movielibrary.di.ViewModelFactory
 import com.endeline.movielibrary.di.components.DaggerAppComponent
-import com.endeline.movielibrary.extensions.loadPosterImage
-import com.endeline.movielibrary.extensions.setViewsVisibility
-import com.endeline.movielibrary.extensions.toSimpleDate
+import com.endeline.movielibrary.extensions.*
+import com.endeline.movielibrary.ui.common.poster.PosterImageAdapter
+import timber.log.Timber
 import javax.inject.Inject
 
 class PersonFragment : Fragment() {
 
     @Inject
     lateinit var viewModelFactory: ViewModelFactory.PersonViewModelFactory
+
+    @Inject
+    lateinit var posterImageAdapter: PosterImageAdapter
 
     private val viewModel by viewModels<PersonViewModel> {
         viewModelFactory
@@ -36,7 +40,9 @@ class PersonFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         DaggerAppComponent.create().inject(this)
-        _binding = PersonFragmentBinding.inflate(LayoutInflater.from(requireContext()), container, false)
+
+        _binding =
+            PersonFragmentBinding.inflate(LayoutInflater.from(requireContext()), container, false)
 
         return binding.root
     }
@@ -55,13 +61,22 @@ class PersonFragment : Fragment() {
         _binding = null
     }
 
-    private fun setComponents() {
+    private fun setComponents() = with(binding) {
+        posterImageAdapter.listener = {
+            findNavController().navigate(PersonFragmentDirections.toPreviewImage(it))
+        }
 
+        imageRecycler.setupWithAdapter(posterImageAdapter)
     }
 
     private fun subscribeUi() = with(viewModel) {
         personDetails.observe(viewLifecycleOwner) {
             setGlobalCreditData(it)
+        }
+
+        images.observe(viewLifecycleOwner) {
+            binding.imageRecycler.visibility = View.VISIBLE
+            posterImageAdapter.submitList(it)
         }
     }
 
@@ -69,9 +84,15 @@ class PersonFragment : Fragment() {
         name.text = person.name
         description.text = person.biography
         birthdayDate.text = person.birthday.toSimpleDate()
-        placeOfBirthText.text = person.placeOfBirth
         userRatingValue.text = person.popularity.toString()
+        placeOfBirthText.text = person.placeOfBirth
         image.loadPosterImage(person.profilePath)
+
+        ifNotEmpty(person.placeOfBirth) {
+            setViewsVisibility(View.VISIBLE, placeOfBirth, placeOfBirthText)
+            placeOfBirthText.text = person.placeOfBirth
+        }
+
         person.deathday?.let {
             setViewsVisibility(View.VISIBLE, deathday, deathdayDate)
             deathdayDate.text = it.toSimpleDate()

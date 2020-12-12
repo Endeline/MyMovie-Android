@@ -19,9 +19,9 @@ import com.endeline.movielibrary.di.components.DaggerAppComponent
 import com.endeline.movielibrary.extensions.ifNotEmpty
 import com.endeline.movielibrary.extensions.setViewsVisibility
 import com.endeline.movielibrary.extensions.setupWithAdapter
-import com.endeline.movielibrary.ui.common.imagecarousel.ImagesCarouselAdapter
-import com.endeline.movielibrary.ui.common.autoscroll.RecyclerViewAutoScroll
-import com.endeline.movielibrary.ui.common.autoscroll.RecyclerViewAutoScroll.Companion.MINIMUM_BACKDROP_SIZE
+import com.endeline.movielibrary.ui.common.carousel.ImagesCarouselAdapter
+import com.endeline.movielibrary.ui.common.carousel.RecyclerViewAutoScroll
+import com.endeline.movielibrary.ui.common.carousel.RecyclerViewAutoScroll.Companion.MINIMUM_BACKDROP_SIZE
 import com.endeline.movielibrary.ui.common.credits.CreditsAdapter
 import com.endeline.movielibrary.ui.common.reviews.ReviewsAdapter
 import javax.inject.Inject
@@ -94,6 +94,25 @@ class DetailsFragment : Fragment() {
     }
 
     private fun setComponent() = with(binding) {
+        reviewsAdapter.listener = { item ->
+            findNavController().navigate(
+                DetailsFragmentDirections.navigateToReview(
+                    item.authorDetails.userName,
+                    item.content,
+                    item.authorDetails.avatarPath,
+                    item.authorDetails.rating
+                )
+            )
+        }
+
+        castAdapter.listener = { personId ->
+            findNavController().navigate(DetailsFragmentDirections.navigateToPerson(personId))
+        }
+
+        crewAdapter.listener = { personId ->
+            findNavController().navigate(DetailsFragmentDirections.navigateToPerson(personId))
+        }
+
         similarRecycler.setupWithAdapter(similarAdapter)
         recommendedRecycler.setupWithAdapter(recommendedAdapter)
         moviesRecycler.setupWithAdapter(videoLinksAdapter)

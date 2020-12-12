@@ -5,7 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.endeline.domain.uimodels.ProductsUiModel.ProductUiModel
-import com.endeline.movielibrary.databinding.SimilarRecommendationMovieBinding
+import com.endeline.movielibrary.databinding.PosterImageBinding
 
 class MovieAdapter(
     private val onClick: (Int) -> Unit
@@ -25,7 +25,7 @@ class MovieAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MovieViewHolder =
         MovieViewHolder(
-            SimilarRecommendationMovieBinding.inflate(LayoutInflater.from(parent.context)),
+            PosterImageBinding.inflate(LayoutInflater.from(parent.context)),
             onClick
         )
 
