@@ -12,6 +12,7 @@ import com.endeline.domain.uimodels.VideoLinkCollectionUiModel.VideoLinkDetailsU
 import com.endeline.domain.usecase.*
 import com.endeline.movielibrary.extensions.ifLet
 import com.endeline.movielibrary.extensions.ifNotEmpty
+import com.endeline.movielibrary.ui.Constants.Values.VALUE_ZERO
 import com.endeline.movielibrary.ui.gui.base.BaseViewModel
 import timber.log.Timber
 
@@ -117,7 +118,7 @@ class DetailsViewModel(
                 }
 
                 ifNotEmpty(details.voteAverage) { vote ->
-                    if (vote > 0) {
+                    if (vote > VALUE_ZERO) {
                         _voteAverage.value = vote
                     }
                 }

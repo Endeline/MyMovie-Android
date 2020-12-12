@@ -7,6 +7,7 @@ import com.endeline.domain.uimodels.ImagesUiModel.ImageUiModel
 import com.endeline.domain.uimodels.PersonUiModel
 import com.endeline.domain.usecase.GetImagesUseCase
 import com.endeline.domain.usecase.GetPersonDetailsUseCase
+import com.endeline.movielibrary.ui.Constants.Collections.MINIMUM_COLLECTION_SIZE
 import com.endeline.movielibrary.ui.gui.base.BaseViewModel
 import timber.log.Timber
 
@@ -41,7 +42,7 @@ class PersonViewModel(
 
     private fun loadImages(personId: Int) = subscription.add(
         getImagesUseCase(ProductType.PERSON, personId)
-            .filter { it.profiles.size > 1 }
+            .filter { it.profiles.size > MINIMUM_COLLECTION_SIZE }
             .subscribe({
                 _images.value = it.profiles
             }, Timber::e)

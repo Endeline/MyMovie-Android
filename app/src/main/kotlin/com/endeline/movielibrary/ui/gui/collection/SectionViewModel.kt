@@ -7,8 +7,6 @@ import com.endeline.common.SectionType
 import com.endeline.domain.uimodels.ProductsUiModel.ProductUiModel
 import com.endeline.domain.usecase.GetProductsWithTypes
 import com.endeline.movielibrary.ui.gui.base.BaseViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 class SectionViewModel(

@@ -12,8 +12,8 @@ import com.endeline.movielibrary.R
 import com.endeline.movielibrary.databinding.PreviewImageFragmentBinding
 import com.endeline.movielibrary.extensions.loadPosterImage
 import com.endeline.movielibrary.extensions.px
-import com.endeline.movielibrary.ui.Constants.DialogSize.WINDOW_HEIGHT
-import com.endeline.movielibrary.ui.Constants.DialogSize.WINDOW_WIDTH
+import com.endeline.movielibrary.ui.Constants.Size.WINDOW_HEIGHT
+import com.endeline.movielibrary.ui.Constants.Size.WINDOW_WIDTH
 
 class PreviewImageFragment : DialogFragment() {
 

@@ -14,6 +14,7 @@ import com.endeline.movielibrary.di.ViewModelFactory
 import com.endeline.movielibrary.di.components.DaggerAppComponent
 import com.endeline.movielibrary.extensions.setViewsVisibility
 import com.endeline.movielibrary.extensions.setupWithAdapterAndRemoveAnimation
+import com.endeline.movielibrary.ui.Constants.String.MINIMUM_TEXT_SIZE_TO_SEARCH
 import javax.inject.Inject
 
 //todo feature create tabs ??
@@ -107,9 +108,5 @@ class SearchFragment : Fragment() {
         } else {
             setViewsVisibility(View.GONE, *views)
         }
-    }
-
-    companion object {
-        private const val MINIMUM_TEXT_SIZE_TO_SEARCH = 3
     }
 }

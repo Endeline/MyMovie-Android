@@ -1,7 +1,6 @@
 package com.endeline.domain.uimodels
 
 import com.endeline.common.ProductType
-import java.util.*
 
 data class ProductsUiModel(
     val page: Int,

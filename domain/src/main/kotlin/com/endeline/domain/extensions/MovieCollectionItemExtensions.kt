@@ -1,30 +1,33 @@
 package com.endeline.domain.extensions
 
 
+import com.endeline.common.Constants.EMPTY_TEXT
+import com.endeline.common.Constants.EMPTY_VALUE
+import com.endeline.common.Constants.NO_VALUE
 import com.endeline.common.ProductType
 import com.endeline.data.models.Products.Product
 import com.endeline.domain.uimodels.ProductsUiModel.ProductUiModel
 import java.util.*
 
 fun Product.toUiModel(productType: ProductType) = ProductUiModel(
-    firstAirDate = this.firstAirDate ?: "",
+    firstAirDate = this.firstAirDate ?: EMPTY_TEXT,
     originCountry = this.originCountry ?: emptyList(),
-    originalName = this.originalName ?: "",
-    name = this.name ?: "",
-    posterPath = this@toUiModel.posterPath ?: "",
+    originalName = this.originalName ?: EMPTY_TEXT,
+    name = this.name ?: EMPTY_TEXT,
+    posterPath = this@toUiModel.posterPath ?: EMPTY_TEXT,
     adult = this@toUiModel.adult ?: false,
-    overview = this@toUiModel.overview ?: "",
-    releaseDate = this@toUiModel.releaseDate ?: "",
+    overview = this@toUiModel.overview ?: EMPTY_TEXT,
+    releaseDate = this@toUiModel.releaseDate ?: EMPTY_TEXT,
     genreIds = this@toUiModel.genreIds ?: emptyList(),
-    id = this@toUiModel.id ?: -1,
-    originalTitle = this@toUiModel.originalTitle ?: "",
-    originalLanguage = this@toUiModel.originalLanguage ?: "",
-    title = this@toUiModel.title ?: "",
-    backdropPath = this@toUiModel.backdropPath ?: "",
-    popularity = this@toUiModel.popularity ?: -1.0,
-    voteCount = this@toUiModel.voteCount ?: -1,
+    id = this@toUiModel.id ?: EMPTY_VALUE,
+    originalTitle = this@toUiModel.originalTitle ?: EMPTY_TEXT,
+    originalLanguage = this@toUiModel.originalLanguage ?: EMPTY_TEXT,
+    title = this@toUiModel.title ?: EMPTY_TEXT,
+    backdropPath = this@toUiModel.backdropPath ?: EMPTY_TEXT,
+    popularity = this@toUiModel.popularity ?: NO_VALUE,
+    voteCount = this@toUiModel.voteCount ?: EMPTY_VALUE,
     video = this@toUiModel.video ?: false,
-    voteAverage = this@toUiModel.voteAverage ?: -1.0,
+    voteAverage = this@toUiModel.voteAverage ?: NO_VALUE,
     productType = productType
 )
 

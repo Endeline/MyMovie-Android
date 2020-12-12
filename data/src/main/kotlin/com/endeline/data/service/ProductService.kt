@@ -69,6 +69,8 @@ class ProductService {
 
     //todo how cache this ??
     fun searchAll(query: String) = productRepository.searchAll(query)
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
 
     fun getProductVideoLinks(productType: ProductType, id: Int) =
         if (cache.contains(productType, id, SectionType.VIDEO)) {

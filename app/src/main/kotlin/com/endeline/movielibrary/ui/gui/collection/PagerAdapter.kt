@@ -6,6 +6,11 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.endeline.common.ProductType
 import com.endeline.common.SectionType
 import com.endeline.movielibrary.R
+import com.endeline.movielibrary.ui.Constants.Position.FIRST
+import com.endeline.movielibrary.ui.Constants.Position.FOURTH
+import com.endeline.movielibrary.ui.Constants.Position.SECOND
+import com.endeline.movielibrary.ui.Constants.Position.THIRD
+import com.endeline.movielibrary.ui.Constants.String.UNSUPPORTED_TYPE
 import java.lang.RuntimeException
 import java.lang.UnsupportedOperationException
 
@@ -29,18 +34,18 @@ class PagerAdapter(fragment: Fragment, private val collectionType: ProductType) 
     override fun getItemCount() = when (collectionType) {
         ProductType.MOVIE -> movieTitles.size
         ProductType.TV -> tvTitles.size
-        else -> throw RuntimeException("Unsupported type")
+        else -> throw RuntimeException(UNSUPPORTED_TYPE)
     }
 
     override fun createFragment(position: Int): Fragment {
         val collectionTypeName = when (collectionType) {
             ProductType.MOVIE -> ProductType.MOVIE.name
             ProductType.TV -> ProductType.TV.name
-            else -> throw RuntimeException("Unsupported type")
+            else -> throw RuntimeException(UNSUPPORTED_TYPE)
         }
 
         return when (position) {
-            0 -> SectionFragment().apply {
+            FIRST -> SectionFragment().apply {
                 arguments = Bundle().apply {
                     putString(SectionFragment.COLLECTION_TYPE, collectionTypeName)
                     when (collectionType) {
@@ -52,10 +57,11 @@ class PagerAdapter(fragment: Fragment, private val collectionType: ProductType) 
                             SectionFragment.SECTION_TYPE,
                             SectionType.POPULAR.name
                         )
+                        else -> throw RuntimeException(UNSUPPORTED_TYPE)
                     }
                 }
             }
-            1 -> SectionFragment().apply {
+            SECOND -> SectionFragment().apply {
                 arguments = Bundle().apply {
                     putString(SectionFragment.COLLECTION_TYPE, collectionTypeName)
                     when (collectionType) {
@@ -67,10 +73,11 @@ class PagerAdapter(fragment: Fragment, private val collectionType: ProductType) 
                             SectionFragment.SECTION_TYPE,
                             SectionType.TOP_RATED.name
                         )
+                        else -> throw RuntimeException(UNSUPPORTED_TYPE)
                     }
                 }
             }
-            2 -> SectionFragment().apply {
+            THIRD -> SectionFragment().apply {
                 arguments = Bundle().apply {
                     putString(SectionFragment.COLLECTION_TYPE, collectionTypeName)
                     when (collectionType) {
@@ -82,10 +89,11 @@ class PagerAdapter(fragment: Fragment, private val collectionType: ProductType) 
                             SectionFragment.SECTION_TYPE,
                             SectionType.AIRING_TODAY.name
                         )
+                        else -> throw RuntimeException(UNSUPPORTED_TYPE)
                     }
                 }
             }
-            3 -> SectionFragment().apply {
+            FOURTH -> SectionFragment().apply {
                 arguments = Bundle().apply {
                     putString(SectionFragment.COLLECTION_TYPE, collectionTypeName)
                     when (collectionType) {
@@ -97,6 +105,7 @@ class PagerAdapter(fragment: Fragment, private val collectionType: ProductType) 
                             SectionFragment.SECTION_TYPE,
                             SectionType.ON_THE_AIR.name
                         )
+                        else -> throw RuntimeException(UNSUPPORTED_TYPE)
                     }
                 }
             }
@@ -107,6 +116,6 @@ class PagerAdapter(fragment: Fragment, private val collectionType: ProductType) 
     fun getNamePosition(position: Int) = when (collectionType) {
         ProductType.MOVIE -> movieTitles[position]
         ProductType.TV -> tvTitles[position]
-        else -> throw RuntimeException("Unsupported type")
+        else -> throw RuntimeException(UNSUPPORTED_TYPE)
     }
 }

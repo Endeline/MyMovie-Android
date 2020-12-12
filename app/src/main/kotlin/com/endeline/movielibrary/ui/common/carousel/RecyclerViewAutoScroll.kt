@@ -4,7 +4,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.endeline.movielibrary.extensions.runOnUiThread
 import com.endeline.movielibrary.extensions.smoothSnapToPosition
-import com.endeline.movielibrary.ui.Constants
+import com.endeline.movielibrary.ui.Constants.Duation.AUTO_SCROLLING_DELAY_TIME
+import com.endeline.movielibrary.ui.Constants.Duation.AUTO_SCROLLING_PERIOD_TIME
+import com.endeline.movielibrary.ui.Constants.Values.VALUE_ONE
+import com.endeline.movielibrary.ui.Constants.Values.VALUE_ZERO
 import java.util.*
 
 class RecyclerViewAutoScroll {
@@ -28,8 +31,8 @@ class RecyclerViewAutoScroll {
         timer = Timer()
         timer?.scheduleAtFixedRate(
             AutoScrollTask(),
-            Constants.ScrollingTime.AUTO_SCROLLING_DELAY_TIME,
-            Constants.ScrollingTime.AUTO_SCROLLING_PERIOD_TIME
+            AUTO_SCROLLING_DELAY_TIME,
+            AUTO_SCROLLING_PERIOD_TIME
         )
     }
 
@@ -46,23 +49,19 @@ class RecyclerViewAutoScroll {
             return
         }
 
-        if (itemCount == 1) {
+        if (itemCount == VALUE_ONE) {
             stopScrolling()
             return
         }
 
-        val nextPosition = firstVisibleItemPosition + 1
+        val nextPosition = firstVisibleItemPosition + VALUE_ONE
 
         if (nextPosition == itemCount) {
             recycler?.runOnUiThread {
-                layoutManager.scrollToPositionWithOffset(0, 0)
+                layoutManager.scrollToPositionWithOffset(VALUE_ZERO, VALUE_ZERO)
             }
         } else {
             recycler?.smoothSnapToPosition(nextPosition)
         }
-    }
-
-    companion object {
-        const val MINIMUM_BACKDROP_SIZE = 1
     }
 }
