@@ -40,7 +40,7 @@ class ViewModelFactory {
         lateinit var getProductReviewUseCase: GetProductReviewUseCase
 
         @Inject
-        lateinit var getProductCreditsUseCase: GetProductCreditsUseCase
+        lateinit var getPersonCreditsUseCase: GetPersonCreditsUseCase
 
         init {
             DaggerViewModelComponent.create().inject(this)
@@ -53,14 +53,14 @@ class ViewModelFactory {
                 GetProductVideoLinksUseCase::class.java,
                 GetImagesUseCase::class.java,
                 GetProductReviewUseCase::class.java,
-                GetProductCreditsUseCase::class.java
+                GetPersonCreditsUseCase::class.java
             ).newInstance(
                 getMovieDetailsViewModel,
                 getProductAdditionalInformationUseCase,
                 getProductVideoLinksUseCase,
                 getImagesUseCase,
                 getProductReviewUseCase,
-                getProductCreditsUseCase
+                getPersonCreditsUseCase
             )
     }
 
@@ -74,7 +74,8 @@ class ViewModelFactory {
         }
 
         override fun <T : ViewModel?> create(modelClass: Class<T>) =
-            modelClass.getConstructor(GetProductsWithTypes::class.java).newInstance(getProductWithTypes)
+            modelClass.getConstructor(GetProductsWithTypes::class.java)
+                .newInstance(getProductWithTypes)
     }
 
     class SearchViewModelFactory : ViewModelProvider.Factory {
@@ -153,6 +154,9 @@ class ViewModelFactory {
         @Inject
         lateinit var getImagesUseCase: GetImagesUseCase
 
+        @Inject
+        lateinit var getProductCreditsUseCase: GetProductCreditsUseCase
+
         init {
             DaggerViewModelComponent.create().inject(this)
         }
@@ -160,7 +164,8 @@ class ViewModelFactory {
         override fun <T : ViewModel?> create(modelClass: Class<T>) =
             modelClass.getConstructor(
                 GetPersonDetailsUseCase::class.java,
-            GetImagesUseCase::class.java)
-                .newInstance(getPersonDetailsUseCase, getImagesUseCase)
+                GetImagesUseCase::class.java,
+                GetProductCreditsUseCase::class.java
+            ).newInstance(getPersonDetailsUseCase, getImagesUseCase, getProductCreditsUseCase)
     }
 }

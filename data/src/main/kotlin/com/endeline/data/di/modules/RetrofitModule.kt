@@ -1,6 +1,8 @@
 package com.endeline.data.di.modules
 
 import com.endeline.data.BuildConfig
+import com.endeline.data.Constants.Api.API_KEY_PARAM
+import com.endeline.data.Constants.Api.TIMEOUT_SECOND
 import com.endeline.data.repository.ProductRepository
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import dagger.Module
@@ -18,9 +20,6 @@ class RetrofitModule {
     fun provideRetrofitService(): ProductRepository = repository
 
     companion object {
-        private const val API_KEY_PARAM = "api_key"
-        private const val TIMEOUT_SECOND = 30L
-
         private val repository = Retrofit.Builder()
             .baseUrl(BuildConfig.MOVIE_DB_BASE_URL)
             .client(OkHttpClient.Builder()

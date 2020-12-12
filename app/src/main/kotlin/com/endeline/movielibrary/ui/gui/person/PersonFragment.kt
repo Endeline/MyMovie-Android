@@ -33,6 +33,12 @@ class PersonFragment : Fragment() {
     private var _binding: PersonFragmentBinding? = null
     private val binding get() = _binding!!
 
+    //todo di
+    private val movieCastAdapter = CastAdapter()
+
+    //todo di
+    private val tvCastAdapter = CastAdapter()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -65,7 +71,17 @@ class PersonFragment : Fragment() {
             findNavController().navigate(PersonFragmentDirections.toPreviewImage(it))
         }
 
+        movieCastAdapter.listener = {
+            findNavController().navigate(PersonFragmentDirections.toDetails(it))
+        }
+
+        tvCastAdapter.listener = {
+            //todo navigation to tv
+        }
+
         imageRecycler.setupWithAdapter(posterImageAdapter)
+        movieCastRecycler.setupWithAdapter(movieCastAdapter)
+        tvCastRecycler.setupWithAdapter(tvCastAdapter)
     }
 
     private fun subscribeUi() = with(viewModel) {
@@ -76,6 +92,16 @@ class PersonFragment : Fragment() {
         images.observe(viewLifecycleOwner) {
             setViewsVisibility(View.VISIBLE, binding.imagesTitle, binding.imageRecycler)
             posterImageAdapter.submitList(it)
+        }
+
+        movieCast.observe(viewLifecycleOwner) {
+            setViewsVisibility(View.VISIBLE, binding.movieCastTitle, binding.movieCastRecycler)
+            movieCastAdapter.submitList(it)
+        }
+
+        tvCast.observe(viewLifecycleOwner) {
+            setViewsVisibility(View.VISIBLE, binding.tvCastTitle, binding.tvCastRecycler)
+            tvCastAdapter.submitList(it)
         }
     }
 

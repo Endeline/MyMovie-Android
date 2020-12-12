@@ -4,9 +4,9 @@ package com.endeline.domain.extensions
 import com.endeline.common.Constants.EMPTY_TEXT
 import com.endeline.common.Constants.EMPTY_VALUE
 import com.endeline.common.Constants.NO_VALUE
-import com.endeline.common.ProductType
-import com.endeline.data.models.Products.Product
-import com.endeline.domain.uimodels.ProductsUiModel.ProductUiModel
+import com.endeline.common.types.ProductType
+import com.endeline.data.models.Product
+import com.endeline.domain.uimodels.ProductUiModel
 import java.util.*
 
 fun Product.toUiModel(productType: ProductType) = ProductUiModel(
@@ -28,7 +28,10 @@ fun Product.toUiModel(productType: ProductType) = ProductUiModel(
     voteCount = this@toUiModel.voteCount ?: EMPTY_VALUE,
     video = this@toUiModel.video ?: false,
     voteAverage = this@toUiModel.voteAverage ?: NO_VALUE,
-    productType = productType
+    productType = productType,
+    character = this.character ?: EMPTY_TEXT,
+    creditId = this.creditId ?: EMPTY_TEXT,
+    order = this.order ?: EMPTY_VALUE
 )
 
 fun List<Product>.toUiModel(productType: ProductType) = this.map { it.toUiModel(productType) }

@@ -24,7 +24,7 @@ data class Search(
         @SerializedName("title") val title: String?,
         @SerializedName("vote_average") val voteAverage: Double?,
         @SerializedName("overview") val overview: String?,
-        @SerializedName("release_date") val releaseDate: Date?,
+        @SerializedName("release_date") val releaseDate: String?,
         @SerializedName("known_for_department") val knownForDepartment: String?,
         @SerializedName("name") val name: String?,
         @SerializedName("profile_path") val profilePath: String?,
@@ -46,6 +46,6 @@ data class Search(
         @SerializedName("title") val title: String?,
         @SerializedName("vote_average") val voteAverage: Double?,
         @SerializedName("overview") val overview: String?,
-        @SerializedName("release_date") val releaseDate: Date?
+        @SerializedName("release_date") val releaseDate: String?
     )
 }

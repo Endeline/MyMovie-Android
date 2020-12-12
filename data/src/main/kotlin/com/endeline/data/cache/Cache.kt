@@ -1,7 +1,7 @@
 package com.endeline.data.cache
 
-import com.endeline.common.ProductType
-import com.endeline.common.SectionType
+import com.endeline.common.types.ProductType
+import com.endeline.common.types.SectionType
 import com.endeline.data.di.components.DaggerDataComponent
 import com.endeline.data.models.*
 import javax.inject.Inject

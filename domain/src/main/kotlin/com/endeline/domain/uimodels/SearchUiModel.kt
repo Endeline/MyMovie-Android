@@ -1,7 +1,5 @@
 package com.endeline.domain.uimodels
 
-import java.util.*
-
 data class SearchUiModel(
     val page: Int,
     val totalResults: Int,
@@ -23,7 +21,7 @@ data class SearchUiModel(
         val title: String,
         val voteAverage: Double,
         val overview: String,
-        val releaseDate: Date,
+        val releaseDate: String,
         val knownForDepartment: String,
         val name: String,
         val knownFor: List<KnownForUiModel>,
@@ -45,6 +43,6 @@ data class SearchUiModel(
         val title: String,
         val voteAverage: Double,
         val overview: String,
-        val releaseDate: Date
+        val releaseDate: String
     )
 }

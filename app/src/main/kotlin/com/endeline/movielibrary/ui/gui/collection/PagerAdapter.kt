@@ -3,14 +3,14 @@ package com.endeline.movielibrary.ui.gui.collection
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.endeline.common.ProductType
-import com.endeline.common.SectionType
+import com.endeline.common.types.ProductType
+import com.endeline.common.types.SectionType
 import com.endeline.movielibrary.R
-import com.endeline.movielibrary.ui.Constants.Position.FIRST
-import com.endeline.movielibrary.ui.Constants.Position.FOURTH
-import com.endeline.movielibrary.ui.Constants.Position.SECOND
-import com.endeline.movielibrary.ui.Constants.Position.THIRD
-import com.endeline.movielibrary.ui.Constants.String.UNSUPPORTED_TYPE
+import com.endeline.movielibrary.Constants.Position.FIRST
+import com.endeline.movielibrary.Constants.Position.FOURTH
+import com.endeline.movielibrary.Constants.Position.SECOND
+import com.endeline.movielibrary.Constants.Position.THIRD
+import com.endeline.movielibrary.Constants.String.UNSUPPORTED_TYPE
 import java.lang.RuntimeException
 import java.lang.UnsupportedOperationException
 

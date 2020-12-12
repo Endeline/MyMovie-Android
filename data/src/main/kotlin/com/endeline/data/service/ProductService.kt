@@ -1,7 +1,7 @@
 package com.endeline.data.service
 
-import com.endeline.common.ProductType
-import com.endeline.common.SectionType
+import com.endeline.common.types.ProductType
+import com.endeline.common.types.SectionType
 import com.endeline.data.cache.Cache
 import com.endeline.data.di.components.DaggerDataComponent
 import com.endeline.data.models.*
@@ -68,6 +68,7 @@ class ProductService {
     }
 
     //todo how cache this ??
+    //TypeSearch + query as key <-> result ??
     fun searchAll(query: String) = productRepository.searchAll(query)
         .subscribeOn(Schedulers.io())
         .observeOn(AndroidSchedulers.mainThread())
@@ -111,15 +112,28 @@ class ProductService {
                 }
         }
 
-    fun getProductCredits(productType: ProductType, id: Int) =
+    fun getPersonCredits(productType: ProductType, id: Int) =
         if (cache.contains(productType, id, SectionType.CREDITS)) {
-            Observable.just(cache.get(productType, id, SectionType.CREDITS) as Credits)
+            Observable.just(cache.get(productType, id, SectionType.CREDITS) as PersonCredits)
         } else {
-            productRepository.getProductCredits(productType.type, id, SectionType.CREDITS.type)
+            productRepository.getPersonCredits(productType.type, id, SectionType.CREDITS.type)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .flatMap {
                     cache.add(productType, id, SectionType.CREDITS, it)
+                    Observable.just(it)
+                }
+        }
+
+    fun getproductCredits(productType: ProductType, id: Int, sectionType: SectionType) =
+        if (cache.contains(productType, id, sectionType)) {
+            Observable.just(cache.get(productType, id, sectionType) as ProductCredits)
+        } else {
+            productRepository.getProductCredits(productType.type, id, sectionType.type)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .flatMap {
+                    cache.add(productType, id, sectionType, it)
                     Observable.just(it)
                 }
         }

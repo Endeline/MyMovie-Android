@@ -19,7 +19,7 @@ import com.endeline.movielibrary.di.components.DaggerAppComponent
 import com.endeline.movielibrary.extensions.ifNotEmpty
 import com.endeline.movielibrary.extensions.setViewsVisibility
 import com.endeline.movielibrary.extensions.setupWithAdapter
-import com.endeline.movielibrary.ui.Constants.Collections.MINIMUM_COLLECTION_SIZE
+import com.endeline.movielibrary.Constants.Collections.MINIMUM_COLLECTION_SIZE
 import com.endeline.movielibrary.ui.common.carousel.ImagesCarouselAdapter
 import com.endeline.movielibrary.ui.common.carousel.RecyclerViewAutoScroll
 import com.endeline.movielibrary.ui.common.credits.CreditsAdapter

@@ -8,13 +8,12 @@ import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
-import com.endeline.movielibrary.NavigationGraphXmlDirections
 import com.endeline.movielibrary.databinding.SearchFragmentBinding
 import com.endeline.movielibrary.di.ViewModelFactory
 import com.endeline.movielibrary.di.components.DaggerAppComponent
 import com.endeline.movielibrary.extensions.setViewsVisibility
 import com.endeline.movielibrary.extensions.setupWithAdapterAndRemoveAnimation
-import com.endeline.movielibrary.ui.Constants.String.MINIMUM_TEXT_SIZE_TO_SEARCH
+import com.endeline.movielibrary.Constants.String.MINIMUM_TEXT_SIZE_TO_SEARCH
 import javax.inject.Inject
 
 //todo feature create tabs ??

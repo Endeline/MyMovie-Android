@@ -1,4 +1,4 @@
-package com.endeline.common
+package com.endeline.common.types
 
 enum class SectionType(val type: String) {
     POPULAR("popular"),
@@ -15,6 +15,9 @@ enum class SectionType(val type: String) {
     IMAGES("images"),
     REVIEWS("reviews"),
     CREDITS("credits"),
+
+    TV_CREDITS("tv_credits"),
+    MOVIE_CREDITS("movie_credits"),
 
     NONE("")
 }

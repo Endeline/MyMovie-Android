@@ -3,15 +3,17 @@ package com.endeline.movielibrary.extensions
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.endeline.movielibrary.ui.Constants.Image.BACKDROP_URL
-import com.endeline.movielibrary.ui.Constants.Image.HTTPS_URL
-import com.endeline.movielibrary.ui.Constants.Image.POSTER_URL
-import com.endeline.movielibrary.ui.Constants.Image.SLASH
-import com.endeline.movielibrary.ui.Constants.Image.SUB_SEQUENCE_VALUE
+import com.endeline.movielibrary.Constants.Duration.TIMEOUT_IN_MS
+import com.endeline.movielibrary.Constants.Image.BACKDROP_URL
+import com.endeline.movielibrary.Constants.Image.HTTPS_URL
+import com.endeline.movielibrary.Constants.Image.POSTER_URL
+import com.endeline.movielibrary.Constants.Image.SLASH
+import com.endeline.movielibrary.Constants.Image.SUB_SEQUENCE_VALUE
 
 fun ImageView.loadBackdropImage(url: String) =
     Glide.with(context)
         .load("$BACKDROP_URL$url")
+        .timeout(TIMEOUT_IN_MS)
         .placeholder(android.R.drawable.progress_indeterminate_horizontal)
         .error(android.R.drawable.stat_notify_error)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -20,6 +22,7 @@ fun ImageView.loadBackdropImage(url: String) =
 fun ImageView.loadPosterImage(url: String) =
     Glide.with(context)
         .load("$POSTER_URL$url")
+        .timeout(TIMEOUT_IN_MS)
         .placeholder(android.R.drawable.progress_indeterminate_horizontal)
         .error(android.R.drawable.stat_notify_error)
         .diskCacheStrategy(DiskCacheStrategy.ALL)
@@ -38,6 +41,7 @@ fun ImageView.loadImage(url: String) =
                 "$POSTER_URL$url"
             }
         )
+        .timeout(TIMEOUT_IN_MS)
         .placeholder(android.R.drawable.progress_indeterminate_horizontal)
         .error(android.R.drawable.stat_notify_error)
         .diskCacheStrategy(DiskCacheStrategy.ALL)

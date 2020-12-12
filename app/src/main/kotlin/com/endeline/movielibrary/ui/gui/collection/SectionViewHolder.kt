@@ -2,7 +2,7 @@ package com.endeline.movielibrary.ui.gui.collection
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.endeline.domain.uimodels.ProductsUiModel.ProductUiModel
+import com.endeline.domain.uimodels.ProductUiModel
 import com.endeline.movielibrary.databinding.SectionItemBinding
 import com.endeline.movielibrary.extensions.ifNotEmpty
 import com.endeline.movielibrary.extensions.loadPosterImage

@@ -6,10 +6,6 @@
     <androidx.appcompat.widget.AppCompatImageView
         android:id="@+id/image"
         android:layout_width="130dp"
-        android:layout_height="180dp" />
-
-    <View
-        android:layout_width="130dp"
         android:layout_height="180dp"
         android:background="@drawable/light_ripple_background" />
 </RelativeLayout>

@@ -1,4 +1,4 @@
-package com.endeline.common
+package com.endeline.common.types
 
 enum class ProductType(val type: String) {
     MOVIE("movie"),

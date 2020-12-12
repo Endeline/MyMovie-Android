@@ -1,6 +1,6 @@
 package com.endeline.movielibrary.extensions
 
-import com.endeline.movielibrary.ui.Constants.Date.SIMPLE_DATE_FORMAT
+import com.endeline.movielibrary.Constants.Date.SIMPLE_DATE_FORMAT
 import java.text.SimpleDateFormat
 import java.util.*
 
