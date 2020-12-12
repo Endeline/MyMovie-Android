@@ -7,6 +7,8 @@ import com.endeline.data.di.components.DaggerDataComponent
 import com.endeline.data.models.*
 import com.endeline.data.repository.ProductRepository
 import io.reactivex.Observable
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.schedulers.Schedulers
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -28,6 +30,8 @@ class ProductService {
             Observable.just(cache.get(productType, sectionType) as Products)
         } else {
             productRepository.getProductWithTypes(productType.type, sectionType.type)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .flatMap {
                     cache.add(productType, sectionType, it)
                     Observable.just(it)
@@ -39,6 +43,8 @@ class ProductService {
             Observable.just(cache.get(ProductType.PERSON, id) as Person)
         } else {
             productRepository.getPersonDetails(ProductType.PERSON.type, id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .flatMap {
                     cache.add(ProductType.PERSON, id, it)
                     Observable.just(it)
@@ -53,6 +59,8 @@ class ProductService {
         Observable.just(cache.get(productType, id, sectionType) as Products)
     } else {
         productRepository.getProductWithIdAndTypes(productType.type, id, sectionType.type)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .flatMap {
                 cache.add(productType, id, sectionType, it)
                 Observable.just(it)
@@ -67,6 +75,8 @@ class ProductService {
             Observable.just(cache.get(productType, id, SectionType.VIDEO) as VideoLinks)
         } else {
             productRepository.getProductVideoLinks(productType.type, id, SectionType.VIDEO.type)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .flatMap {
                     cache.add(productType, id, SectionType.VIDEO, it)
                     Observable.just(it)
@@ -78,6 +88,8 @@ class ProductService {
             Observable.just(cache.get(productType, id, SectionType.IMAGES) as Images)
         } else {
             productRepository.getProductImages(productType.type, id, SectionType.IMAGES.type)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .flatMap {
                     cache.add(productType, id, SectionType.IMAGES, it)
                     Observable.just(it)
@@ -89,6 +101,8 @@ class ProductService {
             Observable.just(cache.get(productType, id, SectionType.REVIEWS) as Reviews)
         } else {
             productRepository.getProductReviews(productType.type, id, SectionType.REVIEWS.type)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .flatMap {
                     cache.add(productType, id, SectionType.REVIEWS, it)
                     Observable.just(it)
@@ -100,6 +114,8 @@ class ProductService {
             Observable.just(cache.get(productType, id, SectionType.CREDITS) as Credits)
         } else {
             productRepository.getProductCredits(productType.type, id, SectionType.CREDITS.type)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
                 .flatMap {
                     cache.add(productType, id, SectionType.CREDITS, it)
                     Observable.just(it)
@@ -108,6 +124,8 @@ class ProductService {
 
     fun getMovieDetails(id: Int): Observable<ProductDetails> {
         return productRepository.getMovieDetails(id)
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
             .flatMap { movieDetails ->
                 //todo cache
                 Observable.just(movieDetails)

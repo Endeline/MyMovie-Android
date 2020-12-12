@@ -13,8 +13,6 @@ import com.endeline.domain.usecase.*
 import com.endeline.movielibrary.extensions.ifLet
 import com.endeline.movielibrary.extensions.ifNotEmpty
 import com.endeline.movielibrary.ui.gui.base.BaseViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 class DetailsViewModel(
@@ -113,8 +111,6 @@ class DetailsViewModel(
 
     private fun loadMovieDetails(movieId: Int) = subscription.add(
         getMovieDetailsViewModel(movieId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ details ->
                 ifLet(details.title, details.overview) { (title, overview) ->
                     _content.value = Pair(title, overview)
@@ -159,8 +155,6 @@ class DetailsViewModel(
             movieId,
             SectionType.SIMILAR
         )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .filter { it.results.isNotEmpty() }
             .subscribe({
                 _similar.value = it.results
@@ -173,8 +167,6 @@ class DetailsViewModel(
             movieId,
             SectionType.RECOMMENDATIONS
         )
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .filter { it.results.isNotEmpty() }
             .subscribe({
                 _recommended.value = it.results
@@ -183,8 +175,6 @@ class DetailsViewModel(
 
     private fun loadVideoLinks(movieId: Int) = subscription.add(
         getProductVideoLinksUseCase(ProductType.MOVIE, movieId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .filter { it.results.isNotEmpty() }
             .subscribe({
                 _videoLinks.value = it.results
@@ -193,8 +183,6 @@ class DetailsViewModel(
 
     private fun loadVideoImages(movieId: Int) = subscription.add(
         getImagesUseCase(ProductType.MOVIE, movieId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .filter { it.backdrops.isNotEmpty() }
             .subscribe({
                 _backdrops.value = it.backdrops
@@ -203,8 +191,6 @@ class DetailsViewModel(
 
     private fun loadReviews(movieId: Int) = subscription.add(
         getProductReviewUseCase(ProductType.MOVIE, movieId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .filter { it.result.isNotEmpty() }
             .subscribe({
                 _reviews.value = it.result
@@ -213,8 +199,6 @@ class DetailsViewModel(
 
     private fun loadCredits(movieId: Int) = subscription.add(
         getProductCreditsUseCase(ProductType.MOVIE, movieId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
                 ifNotEmpty(response.cast) {
                     _cast.value = it.filter { it.profilePath.isNotBlank() }.distinctBy { it.id }
