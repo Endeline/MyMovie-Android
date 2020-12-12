@@ -55,4 +55,5 @@
     <string name="birthday">Birthday:</string>
     <string name="deathday">Deathday:</string>
     <string name="placeOfBirth">Place of birth:</string>
+    <string name="other_images">Other images</string>
 </resources>
