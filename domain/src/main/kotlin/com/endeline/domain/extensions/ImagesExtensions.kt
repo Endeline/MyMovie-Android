@@ -18,5 +18,6 @@ fun List<Images.Image>.toUiModel() = this.map { it.toUiModel() }
 fun Images.toUiModel() = ImagesUiModel(
     id = this.id ?: -1,
     posters = this.posters?.toUiModel() ?: emptyList(),
-    backdrops = this.backdrops?.toUiModel() ?: emptyList()
+    backdrops = this.backdrops?.toUiModel() ?: emptyList(),
+    profiles = this.profiles?.toUiModel() ?: emptyList()
 )

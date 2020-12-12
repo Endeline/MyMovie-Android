@@ -73,7 +73,7 @@ class ProductService {
                 }
         }
 
-    fun getProductImages(productType: ProductType, id: Int) =
+    fun getImages(productType: ProductType, id: Int) =
         if (cache.contains(productType, id, SectionType.IMAGES)) {
             Observable.just(cache.get(productType, id, SectionType.IMAGES) as Images)
         } else {

@@ -1,4 +1,4 @@
-package com.endeline.movielibrary.ui.common.imagecarousel
+package com.endeline.movielibrary.ui.common.carousel
 
 import android.view.LayoutInflater
 import android.view.ViewGroup

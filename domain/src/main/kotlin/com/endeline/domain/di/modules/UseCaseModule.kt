@@ -41,7 +41,7 @@ class UseCaseModule {
     fun provideRegisterUseCase() = RegisterUseCase()
 
     @Provides
-    fun provideGetProductImagesUseCase() = GetProductImagesUseCase()
+    fun provideGetImagesUseCase() = GetImagesUseCase()
 
     @Provides
     fun provideGetProductReviewUseCase() = GetProductReviewUseCase()

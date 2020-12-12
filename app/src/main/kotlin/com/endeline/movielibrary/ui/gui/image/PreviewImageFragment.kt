@@ -1,28 +1,25 @@
-package com.endeline.movielibrary.ui.gui.review
+package com.endeline.movielibrary.ui.gui.image
 
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
-import android.os.Build
 import android.os.Bundle
-import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.navArgs
 import com.endeline.movielibrary.R
-import com.endeline.movielibrary.databinding.ReviewFragmentBinding
-import com.endeline.movielibrary.extensions.ifNotEmpty
-import com.endeline.movielibrary.extensions.loadImage
+import com.endeline.movielibrary.databinding.PreviewImageFragmentBinding
+import com.endeline.movielibrary.extensions.loadPosterImage
 import com.endeline.movielibrary.extensions.px
 import com.endeline.movielibrary.ui.Constants.DialogSize.WINDOW_HEIGHT
 import com.endeline.movielibrary.ui.Constants.DialogSize.WINDOW_WIDTH
 
-class ReviewFragment : DialogFragment() {
+class PreviewImageFragment : DialogFragment() {
 
-    private val args by navArgs<ReviewFragmentArgs>()
+    private val args by navArgs<PreviewImageFragmentArgs>()
 
-    private var _binding: ReviewFragmentBinding? = null
+    private var _binding: PreviewImageFragmentBinding? = null
     private val binding get() = _binding!!
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +32,7 @@ class ReviewFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        _binding = ReviewFragmentBinding.inflate(inflater, container, false)
+        _binding = PreviewImageFragmentBinding.inflate(layoutInflater, container, false)
 
         return binding.root
     }
@@ -47,8 +44,8 @@ class ReviewFragment : DialogFragment() {
         setComponent()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
+    override fun onDestroy() {
+        super.onDestroy()
         _binding = null
     }
 
@@ -66,19 +63,6 @@ class ReviewFragment : DialogFragment() {
     }
 
     private fun setComponent() = with(binding) {
-        ifNotEmpty(args.avatarPath) {
-            image.loadImage(it)
-        }
-
-        if (args.rating > 0) {
-            rating.text = getString(R.string.user_rating, args.rating)
-        }
-
-        author.text = args.author
-        description.text = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            Html.fromHtml(args.content, Html.FROM_HTML_MODE_COMPACT)
-        } else {
-            Html.fromHtml(args.content)
-        }
+        image.loadPosterImage(args.imageUrl)
     }
 }

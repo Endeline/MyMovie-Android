@@ -13,19 +13,6 @@
         app:exitAnim="@anim/slide_out_left"
         app:popEnterAnim="@anim/slide_in_left"
         app:popExitAnim="@anim/slide_out_right" />
-    
-    <action
-        android:id="@+id/navigateToReview"
-        app:destination="@id/review_fragment" />
-
-    <action
-        android:id="@+id/navigateToPerson"
-        app:destination="@id/personFragment"
-        app:enterAnim="@anim/slide_in_right"
-        app:exitAnim="@anim/slide_out_left"
-        app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right"
-        tools:layout="@layout/details_fragment" />
 
     <fragment
         android:id="@+id/userFragment"
@@ -66,8 +53,15 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
-            app:popExitAnim="@anim/slide_out_right"
-            tools:layout="@layout/details_fragment" />
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/navigateToPerson"
+            app:destination="@id/personFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -79,6 +73,18 @@
             android:name="movieId"
             android:defaultValue="-1"
             app:argType="integer" />
+
+        <action
+            android:id="@+id/navigateToPerson"
+            app:destination="@id/personFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+
+        <action
+            android:id="@+id/navigateToReview"
+            app:destination="@id/review_fragment" />
 
         <action
             android:id="@+id/toDetails"
@@ -162,12 +168,16 @@
 
     <fragment
         android:id="@+id/personFragment"
-        android:name="com.endeline.movielibrary.ui.gui.credit.PersonFragment"
+        android:name="com.endeline.movielibrary.ui.gui.person.PersonFragment"
         android:label="PersonFragment"
         tools:layout="@layout/person_fragment">
         <argument
             android:name="personId"
             app:argType="integer" />
+
+        <action
+            android:id="@+id/toPreviewImage"
+            app:destination="@+id/preview_image" />
     </fragment>
 
     <dialog
@@ -187,5 +197,15 @@
         <argument
             android:name="rating"
             app:argType="integer" />
+    </dialog>
+
+    <dialog
+        android:id="@+id/preview_image"
+        android:name="com.endeline.movielibrary.ui.gui.image.PreviewImageFragment"
+        android:label="Image Preview"
+        tools:layout="@layout/preview_image_fragment">
+        <argument
+            android:name="imageUrl"
+            app:argType="string" />
     </dialog>
 </navigation>

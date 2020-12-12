@@ -3,7 +3,7 @@ package com.endeline.movielibrary.di.components
 import com.endeline.movielibrary.di.modules.CommonModule
 import com.endeline.movielibrary.di.modules.ViewModelModule
 import com.endeline.movielibrary.ui.gui.collection.SectionFragment
-import com.endeline.movielibrary.ui.gui.credit.PersonFragment
+import com.endeline.movielibrary.ui.gui.person.PersonFragment
 import com.endeline.movielibrary.ui.gui.details.DetailsFragment
 import com.endeline.movielibrary.ui.gui.main.MainActivity
 import com.endeline.movielibrary.ui.gui.search.SearchFragment

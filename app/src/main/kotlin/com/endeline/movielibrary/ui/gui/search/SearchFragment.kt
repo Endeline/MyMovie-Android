@@ -27,8 +27,8 @@ class SearchFragment : Fragment() {
     }
 
     //TODO di?
-    private val personAdapter = SearchAdapter {
-        findNavController().navigate(NavigationGraphXmlDirections.navigateToPerson(it))
+    private val personAdapter = SearchAdapter { personId ->
+        findNavController().navigate(SearchFragmentDirections.navigateToPerson(personId))
     }
 
     //TODO di?

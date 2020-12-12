@@ -9,6 +9,8 @@ import com.endeline.movielibrary.databinding.CreditItemBinding
 
 class CreditsAdapter : ListAdapter<PersonUiModel, CreditsViewHolder>(CreditsDiffer()) {
 
+    var listener: (Int) -> Unit = {}
+
     private class CreditsDiffer : DiffUtil.ItemCallback<PersonUiModel>() {
         override fun areItemsTheSame(oldItem: PersonUiModel, newItem: PersonUiModel) =
             oldItem.id == newItem.id
@@ -23,7 +25,8 @@ class CreditsAdapter : ListAdapter<PersonUiModel, CreditsViewHolder>(CreditsDiff
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            listener
         )
 
     override fun onBindViewHolder(holder: CreditsViewHolder, position: Int) =

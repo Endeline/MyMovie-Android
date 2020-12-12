@@ -1,7 +1,8 @@
 package com.endeline.movielibrary.di.modules
 
-import com.endeline.movielibrary.ui.common.autoscroll.RecyclerViewAutoScroll
-import com.endeline.movielibrary.ui.common.imagecarousel.ImagesCarouselAdapter
+import com.endeline.movielibrary.ui.common.carousel.RecyclerViewAutoScroll
+import com.endeline.movielibrary.ui.common.carousel.ImagesCarouselAdapter
+import com.endeline.movielibrary.ui.common.poster.PosterImageAdapter
 import com.endeline.movielibrary.ui.common.reviews.ReviewsAdapter
 import dagger.Module
 import dagger.Provides
@@ -17,4 +18,7 @@ class CommonModule {
 
     @Provides
     fun provideReviewsAdapter() = ReviewsAdapter()
+
+    @Provides
+    fun providePosterImageAdapter() = PosterImageAdapter()
 }

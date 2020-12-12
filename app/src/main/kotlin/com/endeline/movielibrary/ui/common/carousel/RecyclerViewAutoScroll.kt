@@ -1,4 +1,4 @@
-package com.endeline.movielibrary.ui.common.autoscroll
+package com.endeline.movielibrary.ui.common.carousel
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView

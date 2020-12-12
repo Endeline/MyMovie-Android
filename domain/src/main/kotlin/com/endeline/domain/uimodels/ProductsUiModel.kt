@@ -24,7 +24,7 @@ data class ProductsUiModel(
         val posterPath: String,
         val adult: Boolean,
         val overview: String,
-        val releaseDate: Date,
+        val releaseDate: String,
         val genreIds: List<Int>,
         val id: Int,
         val originalTitle: String,

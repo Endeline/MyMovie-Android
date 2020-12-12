@@ -3,7 +3,8 @@ package com.endeline.domain.uimodels
 data class ImagesUiModel(
     val id: Int,
     val backdrops: List<ImageUiModel>,
-    val posters: List<ImageUiModel>
+    val posters: List<ImageUiModel>,
+    val profiles: List<ImageUiModel>
 ) {
     data class ImageUiModel(
         val aspectRatio: Double,

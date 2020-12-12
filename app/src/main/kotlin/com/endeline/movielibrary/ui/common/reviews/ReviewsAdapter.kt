@@ -9,6 +9,8 @@ import com.endeline.movielibrary.databinding.ReviewItemBinding
 
 class ReviewsAdapter : ListAdapter<ReviewUiModel, ReviewsViewHolder>(ReviewDiffer()) {
 
+    var listener: (ReviewUiModel) -> Unit = {}
+
     private class ReviewDiffer : DiffUtil.ItemCallback<ReviewUiModel>() {
         override fun areItemsTheSame(oldItem: ReviewUiModel, newItem: ReviewUiModel) =
             oldItem.id == newItem.id
@@ -23,7 +25,8 @@ class ReviewsAdapter : ListAdapter<ReviewUiModel, ReviewsViewHolder>(ReviewDiffe
                 LayoutInflater.from(parent.context),
                 parent,
                 false
-            )
+            ),
+            listener
         )
 
     override fun onBindViewHolder(holder: ReviewsViewHolder, position: Int) =
