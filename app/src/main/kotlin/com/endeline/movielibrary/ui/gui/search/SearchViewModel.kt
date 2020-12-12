@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.endeline.domain.uimodels.SearchUiModel.SearchItemUiModel
 import com.endeline.domain.usecase.SearchAllUseCase
 import com.endeline.movielibrary.ui.gui.base.BaseViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 class SearchViewModel(private val searchAllUseCase: SearchAllUseCase) : BaseViewModel() {
@@ -28,8 +26,6 @@ class SearchViewModel(private val searchAllUseCase: SearchAllUseCase) : BaseView
 
     fun search(query: String) = subscription.add(
         searchAllUseCase(query)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ searchResult ->
                 if (searchResult.results.isNotEmpty()) {
                     val resultMap = searchResult.results.groupBy { item ->

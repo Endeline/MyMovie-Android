@@ -8,8 +8,6 @@ import com.endeline.domain.uimodels.PersonUiModel
 import com.endeline.domain.usecase.GetImagesUseCase
 import com.endeline.domain.usecase.GetPersonDetailsUseCase
 import com.endeline.movielibrary.ui.gui.base.BaseViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 class PersonViewModel(
@@ -35,8 +33,6 @@ class PersonViewModel(
 
     private fun loadGlobalData(personId: Int) = subscription.add(
         getPersonDetailsUseCase(personId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 _personDetails.value = it
             }, Timber::e)
@@ -45,8 +41,6 @@ class PersonViewModel(
 
     private fun loadImages(personId: Int) = subscription.add(
         getImagesUseCase(ProductType.PERSON, personId)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .filter { it.profiles.size > 1 }
             .subscribe({
                 _images.value = it.profiles

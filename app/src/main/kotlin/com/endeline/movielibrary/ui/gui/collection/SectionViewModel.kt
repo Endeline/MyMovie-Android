@@ -22,8 +22,6 @@ class SectionViewModel(
 
     fun loadSection(section: String, productType: ProductType) = subscription.add(
         getProductWithTypes(productType, SectionType.valueOf(section))
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ collection ->
                 _items.value = collection.results
             }, Timber::e)

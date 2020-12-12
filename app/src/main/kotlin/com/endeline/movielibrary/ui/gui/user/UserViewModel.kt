@@ -5,8 +5,6 @@ import androidx.lifecycle.MutableLiveData
 import com.endeline.domain.usecase.CheckIsUserInAppUseCase
 import com.endeline.domain.usecase.GetUserIsLoggedInUseCase
 import com.endeline.movielibrary.ui.gui.base.BaseViewModel
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
 class UserViewModel(
@@ -23,8 +21,6 @@ class UserViewModel(
 
     fun login(login: String, password: String) = subscription.add(
         getUserInAppUseCase(login, password)
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribe({
                 _changeLoginStatus.value = it
             }, Timber::e)
