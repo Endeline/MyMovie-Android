@@ -1,5 +1,7 @@
 package com.endeline.domain.uimodels
 
+import com.endeline.common.Constants
+import com.endeline.common.Constants.EMPTY_VALUE
 import java.util.*
 
 data class ReviewsUiModel(
@@ -31,10 +33,10 @@ data class ReviewsUiModel(
     ) {
         companion object {
             val EMPTY = AuthorUiModel(
-                name = "",
-                userName = "",
-                avatarPath = "",
-                rating = -1
+                name = Constants.EMPTY_TEXT,
+                userName = Constants.EMPTY_TEXT,
+                avatarPath = Constants.EMPTY_TEXT,
+                rating = EMPTY_VALUE
             )
         }
     }

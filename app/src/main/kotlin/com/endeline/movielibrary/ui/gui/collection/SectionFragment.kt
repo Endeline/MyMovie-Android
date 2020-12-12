@@ -14,7 +14,9 @@ import com.endeline.movielibrary.databinding.SectionFragmentBinding
 import com.endeline.movielibrary.di.ViewModelFactory
 import com.endeline.movielibrary.di.components.DaggerAppComponent
 import com.endeline.movielibrary.extensions.ifLet
-import com.endeline.movielibrary.ui.Constants
+import com.endeline.movielibrary.ui.Constants.Duation.RECYCLER_VIEW_ITEM_DURATION
+import com.endeline.movielibrary.ui.Constants.Size.SMALL_POSTER_IMAGE_HEIGHT
+import com.endeline.movielibrary.ui.Constants.Size.SMALL_POSTER_IMAGE_WIDTH
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import java.lang.RuntimeException
 import javax.inject.Inject
@@ -35,8 +37,8 @@ class SectionFragment : Fragment() {
                     findNavController().navigate(CollectionFragmentDirections.toDetails(it))
                 }
                 ProductType.TV -> SectionAdapter(
-                    viewHolderImageHeight = 150,
-                    viewHolderImageWidth = 100,
+                    viewHolderImageHeight = SMALL_POSTER_IMAGE_HEIGHT,
+                    viewHolderImageWidth = SMALL_POSTER_IMAGE_WIDTH,
                     clickListener = {
                         //todo create tv details
                         //findNavController().navigate(MoviesFragmentDirections.toDetails(it))
@@ -90,7 +92,7 @@ class SectionFragment : Fragment() {
                     }
                 adapter = movieAdapter
                 itemAnimator = SlideInUpAnimator().apply {
-                    addDuration = Constants.Animation.RECYCLER_VIEW_ITEM_DURATION
+                    addDuration = RECYCLER_VIEW_ITEM_DURATION
                 }
             }
 

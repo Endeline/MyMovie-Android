@@ -3,11 +3,11 @@ package com.endeline.movielibrary.extensions
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-
-private const val BACKDROP_URL = "https://image.tmdb.org/t/p/w500"
-private const val POSTER_URL = "https://image.tmdb.org/t/p/w600_and_h900_bestv2"
-private const val HTTPS_URL = "https"
-private const val SLASH = "/"
+import com.endeline.movielibrary.ui.Constants.Image.BACKDROP_URL
+import com.endeline.movielibrary.ui.Constants.Image.HTTPS_URL
+import com.endeline.movielibrary.ui.Constants.Image.POSTER_URL
+import com.endeline.movielibrary.ui.Constants.Image.SLASH
+import com.endeline.movielibrary.ui.Constants.Image.SUB_SEQUENCE_VALUE
 
 fun ImageView.loadBackdropImage(url: String) =
     Glide.with(context)
@@ -30,7 +30,7 @@ fun ImageView.loadImage(url: String) =
         .load(
             if (url.contains(HTTPS_URL)) {
                 if (url.first().toString() == SLASH) {
-                    url.subSequence(1, url.length -1)
+                    url.subSequence(SUB_SEQUENCE_VALUE, url.length - SUB_SEQUENCE_VALUE)
                 } else {
                     url
                 }

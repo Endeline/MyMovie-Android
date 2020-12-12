@@ -5,7 +5,8 @@ import android.util.DisplayMetrics
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.LinearSmoothScroller
 import androidx.recyclerview.widget.RecyclerView
-import com.endeline.movielibrary.ui.Constants
+import com.endeline.movielibrary.ui.Constants.Duation.DEFAULT_SPEED
+import com.endeline.movielibrary.ui.Constants.Duation.RECYCLER_VIEW_ITEM_DURATION
 import jp.wasabeef.recyclerview.animators.SlideInRightAnimator
 
 fun RecyclerView.runOnUiThread(block: () -> Unit) {
@@ -15,7 +16,7 @@ fun RecyclerView.runOnUiThread(block: () -> Unit) {
 fun RecyclerView.smoothSnapToPosition(
     position: Int,
     snapMode: Int = LinearSmoothScroller.SNAP_TO_START,
-    speed: Float = 50F
+    speed: Float = DEFAULT_SPEED
 ) {
     val smoothScroller = object : LinearSmoothScroller(this.context) {
         override fun getVerticalSnapPreference(): Int = snapMode
@@ -37,7 +38,7 @@ fun RecyclerView.setupWithAdapter(adapter: RecyclerView.Adapter<*>) {
     )
     this.adapter = adapter
     itemAnimator = SlideInRightAnimator().apply {
-        addDuration = Constants.Animation.RECYCLER_VIEW_ITEM_DURATION
+        addDuration = RECYCLER_VIEW_ITEM_DURATION
     }
 }
 
@@ -50,7 +51,7 @@ fun RecyclerView.setupWithAdapterAndRemoveAnimation(adapter: RecyclerView.Adapte
     )
     this.adapter = adapter
     itemAnimator = SlideInRightAnimator().apply {
-        addDuration = Constants.Animation.RECYCLER_VIEW_ITEM_DURATION
-        removeDuration = Constants.Animation.RECYCLER_VIEW_ITEM_DURATION
+        addDuration = RECYCLER_VIEW_ITEM_DURATION
+        removeDuration = RECYCLER_VIEW_ITEM_DURATION
     }
 }

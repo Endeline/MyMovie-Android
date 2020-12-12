@@ -6,10 +6,12 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import com.endeline.domain.uimodels.ProductsUiModel.ProductUiModel
 import com.endeline.movielibrary.databinding.SectionItemBinding
+import com.endeline.movielibrary.ui.Constants.Size.DEFAULT_POSTER_IMAGE_HEIGHT
+import com.endeline.movielibrary.ui.Constants.Size.DEFAULT_POSTER_IMAGE_WIDTH
 
 class SectionAdapter(
-    private val viewHolderImageHeight: Int = 200,
-    private val viewHolderImageWidth: Int = 150,
+    private val viewHolderImageHeight: Int = DEFAULT_POSTER_IMAGE_HEIGHT,
+    private val viewHolderImageWidth: Int = DEFAULT_POSTER_IMAGE_WIDTH,
     private val clickListener: (Int) -> Unit
 ) : ListAdapter<ProductUiModel, SectionViewHolder>(MovieDiffer()) {
 

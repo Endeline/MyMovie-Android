@@ -2,8 +2,7 @@ package com.endeline.movielibrary.extensions
 
 import android.widget.EditText
 import androidx.appcompat.widget.AppCompatEditText
-
-private const val MINIMUM_CHARACTER_AMOUNT = 6
+import com.endeline.movielibrary.ui.Constants.String.MINIMUM_CHARACTER_AMOUNT
 
 fun AppCompatEditText.isValidInput(emptyError: String, toShortError: String): Boolean {
     var result = true

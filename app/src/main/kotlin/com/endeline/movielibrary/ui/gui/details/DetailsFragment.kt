@@ -19,9 +19,9 @@ import com.endeline.movielibrary.di.components.DaggerAppComponent
 import com.endeline.movielibrary.extensions.ifNotEmpty
 import com.endeline.movielibrary.extensions.setViewsVisibility
 import com.endeline.movielibrary.extensions.setupWithAdapter
+import com.endeline.movielibrary.ui.Constants.Collections.MINIMUM_COLLECTION_SIZE
 import com.endeline.movielibrary.ui.common.carousel.ImagesCarouselAdapter
 import com.endeline.movielibrary.ui.common.carousel.RecyclerViewAutoScroll
-import com.endeline.movielibrary.ui.common.carousel.RecyclerViewAutoScroll.Companion.MINIMUM_BACKDROP_SIZE
 import com.endeline.movielibrary.ui.common.credits.CreditsAdapter
 import com.endeline.movielibrary.ui.common.reviews.ReviewsAdapter
 import javax.inject.Inject
@@ -243,7 +243,7 @@ class DetailsFragment : Fragment() {
         backdropsRecycler.visibility = View.VISIBLE
         imagesAdapter.submitList(backdropsList)
 
-        if (backdropsList.size > MINIMUM_BACKDROP_SIZE) {
+        if (backdropsList.size > MINIMUM_COLLECTION_SIZE) {
             indicator.attachToRecyclerView(backdropsRecycler)
             indicator.visibility = View.VISIBLE
             recyclerViewAutoScroll.setup(binding.backdropsRecycler, imagesAdapter.itemCount)
