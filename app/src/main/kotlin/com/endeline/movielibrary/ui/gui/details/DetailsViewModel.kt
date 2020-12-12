@@ -2,7 +2,6 @@ package com.endeline.movielibrary.ui.gui.details
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
 import com.endeline.common.ProductType
 import com.endeline.common.SectionType
 import com.endeline.domain.uimodels.ImagesUiModel.ImageUiModel
@@ -13,8 +12,8 @@ import com.endeline.domain.uimodels.VideoLinkCollectionUiModel.VideoLinkDetailsU
 import com.endeline.domain.usecase.*
 import com.endeline.movielibrary.extensions.ifLet
 import com.endeline.movielibrary.extensions.ifNotEmpty
+import com.endeline.movielibrary.ui.gui.base.BaseViewModel
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
 import timber.log.Timber
 
@@ -25,9 +24,7 @@ class DetailsViewModel(
     private val getImagesUseCase: GetImagesUseCase,
     private val getProductReviewUseCase: GetProductReviewUseCase,
     private val getProductCreditsUseCase: GetProductCreditsUseCase
-) : ViewModel() {
-
-    private val subscriptions = CompositeDisposable()
+) : BaseViewModel() {
 
     private val _similar = MutableLiveData<List<ProductUiModel>>()
 
@@ -104,11 +101,6 @@ class DetailsViewModel(
     val crew: LiveData<List<PersonUiModel>>
         get() = _crew
 
-    override fun onCleared() {
-        super.onCleared()
-        subscriptions.clear()
-    }
-
     fun loadMovieData(movieId: Int) {
         loadMovieDetails(movieId)
         loadSimilarMovies(movieId)
@@ -119,8 +111,8 @@ class DetailsViewModel(
         loadCredits(movieId)
     }
 
-    private fun loadMovieDetails(movieId: Int) {
-        val disposable = getMovieDetailsViewModel(movieId)
+    private fun loadMovieDetails(movieId: Int) = subscription.add(
+        getMovieDetailsViewModel(movieId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ details ->
@@ -159,25 +151,24 @@ class DetailsViewModel(
                 _onDataLoaded.value = false
                 Timber.e(it)
             })
+    )
 
-        subscriptions.add(disposable)
-    }
+    private fun loadSimilarMovies(movieId: Int) =
+        subscription.add(getProductAdditionalInformationUseCase(
+            ProductType.MOVIE,
+            movieId,
+            SectionType.SIMILAR
+        )
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .filter { it.results.isNotEmpty() }
+            .subscribe({
+                _similar.value = it.results
+            }, Timber::e)
+        )
 
-    private fun loadSimilarMovies(movieId: Int) {
-        val disposable =
-            getProductAdditionalInformationUseCase(ProductType.MOVIE, movieId, SectionType.SIMILAR)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .filter { it.results.isNotEmpty() }
-                .subscribe({
-                    _similar.value = it.results
-                }, Timber::e)
-
-        subscriptions.add(disposable)
-    }
-
-    private fun loadRecommendedMovies(movieId: Int) {
-        val disposable = getProductAdditionalInformationUseCase(
+    private fun loadRecommendedMovies(movieId: Int) = subscription.add(
+        getProductAdditionalInformationUseCase(
             ProductType.MOVIE,
             movieId,
             SectionType.RECOMMENDATIONS
@@ -188,48 +179,40 @@ class DetailsViewModel(
             .subscribe({
                 _recommended.value = it.results
             }, Timber::e)
+    )
 
-        subscriptions.add(disposable)
-    }
-
-    private fun loadVideoLinks(movieId: Int) {
-        val disposable = getProductVideoLinksUseCase(ProductType.MOVIE, movieId)
+    private fun loadVideoLinks(movieId: Int) = subscription.add(
+        getProductVideoLinksUseCase(ProductType.MOVIE, movieId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .filter { it.results.isNotEmpty() }
             .subscribe({
                 _videoLinks.value = it.results
             }, Timber::e)
+    )
 
-        subscriptions.add(disposable)
-    }
-
-    private fun loadVideoImages(movieId: Int) {
-        val disposable = getImagesUseCase(ProductType.MOVIE, movieId)
+    private fun loadVideoImages(movieId: Int) = subscription.add(
+        getImagesUseCase(ProductType.MOVIE, movieId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .filter { it.backdrops.isNotEmpty() }
             .subscribe({
                 _backdrops.value = it.backdrops
             }, Timber::e)
+    )
 
-        subscriptions.add(disposable)
-    }
-
-    private fun loadReviews(movieId: Int) {
-        val disposable = getProductReviewUseCase(ProductType.MOVIE, movieId)
+    private fun loadReviews(movieId: Int) = subscription.add(
+        getProductReviewUseCase(ProductType.MOVIE, movieId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .filter { it.result.isNotEmpty() }
             .subscribe({
                 _reviews.value = it.result
             }, Timber::e)
+    )
 
-        subscriptions.add(disposable)
-    }
-
-    private fun loadCredits(movieId: Int) {
-        val disposable = getProductCreditsUseCase(ProductType.MOVIE, movieId)
+    private fun loadCredits(movieId: Int) = subscription.add(
+        getProductCreditsUseCase(ProductType.MOVIE, movieId)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ response ->
@@ -241,7 +224,5 @@ class DetailsViewModel(
                     _crew.value = it.filter { it.profilePath.isNotBlank() }.distinctBy { it.id }
                 }
             }, Timber::e)
-
-        subscriptions.add(disposable)
-    }
+    )
 }
