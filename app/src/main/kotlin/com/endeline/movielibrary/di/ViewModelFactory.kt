@@ -174,9 +174,8 @@ class ViewModelFactory {
         init {
             DaggerViewModelComponent.create().inject(this)
         }
+
         override fun <T : ViewModel?> create(modelClass: Class<T>) =
             modelClass.getConstructor().newInstance()
-
     }
-
 }
