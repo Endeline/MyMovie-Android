@@ -1,5 +1,8 @@
 package com.endeline.domain.uimodels
 
+import com.endeline.common.Constants.EMPTY_TEXT
+import com.endeline.common.Constants.EMPTY_VALUE
+import com.endeline.common.Constants.NO_VALUE
 import java.util.*
 
 data class ProductDetailsUiModel(
@@ -27,7 +30,16 @@ data class ProductDetailsUiModel(
     val title: String,
     val video: Boolean,
     val voteAverage: Double,
-    val voteCount: Int
+    val voteCount: Int,
+    val createdBy: List<PersonUiModel>,
+    val episodeRunTime: List<Int>,
+    val inProduction: Boolean,
+    val lastAirDate: String,
+    val numberOfSeasons: Int,
+    val numberOfEpisodes: Int,
+    val type: String,
+    val seasons: List<SeasonUiModel>,
+    val nextEpisodeToAir: EpisodeUiModel
 ) {
     data class BelongsToCollectionUiModel(
         val id: Int,
@@ -57,4 +69,42 @@ data class ProductDetailsUiModel(
         val iso_639_1: String,
         val name: String
     )
+
+    data class SeasonUiModel(
+        val airDate: String,
+        val episodeCount: Int,
+        val id: Int,
+        val name: String,
+        val overview: String,
+        val posterPath: String,
+        val seasonNumber: Int
+    )
+
+    data class EpisodeUiModel(
+        val airDate: String,
+        val episodeNumber: Int,
+        val id: Int,
+        val name: String,
+        val overview: String,
+        val productionCode: String,
+        val seasonNumber: Int,
+        val stillPath: String,
+        val voteAverage: Double,
+        val voteCount: Int
+    ) {
+        companion object {
+            val EMPTY = EpisodeUiModel(
+                airDate = EMPTY_TEXT,
+                episodeNumber = EMPTY_VALUE,
+                id = EMPTY_VALUE,
+                name = EMPTY_TEXT,
+                overview = EMPTY_TEXT,
+                productionCode = EMPTY_TEXT,
+                seasonNumber = EMPTY_VALUE,
+                stillPath = EMPTY_TEXT,
+                voteAverage = NO_VALUE,
+                voteCount = EMPTY_VALUE
+            )
+        }
+    }
 }

@@ -3,7 +3,7 @@ package com.endeline.data.cache
 import com.endeline.common.types.ProductType
 import com.endeline.common.types.SectionType
 import com.endeline.data.di.components.DaggerDataComponent
-import com.endeline.data.models.*
+import com.endeline.data.responses.*
 import javax.inject.Inject
 
 class Cache {
@@ -49,6 +49,10 @@ class Cache {
 
     fun add(productType: ProductType, id: Int, sectionType: SectionType, value: Any) {
         memoryCache.add(productType, id, sectionType, value)
+    }
+
+    fun add(productType: ProductType, id: Int, productDetails: ProductDetails) {
+        memoryCache.add(productType, id, productDetails)
     }
 
     //todo check usGetFromMemory if else return data from room offline

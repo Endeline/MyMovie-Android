@@ -11,7 +11,7 @@ class ViewModelModule {
     fun provideSplashScreenViewModel() = ViewModelFactory.SplashScreenViewModelFactory()
 
     @Provides
-    fun provideDetailsViewModel() = ViewModelFactory.DetailsViewModelFactory()
+    fun provideMovieDetailsViewModel() = ViewModelFactory.MovieDetailsViewModelFactory()
 
     @Provides
     fun provideSectionViewModel() = ViewModelFactory.SectionViewModelFactory()
@@ -32,5 +32,5 @@ class ViewModelModule {
     fun providePersonViewModel() = ViewModelFactory.PersonViewModelFactory()
 
     @Provides
-    fun provideTvViewModel() = ViewModelFactory.TvViewModelFactory()
+    fun provideTvDetailsViewModel() = ViewModelFactory.TvDetailsViewModelFactory()
 }

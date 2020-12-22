@@ -7,12 +7,12 @@ import dagger.Component
 @Component(modules = [UseCaseModule::class])
 interface ViewModelComponent {
     fun inject(app: ViewModelFactory.SplashScreenViewModelFactory)
-    fun inject(app: ViewModelFactory.DetailsViewModelFactory)
+    fun inject(app: ViewModelFactory.MovieDetailsViewModelFactory)
     fun inject(app: ViewModelFactory.SearchViewModelFactory)
     fun inject(app: ViewModelFactory.MainActivityViewModelFactory)
     fun inject(app: ViewModelFactory.UserViewModelFactory)
     fun inject(app: ViewModelFactory.RegisterViewModelFactory)
     fun inject(app: ViewModelFactory.SectionViewModelFactory)
     fun inject(app: ViewModelFactory.PersonViewModelFactory)
-    fun inject(app: ViewModelFactory.TvViewModelFactory)
+    fun inject(app: ViewModelFactory.TvDetailsViewModelFactory)
 }

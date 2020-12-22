@@ -16,8 +16,8 @@ import com.endeline.movielibrary.Constants.Values.VALUE_ZERO
 import com.endeline.movielibrary.ui.gui.base.BaseViewModel
 import timber.log.Timber
 
-class DetailsViewModel(
-    private val getMovieDetailsViewModel: GetMovieDetailsUseCase,
+class MovieDetailsViewModel(
+    private val getProductDetailsViewModel: GetProductDetailsUseCase,
     private val getProductAdditionalInformationUseCase: GetProductAdditionalInformationUseCase,
     private val getProductVideoLinksUseCase: GetProductVideoLinksUseCase,
     private val getImagesUseCase: GetImagesUseCase,
@@ -111,7 +111,7 @@ class DetailsViewModel(
     }
 
     private fun loadMovieDetails(movieId: Int) = subscription.add(
-        getMovieDetailsViewModel(movieId)
+        getProductDetailsViewModel(ProductType.MOVIE, movieId)
             .subscribe({ details ->
                 ifLet(details.title, details.overview) { (title, overview) ->
                     _content.value = Pair(title, overview)

@@ -1,7 +1,6 @@
-package com.endeline.data.models
+package com.endeline.data.responses
 
 import com.google.gson.annotations.SerializedName
-import java.util.*
 
 data class Search(
     @SerializedName("page") val page: Int?,

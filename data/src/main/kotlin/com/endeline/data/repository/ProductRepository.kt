@@ -1,7 +1,7 @@
 package com.endeline.data.repository
 
 import com.endeline.data.BuildConfig
-import com.endeline.data.models.*
+import com.endeline.data.responses.*
 import io.reactivex.Observable
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -66,14 +66,15 @@ interface ProductRepository {
         @Path("sectionType") sectionType: String
     ): Observable<ProductCredits>
 
+    @GET("${BuildConfig.API_VERSION}/{type}/{id}")
+    fun getProductDetails(
+        @Path("type") type: String,
+        @Path("id") id: Int
+    ): Observable<ProductDetails>
+
 //todo as home ??
 //    /person/latest
 //    /person/popular
-
-    //TODO in below maybe change movie in url on type and type will be provide from ui
-    // and maybe change function mane from movie to product
-
-    //only for movies?
-    @GET("${BuildConfig.API_VERSION}/movie/{id}")
-    fun getMovieDetails(@Path("id") id: Int): Observable<ProductDetails>
+//      /tv popular/latest
+//  /movie / popular/latest
 }

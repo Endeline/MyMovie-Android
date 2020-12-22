@@ -8,7 +8,7 @@ import dagger.Component
 @Component(modules = [ServiceModules::class, RepositoryModules::class])
 interface DomainComponents {
     fun inject(useCase: LoadAllDataUseCase)
-    fun inject(useCase: GetMovieDetailsUseCase)
+    fun inject(useCase: GetProductDetailsUseCase)
     fun inject(useCase: GetProductAdditionalInformationUseCase)
     fun inject(useCase: GetProductVideoLinksUseCase)
     fun inject(useCase: SearchAllUseCase)

@@ -11,7 +11,7 @@ class UseCaseModule {
     fun providesLoadAllDataUseCase() = LoadAllDataUseCase()
 
     @Provides
-    fun provideGetMovieDetailsUseCase() = GetMovieDetailsUseCase()
+    fun provideGetProductDetailsUseCase() = GetProductDetailsUseCase()
 
     @Provides
     fun provideGetProductAdditionalInformationUseCase() = GetProductAdditionalInformationUseCase()

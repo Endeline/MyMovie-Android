@@ -26,7 +26,7 @@ import com.endeline.movielibrary.ui.common.credits.CreditsAdapter
 import com.endeline.movielibrary.ui.common.reviews.ReviewsAdapter
 import javax.inject.Inject
 
-class DetailsFragment : Fragment() {
+class MovieDetailsFragment : Fragment() {
 
     @Inject
     lateinit var imagesAdapter: ImagesCarouselAdapter
@@ -38,24 +38,24 @@ class DetailsFragment : Fragment() {
     lateinit var reviewsAdapter: ReviewsAdapter
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory.DetailsViewModelFactory
+    lateinit var viewModelFactoryMovie: ViewModelFactory.MovieDetailsViewModelFactory
 
-    private val viewModel by viewModels<DetailsViewModel> {
-        viewModelFactory
+    private val viewModel by viewModels<MovieDetailsViewModel> {
+        viewModelFactoryMovie
     }
 
-    private val args by navArgs<DetailsFragmentArgs>()
+    private val args by navArgs<MovieDetailsFragmentArgs>()
 
     private val videoLinksAdapter = VideoAdapter { key, site ->
-        findNavController().navigate(DetailsFragmentDirections.toVideo(key, site))
+        findNavController().navigate(MovieDetailsFragmentDirections.toVideo(key, site))
     }
 
     private val similarAdapter = MovieAdapter {
-        findNavController().navigate(DetailsFragmentDirections.toMovieDetails(it))
+        findNavController().navigate(MovieDetailsFragmentDirections.toMovieDetails(it))
     }
 
     private val recommendedAdapter = MovieAdapter {
-        findNavController().navigate(DetailsFragmentDirections.toMovieDetails(it))
+        findNavController().navigate(MovieDetailsFragmentDirections.toMovieDetails(it))
     }
 
     //TODO di
@@ -96,7 +96,7 @@ class DetailsFragment : Fragment() {
     private fun setComponent() = with(binding) {
         reviewsAdapter.listener = { item ->
             findNavController().navigate(
-                DetailsFragmentDirections.toReview(
+                MovieDetailsFragmentDirections.toReview(
                     item.authorDetails.userName,
                     item.content,
                     item.authorDetails.avatarPath,
@@ -106,11 +106,11 @@ class DetailsFragment : Fragment() {
         }
 
         castAdapter.listener = { personId ->
-            findNavController().navigate(DetailsFragmentDirections.toPerson(personId))
+            findNavController().navigate(MovieDetailsFragmentDirections.toPerson(personId))
         }
 
         crewAdapter.listener = { personId ->
-            findNavController().navigate(DetailsFragmentDirections.toPerson(personId))
+            findNavController().navigate(MovieDetailsFragmentDirections.toPerson(personId))
         }
 
         similarRecycler.setupWithAdapter(similarAdapter)

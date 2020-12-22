@@ -1,6 +1,6 @@
 package com.endeline.domain.usecase
 
-import com.endeline.data.models.Products
+import com.endeline.data.responses.Products
 import com.endeline.data.service.ProductService
 import com.endeline.domain.di.components.DaggerDomainComponents
 import com.endeline.domain.usecase.types.ObservableUseCase
