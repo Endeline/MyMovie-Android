@@ -54,10 +54,16 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-
         <action
             android:id="@+id/to_person"
             app:destination="@id/person_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/to_tv_details"
+            app:destination="@id/tv_details_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -73,7 +79,6 @@
             android:name="movie_id"
             android:defaultValue="-1"
             app:argType="integer" />
-
         <action
             android:id="@+id/to_person"
             app:destination="@id/person_fragment"
@@ -81,11 +86,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-
         <action
             android:id="@+id/to_review"
             app:destination="@id/review_fragment" />
-
         <action
             android:id="@+id/to_movie_details"
             app:destination="@id/movie_details_fragment"
@@ -143,6 +146,13 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/to_tv_details"
+            app:destination="@id/tv_details_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
     <fragment
@@ -178,14 +188,19 @@
         <argument
             android:name="person_id"
             app:argType="integer" />
-
         <action
             android:id="@+id/to_preview_image"
             app:destination="@+id/preview_image_fragment" />
-
         <action
             android:id="@+id/to_movie_details"
             app:destination="@id/movie_details_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/to_tv_details"
+            app:destination="@id/tv_details_fragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
