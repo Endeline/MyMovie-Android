@@ -33,7 +33,7 @@ class SearchFragment : Fragment() {
 
     //TODO di?
     private val tvAdapter = SearchAdapter {
-        //todo create tv details or upgrade current details
+        findNavController().navigate(SearchFragmentDirections.toTvDetails(it))
     }
 
     //TODO di?

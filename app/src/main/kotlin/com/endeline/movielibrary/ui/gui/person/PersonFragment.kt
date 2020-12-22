@@ -76,7 +76,7 @@ class PersonFragment : Fragment() {
         }
 
         tvCastAdapter.listener = {
-            //todo navigation to tv
+            findNavController().navigate(PersonFragmentDirections.toTvDetails(it))
         }
 
         imageRecycler.setupWithAdapter(posterImageAdapter)

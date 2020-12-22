@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.endeline.common.types.ProductType
+import com.endeline.movielibrary.Constants
 import com.endeline.movielibrary.databinding.SectionFragmentBinding
 import com.endeline.movielibrary.di.ViewModelFactory
 import com.endeline.movielibrary.di.components.DaggerAppComponent
@@ -17,6 +18,7 @@ import com.endeline.movielibrary.extensions.ifLet
 import com.endeline.movielibrary.Constants.Duration.RECYCLER_VIEW_ITEM_DURATION
 import com.endeline.movielibrary.Constants.Size.SMALL_POSTER_IMAGE_HEIGHT
 import com.endeline.movielibrary.Constants.Size.SMALL_POSTER_IMAGE_WIDTH
+import com.endeline.movielibrary.Constants.String.UNSUPPORTED_TYPE
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 import java.lang.RuntimeException
 import javax.inject.Inject
@@ -40,11 +42,10 @@ class SectionFragment : Fragment() {
                     viewHolderImageHeight = SMALL_POSTER_IMAGE_HEIGHT,
                     viewHolderImageWidth = SMALL_POSTER_IMAGE_WIDTH,
                     clickListener = {
-                        //todo create tv details
-                        //findNavController().navigate(MoviesFragmentDirections.toDetails(it))
+                        findNavController().navigate(CollectionFragmentDirections.toTvDetails(it))
                     }
                 )
-                else -> throw RuntimeException("Unsupported type")
+                else -> throw RuntimeException(UNSUPPORTED_TYPE)
             }
         }
     }
