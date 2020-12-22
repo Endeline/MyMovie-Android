@@ -14,4 +14,5 @@ interface ViewModelComponent {
     fun inject(app: ViewModelFactory.RegisterViewModelFactory)
     fun inject(app: ViewModelFactory.SectionViewModelFactory)
     fun inject(app: ViewModelFactory.PersonViewModelFactory)
+    fun inject(app: ViewModelFactory.TvViewModelFactory)
 }

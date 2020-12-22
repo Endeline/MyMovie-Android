@@ -1,4 +1,4 @@
-package com.endeline.movielibrary.ui.gui.details
+package com.endeline.movielibrary.ui.gui.details.movie
 
 import android.graphics.Color
 import android.os.Bundle
@@ -51,11 +51,11 @@ class DetailsFragment : Fragment() {
     }
 
     private val similarAdapter = MovieAdapter {
-        findNavController().navigate(DetailsFragmentDirections.toDetails(it))
+        findNavController().navigate(DetailsFragmentDirections.toMovieDetails(it))
     }
 
     private val recommendedAdapter = MovieAdapter {
-        findNavController().navigate(DetailsFragmentDirections.toDetails(it))
+        findNavController().navigate(DetailsFragmentDirections.toMovieDetails(it))
     }
 
     //TODO di
@@ -96,7 +96,7 @@ class DetailsFragment : Fragment() {
     private fun setComponent() = with(binding) {
         reviewsAdapter.listener = { item ->
             findNavController().navigate(
-                DetailsFragmentDirections.navigateToReview(
+                DetailsFragmentDirections.toReview(
                     item.authorDetails.userName,
                     item.content,
                     item.authorDetails.avatarPath,
@@ -106,11 +106,11 @@ class DetailsFragment : Fragment() {
         }
 
         castAdapter.listener = { personId ->
-            findNavController().navigate(DetailsFragmentDirections.navigateToPerson(personId))
+            findNavController().navigate(DetailsFragmentDirections.toPerson(personId))
         }
 
         crewAdapter.listener = { personId ->
-            findNavController().navigate(DetailsFragmentDirections.navigateToPerson(personId))
+            findNavController().navigate(DetailsFragmentDirections.toPerson(personId))
         }
 
         similarRecycler.setupWithAdapter(similarAdapter)

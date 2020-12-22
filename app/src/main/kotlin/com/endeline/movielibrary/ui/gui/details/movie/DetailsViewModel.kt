@@ -1,4 +1,4 @@
-package com.endeline.movielibrary.ui.gui.details
+package com.endeline.movielibrary.ui.gui.details.movie
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData

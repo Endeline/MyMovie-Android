@@ -30,4 +30,7 @@ class ViewModelModule {
 
     @Provides
     fun providePersonViewModel() = ViewModelFactory.PersonViewModelFactory()
+
+    @Provides
+    fun provideTvViewModel() = ViewModelFactory.TvViewModelFactory()
 }
