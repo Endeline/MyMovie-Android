@@ -73,8 +73,9 @@ class PersonViewModel(
     private fun loadTvCredits(personId: Int) = subscription.add(
         getProductCreditsUseCase(ProductType.PERSON, personId, SectionType.TV_CREDITS)
             .filter { it.cast.isNotEmpty() }
+            .map { it.cast.filter { it.backdropPath.isNotEmpty() } }
             .subscribe({
-                _tvCast.value = it.cast
+                _tvCast.value = it
             }, Timber::e)
     )
 }

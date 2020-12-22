@@ -4,7 +4,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.endeline.domain.uimodels.ProductUiModel
 import com.endeline.movielibrary.databinding.CastItemBinding
 import com.endeline.movielibrary.extensions.loadPosterImage
-import timber.log.Timber
 
 class CastViewHolder(val binding: CastItemBinding, val listener: (Int) -> Unit) :
     RecyclerView.ViewHolder(binding.root) {

@@ -32,10 +32,10 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private val topLevelDestination = setOf(
-        R.id.homeFragment,
-        R.id.moviesFragment,
-        R.id.tvFragment,
-        R.id.userFragment
+        R.id.home_fragment,
+        R.id.movies_fragment,
+        R.id.tv_fragment,
+        R.id.user_fragment
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,15 +67,15 @@ class MainActivity : AppCompatActivity() {
         navigationView.setupWithNavController(navigationController)
 
         navigationController.addOnDestinationChangedListener { _, destination, _ ->
-            navigationView.visibility = if (destination.id == R.id.videoFragment) {
+            navigationView.visibility = if (destination.id == R.id.video_fragment) {
                 View.GONE
             } else {
                 View.VISIBLE
             }
         }
 
-        navigationView.menu.findItem(R.id.homeFragment).isVisible = false
-        navigationView.menu.findItem(R.id.userFragment).isVisible = false
+        navigationView.menu.findItem(R.id.home_fragment).isVisible = false
+//        navigationView.menu.findItem(R.id.user_fragment).isVisible = false //todo probably move to toolbar
     }
 
     companion object {

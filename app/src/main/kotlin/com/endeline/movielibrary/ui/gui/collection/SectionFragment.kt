@@ -34,7 +34,7 @@ class SectionFragment : Fragment() {
         arguments?.getString(COLLECTION_TYPE)?.let { type ->
             when (ProductType.valueOf(type)) {
                 ProductType.MOVIE -> SectionAdapter {
-                    findNavController().navigate(CollectionFragmentDirections.toDetails(it))
+                    findNavController().navigate(CollectionFragmentDirections.toMovieDetails(it))
                 }
                 ProductType.TV -> SectionAdapter(
                     viewHolderImageHeight = SMALL_POSTER_IMAGE_HEIGHT,

@@ -168,4 +168,15 @@ class ViewModelFactory {
                 GetProductCreditsUseCase::class.java
             ).newInstance(getPersonDetailsUseCase, getImagesUseCase, getProductCreditsUseCase)
     }
+
+    class TvViewModelFactory : ViewModelProvider.Factory {
+
+        init {
+            DaggerViewModelComponent.create().inject(this)
+        }
+        override fun <T : ViewModel?> create(modelClass: Class<T>) =
+            modelClass.getConstructor().newInstance()
+
+    }
+
 }

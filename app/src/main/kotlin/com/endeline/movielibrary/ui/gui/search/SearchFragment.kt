@@ -28,7 +28,7 @@ class SearchFragment : Fragment() {
 
     //TODO di?
     private val personAdapter = SearchAdapter { personId ->
-        findNavController().navigate(SearchFragmentDirections.navigateToPerson(personId))
+        findNavController().navigate(SearchFragmentDirections.toPerson(personId))
     }
 
     //TODO di?
@@ -38,7 +38,7 @@ class SearchFragment : Fragment() {
 
     //TODO di?
     private val movieAdapter = SearchAdapter {
-        findNavController().navigate(SearchFragmentDirections.toDetails(it))
+        findNavController().navigate(SearchFragmentDirections.toMovieDetails(it))
     }
 
     private var _binding: SearchFragmentBinding? = null

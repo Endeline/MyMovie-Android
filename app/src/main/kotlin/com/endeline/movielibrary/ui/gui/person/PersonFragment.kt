@@ -72,7 +72,7 @@ class PersonFragment : Fragment() {
         }
 
         movieCastAdapter.listener = {
-            findNavController().navigate(PersonFragmentDirections.toDetails(it))
+            findNavController().navigate(PersonFragmentDirections.toMovieDetails(it))
         }
 
         tvCastAdapter.listener = {

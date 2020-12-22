@@ -12,4 +12,3 @@ data class ProductsUiModel(
         val minimum: String
     )
 }
-
