@@ -10,19 +10,18 @@ import androidx.navigation.fragment.navArgs
 import com.endeline.movielibrary.databinding.TvFragmentBinding
 import com.endeline.movielibrary.di.ViewModelFactory
 import com.endeline.movielibrary.di.components.DaggerAppComponent
-import timber.log.Timber
 import javax.inject.Inject
 
-class TvFragment : Fragment() {
+class TvDetailsFragment : Fragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory.TvViewModelFactory
+    lateinit var viewModelFactory: ViewModelFactory.TvDetailsViewModelFactory
 
-    private val viewModel by viewModels<TvViewModel> {
+    private val viewModel by viewModels<TvDetailsViewModel> {
         viewModelFactory
     }
 
-    private val args by navArgs<TvFragmentArgs>()
+    private val args by navArgs<TvDetailsFragmentArgs>()
 
     private var _binding: TvFragmentBinding? = null
     private val binding get() = _binding!!
@@ -44,9 +43,8 @@ class TvFragment : Fragment() {
 
         setComponent()
         subscribeUi()
-        //viewModel.loadData()
 
-        Timber.d("Wazne tv id ${args.tvId}")
+        viewModel.loadData(args.tvId)
     }
 
     override fun onDestroyView() {

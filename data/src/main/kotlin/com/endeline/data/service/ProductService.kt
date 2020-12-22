@@ -4,7 +4,7 @@ import com.endeline.common.types.ProductType
 import com.endeline.common.types.SectionType
 import com.endeline.data.cache.Cache
 import com.endeline.data.di.components.DaggerDataComponent
-import com.endeline.data.models.*
+import com.endeline.data.responses.*
 import com.endeline.data.repository.ProductRepository
 import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -138,13 +138,15 @@ class ProductService {
                 }
         }
 
-    fun getMovieDetails(id: Int): Observable<ProductDetails> {
-        return productRepository.getMovieDetails(id)
+    fun getMovieDetails(productType: ProductType, id: Int) = if (cache.contains(productType, id)) {
+        Observable.just(cache.get(productType, id) as ProductDetails)
+    } else {
+        productRepository.getProductDetails(productType.type, id)
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
-            .flatMap { movieDetails ->
-                //todo cache
-                Observable.just(movieDetails)
+            .flatMap { productDetails ->
+                cache.add(productType, id, productDetails)
+                Observable.just(productDetails)
             }
     }
 }

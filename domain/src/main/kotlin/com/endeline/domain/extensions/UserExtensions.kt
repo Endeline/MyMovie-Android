@@ -7,7 +7,7 @@ import com.endeline.domain.uimodels.UserUiModel
 
 //todo fix
 fun UserEntity.toUiModel() = UserUiModel(
-    id = this@toUiModel.id ?: DEFAULT_VALUE,
-    login = this@toUiModel.login ?: EMPTY_TEXT,
-    password = this@toUiModel.password ?: EMPTY_TEXT
+    id = this.id ?: DEFAULT_VALUE,
+    login = this.login ?: EMPTY_TEXT,
+    password = this.password ?: EMPTY_TEXT
 )

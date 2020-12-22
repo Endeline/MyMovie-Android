@@ -4,7 +4,7 @@ import com.endeline.common.Constants.DEFAULT_DATE
 import com.endeline.common.Constants.EMPTY_TEXT
 import com.endeline.common.Constants.EMPTY_VALUE
 import com.endeline.common.Constants.NO_VALUE
-import com.endeline.data.models.Person
+import com.endeline.data.responses.Person
 import com.endeline.domain.uimodels.PersonUiModel
 
 fun Person.toUiModel() = PersonUiModel(

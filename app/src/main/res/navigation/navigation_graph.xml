@@ -72,7 +72,7 @@
 
     <fragment
         android:id="@+id/movie_details_fragment"
-        android:name="com.endeline.movielibrary.ui.gui.details.movie.DetailsFragment"
+        android:name="com.endeline.movielibrary.ui.gui.details.movie.MovieDetailsFragment"
         android:label="DetailsFragment"
         tools:layout="@layout/details_fragment">
         <argument
@@ -238,7 +238,7 @@
 
     <fragment
         android:id="@+id/tv_details_fragment"
-        android:name="com.endeline.movielibrary.ui.gui.details.tv.TvFragment"
+        android:name="com.endeline.movielibrary.ui.gui.details.tv.TvDetailsFragment"
         android:label="tv_fragment"
         tools:layout="@layout/tv_fragment">
 

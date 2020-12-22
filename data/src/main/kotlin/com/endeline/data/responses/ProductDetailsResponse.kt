@@ -1,4 +1,4 @@
-package com.endeline.data.models
+package com.endeline.data.responses
 
 import com.google.gson.annotations.SerializedName
 import java.util.*
@@ -28,7 +28,17 @@ data class ProductDetails(
     @SerializedName("spoken_languages") val spokenLanguages: List<SpokenLanguages>?,
     @SerializedName("production_companies") val productionCompanies: List<ProductionCompanies>?,
     @SerializedName("production_countries") val productionCountries: List<ProductionCountries>?,
-    @SerializedName("belongs_to_collection") val belongsToCollection: BelongsToCollection?
+    @SerializedName("belongs_to_collection") val belongsToCollection: BelongsToCollection?,
+    @SerializedName("created_by") val createdBy: List<Person>?,
+    @SerializedName("episode_run_time") val episodeRunTime: List<Int>?,
+    @SerializedName("in_production") val inProduction: Boolean?,
+    @SerializedName("last_air_date") val lastAirDate: String?,
+    @SerializedName("number_of_seasons") val numberOfSeasons: Int?,
+    @SerializedName("number_of_episodes") val numberOfEpisodes: Int?,
+    @SerializedName("type") val type: String?,
+    @SerializedName("seasons") val seasons: List<Season>?,
+    @SerializedName("next_episode_to_air") val nextEpisodeToAir: Episode?
+
 ) {
     data class BelongsToCollection(
         @SerializedName("id") val id: Int?,
@@ -61,5 +71,28 @@ data class ProductDetails(
     data class ProductionCountries(
         @SerializedName("iso_3166_1") val iso_3166_1: String?,
         @SerializedName("name") val name: String?
+    )
+
+    data class Season(
+        @SerializedName("air_date") val airDate: String?,
+        @SerializedName("episode_count") val episodeCount: Int?,
+        @SerializedName("id") val id: Int?,
+        @SerializedName("name") val name: String?,
+        @SerializedName("overview") val overview: String?,
+        @SerializedName("poster_path") val posterPath: String?,
+        @SerializedName("season_number") val seasonNumber: Int?
+    )
+
+    data class Episode(
+        @SerializedName("air_date") val airDate: String?,
+        @SerializedName("episode_number") val episodeNumber: Int?,
+        @SerializedName("id") val id: Int?,
+        @SerializedName("name") val name: String?,
+        @SerializedName("overview") val overview: String?,
+        @SerializedName("production_code") val productionCode: String?,
+        @SerializedName("season_number") val seasonNumber: Int?,
+        @SerializedName("still_path") val stillPath: String?,
+        @SerializedName("vote_average") val voteAverage: Double?,
+        @SerializedName("vote_count") val voteCount: Int?
     )
 }

@@ -3,7 +3,7 @@ package com.endeline.domain.extensions
 import com.endeline.common.Constants.DEFAULT_DATE
 import com.endeline.common.Constants.EMPTY_TEXT
 import com.endeline.common.Constants.EMPTY_VALUE
-import com.endeline.data.models.Reviews
+import com.endeline.data.responses.Reviews
 import com.endeline.domain.uimodels.ReviewsUiModel
 
 fun Reviews.Author.toUiModel() = ReviewsUiModel.AuthorUiModel(

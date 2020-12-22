@@ -3,7 +3,7 @@ package com.endeline.domain.extensions
 import com.endeline.common.Constants.EMPTY_TEXT
 import com.endeline.common.Constants.EMPTY_VALUE
 import com.endeline.common.Constants.NO_VALUE
-import com.endeline.data.models.Images
+import com.endeline.data.responses.Images
 import com.endeline.domain.uimodels.ImagesUiModel
 
 fun Images.Image.toUiModel() = ImagesUiModel.ImageUiModel(

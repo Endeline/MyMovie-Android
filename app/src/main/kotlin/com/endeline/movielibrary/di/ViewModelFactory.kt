@@ -22,10 +22,10 @@ class ViewModelFactory {
                 .newInstance(loadAllDataUseCase)
     }
 
-    class DetailsViewModelFactory : ViewModelProvider.Factory {
+    class MovieDetailsViewModelFactory : ViewModelProvider.Factory {
 
         @Inject
-        lateinit var getMovieDetailsViewModel: GetMovieDetailsUseCase
+        lateinit var getProductDetailsUseCase: GetProductDetailsUseCase
 
         @Inject
         lateinit var getProductAdditionalInformationUseCase: GetProductAdditionalInformationUseCase
@@ -48,14 +48,14 @@ class ViewModelFactory {
 
         override fun <T : ViewModel?> create(modelClass: Class<T>) =
             modelClass.getConstructor(
-                GetMovieDetailsUseCase::class.java,
+                GetProductDetailsUseCase::class.java,
                 GetProductAdditionalInformationUseCase::class.java,
                 GetProductVideoLinksUseCase::class.java,
                 GetImagesUseCase::class.java,
                 GetProductReviewUseCase::class.java,
                 GetPersonCreditsUseCase::class.java
             ).newInstance(
-                getMovieDetailsViewModel,
+                getProductDetailsUseCase,
                 getProductAdditionalInformationUseCase,
                 getProductVideoLinksUseCase,
                 getImagesUseCase,
@@ -169,13 +169,18 @@ class ViewModelFactory {
             ).newInstance(getPersonDetailsUseCase, getImagesUseCase, getProductCreditsUseCase)
     }
 
-    class TvViewModelFactory : ViewModelProvider.Factory {
+    class TvDetailsViewModelFactory : ViewModelProvider.Factory {
+
+        @Inject
+        lateinit var getProductDetailsUseCase: GetProductDetailsUseCase
 
         init {
             DaggerViewModelComponent.create().inject(this)
         }
 
         override fun <T : ViewModel?> create(modelClass: Class<T>) =
-            modelClass.getConstructor().newInstance()
+            modelClass.getConstructor(
+                GetProductDetailsUseCase::class.java
+            ).newInstance(getProductDetailsUseCase)
     }
 }

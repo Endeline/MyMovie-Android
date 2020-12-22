@@ -1,7 +1,7 @@
 package com.endeline.domain.extensions
 
 import com.endeline.common.Constants.EMPTY_VALUE
-import com.endeline.data.models.PersonCredits
+import com.endeline.data.responses.PersonCredits
 import com.endeline.domain.uimodels.PersonCreditsUiModel
 
 fun PersonCredits.toUiModel() = PersonCreditsUiModel(
