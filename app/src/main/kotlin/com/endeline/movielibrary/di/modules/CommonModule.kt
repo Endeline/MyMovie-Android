@@ -4,6 +4,7 @@ import com.endeline.movielibrary.ui.common.carousel.RecyclerViewAutoScroll
 import com.endeline.movielibrary.ui.common.carousel.ImagesCarouselAdapter
 import com.endeline.movielibrary.ui.common.poster.PosterImageAdapter
 import com.endeline.movielibrary.ui.common.reviews.ReviewsAdapter
+import com.endeline.movielibrary.ui.gui.details.tv.SeasonAdapter
 import dagger.Module
 import dagger.Provides
 
@@ -21,4 +22,7 @@ class CommonModule {
 
     @Provides
     fun providePosterImageAdapter() = PosterImageAdapter()
+
+    @Provides
+    fun provideSeasonAdapter() = SeasonAdapter()
 }

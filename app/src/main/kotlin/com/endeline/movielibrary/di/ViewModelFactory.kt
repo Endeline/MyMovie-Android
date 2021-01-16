@@ -174,13 +174,17 @@ class ViewModelFactory {
         @Inject
         lateinit var getProductDetailsUseCase: GetProductDetailsUseCase
 
+        @Inject
+        lateinit var getImagesUseCase: GetImagesUseCase
+
         init {
             DaggerViewModelComponent.create().inject(this)
         }
 
         override fun <T : ViewModel?> create(modelClass: Class<T>) =
             modelClass.getConstructor(
-                GetProductDetailsUseCase::class.java
-            ).newInstance(getProductDetailsUseCase)
+                GetProductDetailsUseCase::class.java,
+                GetImagesUseCase::class.java
+            ).newInstance(getProductDetailsUseCase, getImagesUseCase)
     }
 }

@@ -32,13 +32,15 @@ data class ProductDetails(
     @SerializedName("created_by") val createdBy: List<Person>?,
     @SerializedName("episode_run_time") val episodeRunTime: List<Int>?,
     @SerializedName("in_production") val inProduction: Boolean?,
+    @SerializedName("first_air_date") val firstAirDate: String?,
     @SerializedName("last_air_date") val lastAirDate: String?,
     @SerializedName("number_of_seasons") val numberOfSeasons: Int?,
     @SerializedName("number_of_episodes") val numberOfEpisodes: Int?,
     @SerializedName("type") val type: String?,
     @SerializedName("seasons") val seasons: List<Season>?,
-    @SerializedName("next_episode_to_air") val nextEpisodeToAir: Episode?
-
+    @SerializedName("next_episode_to_air") val nextEpisodeToAir: Episode?,
+    @SerializedName("last_episode_to_air") val lastEpisodeToAir: Episode?,
+    @SerializedName("name") val name: String?,
 ) {
     data class BelongsToCollection(
         @SerializedName("id") val id: Int?,
