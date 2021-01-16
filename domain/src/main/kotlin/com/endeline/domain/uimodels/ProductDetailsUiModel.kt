@@ -34,12 +34,15 @@ data class ProductDetailsUiModel(
     val createdBy: List<PersonUiModel>,
     val episodeRunTime: List<Int>,
     val inProduction: Boolean,
+    val firstAirDate: String,
     val lastAirDate: String,
     val numberOfSeasons: Int,
     val numberOfEpisodes: Int,
     val type: String,
     val seasons: List<SeasonUiModel>,
-    val nextEpisodeToAir: EpisodeUiModel
+    val nextEpisodeToAir: EpisodeUiModel,
+    val lastEpisodeToAir: EpisodeUiModel,
+    val name: String
 ) {
     data class BelongsToCollectionUiModel(
         val id: Int,

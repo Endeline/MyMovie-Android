@@ -19,7 +19,7 @@ inline fun <T : Any> ifNotEmpty(element: T, closure: (T) -> Unit) {
         return
     }
 
-    if (element is String && element.isNotBlank()) {
+    if (element is String && element.isNotBlank() && element.isNotEmpty()) {
         closure(element)
         return
     }

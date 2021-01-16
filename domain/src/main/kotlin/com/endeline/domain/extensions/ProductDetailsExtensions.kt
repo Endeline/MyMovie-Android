@@ -38,11 +38,15 @@ fun ProductDetails.toUiModel() = ProductDetailsUiModel(
     createdBy = this.createdBy?.toUiModel() ?: emptyList(),
     episodeRunTime = this.episodeRunTime ?: emptyList(),
     inProduction = this.inProduction ?: false,
+    firstAirDate = this.firstAirDate ?: EMPTY_TEXT,
     lastAirDate = this.lastAirDate ?: EMPTY_TEXT,
     numberOfEpisodes = this.numberOfEpisodes ?: EMPTY_VALUE,
     numberOfSeasons = this.numberOfSeasons ?: EMPTY_VALUE,
     type = this.type ?: EMPTY_TEXT,
     seasons = this.seasons?.toUiModel() ?: emptyList(),
     nextEpisodeToAir = this.nextEpisodeToAir?.toUiModel()
-        ?: ProductDetailsUiModel.EpisodeUiModel.EMPTY
+        ?: ProductDetailsUiModel.EpisodeUiModel.EMPTY,
+    lastEpisodeToAir = this.lastEpisodeToAir?.toUiModel()
+        ?: ProductDetailsUiModel.EpisodeUiModel.EMPTY,
+    name = this.name ?: EMPTY_TEXT
 )
