@@ -14,6 +14,7 @@ import com.endeline.movielibrary.di.components.DaggerAppComponent
 import com.endeline.movielibrary.extensions.setViewsVisibility
 import com.endeline.movielibrary.extensions.setupWithAdapterAndRemoveAnimation
 import com.endeline.movielibrary.Constants.String.MINIMUM_TEXT_SIZE_TO_SEARCH
+import com.endeline.movielibrary.extensions.onDataLoaded
 import javax.inject.Inject
 
 //todo feature create tabs ??
@@ -92,20 +93,6 @@ class SearchFragment : Fragment() {
 
         person.observe(viewLifecycleOwner) {
             onDataLoaded(it, personAdapter, binding.personTitle, binding.personRecycle)
-        }
-    }
-
-    //TODO maybe to uiExtensions
-    private fun <T : Any> onDataLoaded(
-        items: List<T>,
-        adapter: androidx.recyclerview.widget.ListAdapter<T, *>,
-        vararg views: View
-    ) {
-        if (items.isNotEmpty()) {
-            setViewsVisibility(View.VISIBLE, *views)
-            adapter.submitList(items)
-        } else {
-            setViewsVisibility(View.GONE, *views)
         }
     }
 }

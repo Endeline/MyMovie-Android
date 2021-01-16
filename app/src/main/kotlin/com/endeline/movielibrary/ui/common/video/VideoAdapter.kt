@@ -1,4 +1,4 @@
-package com.endeline.movielibrary.ui.gui.details.movie
+package com.endeline.movielibrary.ui.common.video
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -7,8 +7,7 @@ import androidx.recyclerview.widget.ListAdapter
 import com.endeline.domain.uimodels.VideoLinkCollectionUiModel.VideoLinkDetailsUiModel
 import com.endeline.movielibrary.databinding.VideoLinkBinding
 
-class VideoAdapter(private val clickListener: (String, String) -> Unit) :
-    ListAdapter<VideoLinkDetailsUiModel, VideoViewHolder>(VideoDiffer()) {
+class VideoAdapter : ListAdapter<VideoLinkDetailsUiModel, VideoViewHolder>(VideoDiffer()) {
 
     private class VideoDiffer : DiffUtil.ItemCallback<VideoLinkDetailsUiModel>() {
         override fun areItemsTheSame(
@@ -22,10 +21,12 @@ class VideoAdapter(private val clickListener: (String, String) -> Unit) :
         ) = oldItem == newItem
     }
 
+    var listener: (String, String) -> Unit = { _, _ -> }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         VideoViewHolder(
             VideoLinkBinding.inflate(LayoutInflater.from(parent.context), parent, false),
-            clickListener
+            listener
         )
 
     override fun onBindViewHolder(holder: VideoViewHolder, position: Int) {

@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.PagerSnapHelper
 import com.endeline.domain.uimodels.ImagesUiModel.ImageUiModel
@@ -14,11 +15,15 @@ import com.endeline.movielibrary.Constants.Collections.MINIMUM_COLLECTION_SIZE
 import com.endeline.movielibrary.databinding.TvFragmentBinding
 import com.endeline.movielibrary.di.ViewModelFactory
 import com.endeline.movielibrary.di.components.DaggerAppComponent
+import com.endeline.movielibrary.extensions.onDataLoaded
 import com.endeline.movielibrary.extensions.setViewsVisibility
 import com.endeline.movielibrary.extensions.setupWithAdapter
 import com.endeline.movielibrary.ui.common.carousel.ImagesCarouselAdapter
 import com.endeline.movielibrary.ui.common.carousel.RecyclerViewAutoScroll
-import timber.log.Timber
+import com.endeline.movielibrary.ui.common.credits.CreditsAdapter
+import com.endeline.movielibrary.ui.common.video.VideoAdapter
+import com.endeline.movielibrary.ui.common.movie.MovieAdapter
+import com.endeline.movielibrary.ui.common.reviews.ReviewsAdapter
 import javax.inject.Inject
 
 class TvDetailsFragment : Fragment() {
@@ -35,11 +40,29 @@ class TvDetailsFragment : Fragment() {
     @Inject
     lateinit var seasonAdapter: SeasonAdapter
 
+    @Inject
+    lateinit var videoLinksAdapter: VideoAdapter
+
+    @Inject
+    lateinit var reviewsAdapter: ReviewsAdapter
+
     private val viewModel by viewModels<TvDetailsViewModel> {
         viewModelFactory
     }
 
     private val args by navArgs<TvDetailsFragmentArgs>()
+
+    //todo di
+    private val similarAdapter = MovieAdapter()
+
+    //todo di
+    private val recommendedAdapter = MovieAdapter()
+
+    //TODO di
+    private val castAdapter = CreditsAdapter()
+
+    //TODO di
+    private val crewAdapter = CreditsAdapter()
 
     private var _binding: TvFragmentBinding? = null
     private val binding get() = _binding!!
@@ -72,17 +95,53 @@ class TvDetailsFragment : Fragment() {
     }
 
     private fun setComponent() = with(binding) {
+        similarAdapter.listener = { id ->
+            findNavController().navigate(TvDetailsFragmentDirections.toTvDetails(id))
+        }
+
+        recommendedAdapter.listener = { id ->
+            findNavController().navigate(TvDetailsFragmentDirections.toTvDetails(id))
+        }
+
+        videoLinksAdapter.listener = { key, site ->
+            findNavController().navigate(TvDetailsFragmentDirections.toVideo(key, site))
+        }
+
         seasonAdapter.listener = { seasonId ->
-            //TODO implement
+            //todo implement
+        }
+
+        castAdapter.listener = { personId ->
+            findNavController().navigate(TvDetailsFragmentDirections.toPerson(personId))
+        }
+
+        crewAdapter.listener = { personId ->
+            findNavController().navigate(TvDetailsFragmentDirections.toPerson(personId))
+        }
+
+        reviewsAdapter.listener = { item ->
+            findNavController().navigate(
+                TvDetailsFragmentDirections.toReview(
+                    item.authorDetails.userName,
+                    item.content,
+                    item.authorDetails.avatarPath,
+                    item.authorDetails.rating
+                )
+            )
         }
 
         backdropsRecycler.setupWithAdapter(imagesAdapter)
+        seasonRecycler.setupWithAdapter(seasonAdapter)
+        moviesRecycler.setupWithAdapter(videoLinksAdapter)
+        similarRecycler.setupWithAdapter(similarAdapter)
+        recommendedRecycler.setupWithAdapter(recommendedAdapter)
+        castRecycler.setupWithAdapter(castAdapter)
+        crewRecycler.setupWithAdapter(crewAdapter)
+        reviewsRecycler.setupWithAdapter(reviewsAdapter)
 
         PagerSnapHelper().apply {
             attachToRecyclerView(backdropsRecycler)
         }
-
-        seasonRecycler.setupWithAdapter(seasonAdapter)
     }
 
     private fun subscribeUi() = with(viewModel) {
@@ -94,6 +153,7 @@ class TvDetailsFragment : Fragment() {
             onVoteAverageLoaded(voteAverage)
         }
 
+        //todo extensions/function
         title.observe(viewLifecycleOwner) { title ->
             binding.title.apply {
                 text = title
@@ -101,6 +161,7 @@ class TvDetailsFragment : Fragment() {
             }
         }
 
+        //todo extensions/function
         tagline.observe(viewLifecycleOwner) { tagline ->
             binding.tagline.apply {
                 text = tagline
@@ -108,36 +169,7 @@ class TvDetailsFragment : Fragment() {
             }
         }
 
-        popularity.observe(viewLifecycleOwner) { popularity ->
-            binding.popularity.text = popularity.toString()
-            binding.popularityTitle.visibility = View.VISIBLE
-        }
-
-        status.observe(viewLifecycleOwner) { status ->
-            binding.status.text = status
-            binding.statusTitle.visibility = View.VISIBLE
-        }
-
-        firstAirDate.observe(viewLifecycleOwner) { date ->
-            setViewsVisibility(View.VISIBLE, binding.firstAirDate, binding.firstAirDateTitle)
-            binding.firstAirDate.text = date
-        }
-
-        lastAirDate.observe(viewLifecycleOwner) { date ->
-            setViewsVisibility(View.VISIBLE, binding.lastAirDate, binding.lastAirDateTitle)
-            binding.lastAirDate.text = date
-        }
-
-        seasonCount.observe(viewLifecycleOwner) { count ->
-            setViewsVisibility(View.VISIBLE, binding.seasonCount, binding.seasonCountTitle)
-            binding.seasonCount.text = count.toString()
-        }
-
-        episodeCount.observe(viewLifecycleOwner) { count ->
-            setViewsVisibility(View.VISIBLE, binding.episodeCount, binding.episodeCountTitle)
-            binding.episodeCount.text = count.toString()
-        }
-
+        //todo extensions/function
         description.observe(viewLifecycleOwner) { description ->
             binding.description.apply {
                 text = description
@@ -145,16 +177,93 @@ class TvDetailsFragment : Fragment() {
             }
         }
 
-        seasons.observe(viewLifecycleOwner) { seasons ->
-            binding.seasonRecycler.visibility = View.VISIBLE
-            seasonAdapter.submitList(seasons)
+        //todo extensions/function
+        popularity.observe(viewLifecycleOwner) { popularity ->
+            binding.popularity.text = popularity.toString()
+            binding.popularityTitle.visibility = View.VISIBLE
+        }
 
-            seasons.forEach {
-                Timber.d("Wazne ${it.name} ${it.posterPath}")
-            }
+        //todo extensions/function
+        status.observe(viewLifecycleOwner) { status ->
+            binding.status.text = status
+            binding.statusTitle.visibility = View.VISIBLE
+        }
+
+        //todo extensions/function
+        firstAirDate.observe(viewLifecycleOwner) { date ->
+            setViewsVisibility(View.VISIBLE, binding.firstAirDate, binding.firstAirDateTitle)
+            binding.firstAirDate.text = date
+        }
+
+        //todo extensions/function
+        lastAirDate.observe(viewLifecycleOwner) { date ->
+            setViewsVisibility(View.VISIBLE, binding.lastAirDate, binding.lastAirDateTitle)
+            binding.lastAirDate.text = date
+        }
+
+        //todo extensions/function
+        seasonCount.observe(viewLifecycleOwner) { count ->
+            setViewsVisibility(View.VISIBLE, binding.seasonCount, binding.seasonCountTitle)
+            binding.seasonCount.text = count.toString()
+        }
+
+        //todo extensions/function
+        episodeCount.observe(viewLifecycleOwner) { count ->
+            setViewsVisibility(View.VISIBLE, binding.episodeCount, binding.episodeCountTitle)
+            binding.episodeCount.text = count.toString()
+        }
+
+        genres.observe(viewLifecycleOwner) {
+            onDataLoaded(binding.genresTitle, binding.genresList, it)
+        }
+
+        spokenLanguages.observe(viewLifecycleOwner) {
+            onDataLoaded(binding.languageTitle, binding.languageList, it)
+        }
+
+        productionCompanies.observe(viewLifecycleOwner) {
+            onDataLoaded(binding.companiesTitle, binding.companiesList, it)
+        }
+
+        productionCountries.observe(viewLifecycleOwner) {
+            onDataLoaded(binding.countriesTitle, binding.countriesList, it)
+        }
+
+        seasons.observe(viewLifecycleOwner) { seasons ->
+            onDataLoaded(seasons, seasonAdapter, binding.seasonRecycler, binding.seasonTitle)
+        }
+
+        videoLinks.observe(viewLifecycleOwner) { links ->
+            onDataLoaded(links, videoLinksAdapter, binding.moviesTitle, binding.moviesRecycler)
+        }
+
+        similar.observe(viewLifecycleOwner) {
+            onDataLoaded(it, similarAdapter, binding.similarTitle, binding.similarRecycler)
+        }
+
+        cast.observe(viewLifecycleOwner) {
+            onDataLoaded(it, castAdapter, binding.castTitle, binding.castRecycler)
+        }
+
+        crew.observe(viewLifecycleOwner) {
+            onDataLoaded(it, crewAdapter, binding.crewTitle, binding.crewRecycler)
+        }
+
+        reviews.observe(viewLifecycleOwner) {
+            onDataLoaded(it, reviewsAdapter, binding.reviewsTitle, binding.reviewsRecycler)
+        }
+
+        recommended.observe(viewLifecycleOwner) {
+            onDataLoaded(
+                it,
+                recommendedAdapter,
+                binding.recommendedTitle,
+                binding.recommendedRecycler
+            )
         }
     }
 
+    //todo extensions?
     private fun onImagesLoaded(images: List<ImageUiModel>) = with(binding) {
         backdropsRecycler.visibility = View.VISIBLE
         imagesAdapter.submitList(images)
@@ -167,6 +276,7 @@ class TvDetailsFragment : Fragment() {
         }
     }
 
+    //todo extensions?
     private fun onVoteAverageLoaded(vote: Double) = with(binding) {
         setViewsVisibility(View.VISIBLE, rating, voteAverage)
 

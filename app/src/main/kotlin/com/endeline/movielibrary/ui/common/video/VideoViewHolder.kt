@@ -1,4 +1,4 @@
-package com.endeline.movielibrary.ui.gui.details.movie
+package com.endeline.movielibrary.ui.common.video
 
 import androidx.recyclerview.widget.RecyclerView
 import com.endeline.domain.uimodels.VideoLinkCollectionUiModel.VideoLinkDetailsUiModel

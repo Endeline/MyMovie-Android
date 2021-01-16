@@ -5,8 +5,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
@@ -16,14 +14,16 @@ import com.endeline.domain.uimodels.ImagesUiModel.ImageUiModel
 import com.endeline.movielibrary.databinding.DetailsFragmentBinding
 import com.endeline.movielibrary.di.ViewModelFactory
 import com.endeline.movielibrary.di.components.DaggerAppComponent
-import com.endeline.movielibrary.extensions.ifNotEmpty
 import com.endeline.movielibrary.extensions.setViewsVisibility
 import com.endeline.movielibrary.extensions.setupWithAdapter
 import com.endeline.movielibrary.Constants.Collections.MINIMUM_COLLECTION_SIZE
+import com.endeline.movielibrary.extensions.onDataLoaded
 import com.endeline.movielibrary.ui.common.carousel.ImagesCarouselAdapter
 import com.endeline.movielibrary.ui.common.carousel.RecyclerViewAutoScroll
 import com.endeline.movielibrary.ui.common.credits.CreditsAdapter
+import com.endeline.movielibrary.ui.common.movie.MovieAdapter
 import com.endeline.movielibrary.ui.common.reviews.ReviewsAdapter
+import com.endeline.movielibrary.ui.common.video.VideoAdapter
 import javax.inject.Inject
 
 class MovieDetailsFragment : Fragment() {
@@ -40,23 +40,20 @@ class MovieDetailsFragment : Fragment() {
     @Inject
     lateinit var viewModelFactoryMovie: ViewModelFactory.MovieDetailsViewModelFactory
 
+    @Inject
+    lateinit var videoLinksAdapter: VideoAdapter
+
     private val viewModel by viewModels<MovieDetailsViewModel> {
         viewModelFactoryMovie
     }
 
     private val args by navArgs<MovieDetailsFragmentArgs>()
 
-    private val videoLinksAdapter = VideoAdapter { key, site ->
-        findNavController().navigate(MovieDetailsFragmentDirections.toVideo(key, site))
-    }
+    //todo di
+    private val similarAdapter = MovieAdapter()
 
-    private val similarAdapter = MovieAdapter {
-        findNavController().navigate(MovieDetailsFragmentDirections.toMovieDetails(it))
-    }
-
-    private val recommendedAdapter = MovieAdapter {
-        findNavController().navigate(MovieDetailsFragmentDirections.toMovieDetails(it))
-    }
+    //todo di
+    private val recommendedAdapter = MovieAdapter()
 
     //TODO di
     private val castAdapter = CreditsAdapter()
@@ -94,6 +91,18 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun setComponent() = with(binding) {
+        similarAdapter.listener = { id ->
+            findNavController().navigate(MovieDetailsFragmentDirections.toMovieDetails(id))
+        }
+
+        recommendedAdapter.listener =  { id ->
+            findNavController().navigate(MovieDetailsFragmentDirections.toMovieDetails(id))
+        }
+
+        videoLinksAdapter.listener = { key, site ->
+            findNavController().navigate(MovieDetailsFragmentDirections.toVideo(key, site))
+        }
+
         reviewsAdapter.listener = { item ->
             findNavController().navigate(
                 MovieDetailsFragmentDirections.toReview(
@@ -192,6 +201,7 @@ class MovieDetailsFragment : Fragment() {
         description.text = content.second
     }
 
+    //todo extensions?
     private fun onVoteAverageLoaded(vote: Double) = with(binding) {
         setViewsVisibility(View.VISIBLE, rating, voteAverage)
 
@@ -216,29 +226,7 @@ class MovieDetailsFragment : Fragment() {
         popularityTitle.visibility = View.VISIBLE
     }
 
-    //TODO maybe to uiExtensions
-    private fun onDataLoaded(title: View, container: LinearLayoutCompat, texts: List<String>) {
-        title.visibility = View.VISIBLE
-
-        texts.forEach {
-            container.addView(TextView(container.context).apply {
-                text = it
-            })
-        }
-    }
-
-    //TODO maybe to uiExtensions
-    private fun <T : Any> onDataLoaded(
-        items: List<T>,
-        adapter: androidx.recyclerview.widget.ListAdapter<T, *>,
-        vararg views: View
-    ) {
-        ifNotEmpty(items) {
-            setViewsVisibility(View.VISIBLE, *views)
-            adapter.submitList(it)
-        }
-    }
-
+    //todo extensions?
     private fun onBackdropsLoaded(backdropsList: List<ImageUiModel>) = with(binding) {
         backdropsRecycler.visibility = View.VISIBLE
         imagesAdapter.submitList(backdropsList)
