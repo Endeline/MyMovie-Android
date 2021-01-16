@@ -241,11 +241,34 @@
         android:name="com.endeline.movielibrary.ui.gui.details.tv.TvDetailsFragment"
         android:label="tv_fragment"
         tools:layout="@layout/tv_fragment">
-
         <argument
             android:name="tv_id"
             android:defaultValue="-1"
             app:argType="integer" />
+        <action
+            android:id="@+id/to_video"
+            app:destination="@id/video_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/to_person"
+            app:destination="@id/person_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/to_review"
+            app:destination="@id/review_fragment" />
+        <action
+            android:id="@+id/to_tv_details"
+            app:destination="@id/tv_details_fragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     </fragment>
 
 </navigation>

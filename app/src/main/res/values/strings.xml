@@ -64,4 +64,5 @@
     <string name="total_season">Total seasons: </string>
     <string name="total_episodes">Total episodes: </string>
     <string name="episodes">%d episodes</string>
+    <string name="season_title">Seasons</string>
 </resources>

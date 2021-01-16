@@ -3,11 +3,15 @@ package com.endeline.movielibrary.ui.gui.details.tv
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import com.endeline.common.types.ProductType
+import com.endeline.common.types.SectionType
 import com.endeline.domain.uimodels.ImagesUiModel.ImageUiModel
+import com.endeline.domain.uimodels.PersonUiModel
 import com.endeline.domain.uimodels.ProductDetailsUiModel.SeasonUiModel
 import com.endeline.domain.uimodels.ProductDetailsUiModel
-import com.endeline.domain.usecase.GetImagesUseCase
-import com.endeline.domain.usecase.GetProductDetailsUseCase
+import com.endeline.domain.uimodels.ProductUiModel
+import com.endeline.domain.uimodels.ReviewsUiModel
+import com.endeline.domain.uimodels.VideoLinkCollectionUiModel.VideoLinkDetailsUiModel
+import com.endeline.domain.usecase.*
 import com.endeline.movielibrary.Constants.Values.VALUE_ZERO
 import com.endeline.movielibrary.extensions.ifNotEmpty
 import com.endeline.movielibrary.ui.gui.base.BaseViewModel
@@ -15,7 +19,11 @@ import timber.log.Timber
 
 class TvDetailsViewModel(
     private val getProductDetailsUseCase: GetProductDetailsUseCase,
-    private val getImagesUseCase: GetImagesUseCase
+    private val getImagesUseCase: GetImagesUseCase,
+    private val getProductVideoLinksUseCase: GetProductVideoLinksUseCase,
+    private val getPersonCreditsUseCase: GetPersonCreditsUseCase,
+    private val getProductAdditionalInformationUseCase: GetProductAdditionalInformationUseCase,
+    private val getProductReviewUseCase: GetProductReviewUseCase
 ) : BaseViewModel() {
 
     private val _details = MutableLiveData<ProductDetailsUiModel>()
@@ -83,16 +91,64 @@ class TvDetailsViewModel(
     val seasons: LiveData<List<SeasonUiModel>>
         get() = _seasons
 
+    private val _videoLinks = MutableLiveData<List<VideoLinkDetailsUiModel>>()
+
+    val videoLinks: LiveData<List<VideoLinkDetailsUiModel>>
+        get() = _videoLinks
+
+    private val _cast = MutableLiveData<List<PersonUiModel>>()
+
+    val cast: LiveData<List<PersonUiModel>>
+        get() = _cast
+
+    private val _crew = MutableLiveData<List<PersonUiModel>>()
+
+    val crew: LiveData<List<PersonUiModel>>
+        get() = _crew
+
+    private val _similar = MutableLiveData<List<ProductUiModel>>()
+
+    val similar: LiveData<List<ProductUiModel>>
+        get() = _similar
+
+    private val _recommended = MutableLiveData<List<ProductUiModel>>()
+
+    val recommended: LiveData<List<ProductUiModel>>
+        get() = _recommended
+
+    private val _reviews = MutableLiveData<List<ReviewsUiModel.ReviewUiModel>>()
+
+    val reviews: LiveData<List<ReviewsUiModel.ReviewUiModel>>
+        get() = _reviews
+
+    private val _genres = MutableLiveData<List<String>>()
+
+    val genres: LiveData<List<String>>
+        get() = _genres
+
+    private val _productionCountries = MutableLiveData<List<String>>()
+
+    val productionCountries: LiveData<List<String>>
+        get() = _productionCountries
+
+    private val _spokenLanguages = MutableLiveData<List<String>>()
+
+    val spokenLanguages: LiveData<List<String>>
+        get() = _spokenLanguages
+
+    private val _productionCompanies = MutableLiveData<List<String>>()
+
+    val productionCompanies: LiveData<List<String>>
+        get() = _productionCompanies
+
     fun loadData(tvId: Int) {
         loadTvDetails(tvId)
         loadImages(tvId)
-        //load videos
-        //load load cast
-        //load similar
-        //load recommended
-        //episode details in other fragment ??
-
-        //add network to product details model ?
+        loadVideo(tvId)
+        loadSimilarMovies(tvId)
+        loadRecommendedMovies(tvId)
+        loadCredits(tvId)
+        loadReviews(tvId)
     }
 
     private fun loadTvDetails(id: Int) = subscription.add(
@@ -132,6 +188,22 @@ class TvDetailsViewModel(
                     _seasons.value = seasons
                 }
 
+                ifNotEmpty(details.genres) {
+                    _genres.value = it.map { it.name }
+                }
+
+                ifNotEmpty(details.productionCountries) {
+                    _productionCountries.value = it.map { it.name }
+                }
+
+                ifNotEmpty(details.spokenLanguages) {
+                    _spokenLanguages.value = it.map { it.name }
+                }
+
+                ifNotEmpty(details.productionCompanies) {
+                    _productionCompanies.value = it.map { it.name }
+                }
+
                 if (details.voteAverage > VALUE_ZERO) {
                     _voteAverage.value = details.voteAverage
                 }
@@ -144,12 +216,6 @@ class TvDetailsViewModel(
                     _episodeCount.value = details.numberOfEpisodes
                 }
 
-                //below check to default
-                Timber.d("Wazne nextEpisodeToAir ${details.nextEpisodeToAir}")
-                Timber.d("Wazne lastEpisodeToAir ${details.lastEpisodeToAir}")
-
-                //before cast
-                Timber.d("Wazne createdBy ${details.createdBy}")
 
                 //on last like in movie
                 Timber.d("Wazne genres ${details.genres}")
@@ -164,5 +230,59 @@ class TvDetailsViewModel(
         .subscribe({
             _backdrops.value = it.backdrops
         }, Timber::e)
+    )
+
+    private fun loadVideo(id: Int) =
+        subscription.add(
+            getProductVideoLinksUseCase(ProductType.TV, id)
+                .filter { it.results.isNotEmpty() }
+                .subscribe({
+                    _videoLinks.value = it.results
+                }, Timber::e)
+        )
+
+    private fun loadSimilarMovies(it: Int) =
+        subscription.add(getProductAdditionalInformationUseCase(
+            ProductType.TV,
+            it,
+            SectionType.SIMILAR
+        )
+            .filter { it.results.isNotEmpty() }
+            .subscribe({
+                _similar.value = it.results
+            }, Timber::e)
+        )
+
+    private fun loadRecommendedMovies(id: Int) = subscription.add(
+        getProductAdditionalInformationUseCase(
+            ProductType.TV,
+            id,
+            SectionType.RECOMMENDATIONS
+        )
+            .filter { it.results.isNotEmpty() }
+            .subscribe({
+                _recommended.value = it.results
+            }, Timber::e)
+    )
+
+    private fun loadCredits(id: Int) = subscription.add(
+        getPersonCreditsUseCase(ProductType.TV, id)
+            .subscribe({ response ->
+                ifNotEmpty(response.cast) {
+                    _cast.value = it.filter { it.profilePath.isNotBlank() }.distinctBy { it.id }
+                }
+
+                ifNotEmpty(response.crew) {
+                    _crew.value = it.filter { it.profilePath.isNotBlank() }.distinctBy { it.id }
+                }
+            }, Timber::e)
+    )
+
+    private fun loadReviews(id: Int) = subscription.add(
+        getProductReviewUseCase(ProductType.TV, id)
+            .filter { it.result.isNotEmpty() }
+            .subscribe({
+                _reviews.value = it.result
+            }, Timber::e)
     )
 }
