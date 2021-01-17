@@ -10,7 +10,6 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.endeline.common.types.ProductType
-import com.endeline.movielibrary.Constants
 import com.endeline.movielibrary.databinding.SectionFragmentBinding
 import com.endeline.movielibrary.di.ViewModelFactory
 import com.endeline.movielibrary.di.components.DaggerAppComponent
@@ -41,8 +40,8 @@ class SectionFragment : Fragment() {
                 ProductType.TV -> SectionAdapter(
                     viewHolderImageHeight = SMALL_POSTER_IMAGE_HEIGHT,
                     viewHolderImageWidth = SMALL_POSTER_IMAGE_WIDTH,
-                    clickListener = {
-                        findNavController().navigate(CollectionFragmentDirections.toTvDetails(it))
+                    clickListener = { tvId ->
+                        findNavController().navigate(CollectionFragmentDirections.toTvDetails(tvId))
                     }
                 )
                 else -> throw RuntimeException(UNSUPPORTED_TYPE)
