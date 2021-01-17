@@ -8,7 +8,7 @@ object Constants {
         const val AUTO_SCROLLING_PERIOD_TIME = 5000L
         const val AUTO_SCROLLING_DELAY_TIME = 2000L
 
-        const val TIMEOUT_IN_MS = 60*1000
+        const val TIMEOUT_IN_MS = 60 * 1000
     }
 
     object Size {

@@ -16,12 +16,10 @@ class SectionViewHolder(
 ) : RecyclerView.ViewHolder(binding.root) {
 
     fun bind(product: ProductUiModel) = with(binding) {
-
-        ifNotEmpty(product.title) {
-            title.apply {
-                text = it
-                visibility = View.VISIBLE
-            }
+        title.text = if (product.title.isNotEmpty()) {
+            product.title
+        } else {
+            product.name
         }
 
         ifNotEmpty(product.overview) {
