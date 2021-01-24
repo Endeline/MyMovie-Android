@@ -2,15 +2,16 @@ package com.endeline.movielibrary.ui.common.carousel
 
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.endeline.movielibrary.extensions.runOnUiThread
-import com.endeline.movielibrary.extensions.smoothSnapToPosition
+import com.endeline.movielibrary.ui.extensions.runOnUiThread
+import com.endeline.movielibrary.ui.extensions.smoothSnapToPosition
 import com.endeline.movielibrary.Constants.Duration.AUTO_SCROLLING_DELAY_TIME
 import com.endeline.movielibrary.Constants.Duration.AUTO_SCROLLING_PERIOD_TIME
 import com.endeline.movielibrary.Constants.Values.VALUE_ONE
 import com.endeline.movielibrary.Constants.Values.VALUE_ZERO
 import java.util.*
+import javax.inject.Inject
 
-class RecyclerViewAutoScroll {
+class RecyclerViewAutoScroll @Inject constructor(){
 
     private inner class AutoScrollTask : TimerTask() {
         override fun run() {

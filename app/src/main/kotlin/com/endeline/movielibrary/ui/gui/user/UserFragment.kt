@@ -4,23 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.endeline.movielibrary.R
 import com.endeline.movielibrary.databinding.LoginFragmentBinding
 import com.endeline.movielibrary.databinding.ProfileFragmentBinding
-import com.endeline.movielibrary.di.ViewModelFactory
-import com.endeline.movielibrary.di.components.DaggerAppComponent
-import com.endeline.movielibrary.extensions.isValidInput
-import com.endeline.movielibrary.extensions.showDialogWithButtons
+import com.endeline.movielibrary.di.factory.ViewModelProviderFactory
+import com.endeline.movielibrary.ui.extensions.isValidInput
+import com.endeline.movielibrary.ui.extensions.showDialogWithButtons
 import com.endeline.movielibrary.ui.gui.user.register.RegisterFragment
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class UserFragment : Fragment() {
+class UserFragment : DaggerFragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory.UserViewModelFactory
+    lateinit var viewModelFactory: ViewModelProviderFactory
 
     private val viewModel by viewModels<UserViewModel> {
         viewModelFactory
@@ -43,8 +42,6 @@ class UserFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        DaggerAppComponent.create().inject(this)
-
         return if (viewModel.isUserLogged()) {
             createLoggedLayout(inflater, container)
         } else {

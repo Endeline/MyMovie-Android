@@ -1,9 +1,9 @@
 package com.endeline.movielibrary.ui.common.video
 
 import androidx.recyclerview.widget.RecyclerView
-import com.endeline.domain.uimodels.VideoLinkCollectionUiModel.VideoLinkDetailsUiModel
+import com.endeline.movielibrary.domain.uimodels.VideoLinkCollectionUiModel.VideoLinkDetailsUiModel
 import com.endeline.movielibrary.databinding.VideoLinkBinding
-import com.endeline.movielibrary.extensions.ifLet
+import com.endeline.movielibrary.ui.extensions.ifLet
 
 class VideoViewHolder(
     val binding: VideoLinkBinding,

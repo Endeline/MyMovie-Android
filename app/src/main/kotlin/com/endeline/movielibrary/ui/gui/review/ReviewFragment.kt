@@ -8,17 +8,17 @@ import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
 import androidx.navigation.fragment.navArgs
 import com.endeline.movielibrary.R
 import com.endeline.movielibrary.databinding.ReviewFragmentBinding
-import com.endeline.movielibrary.extensions.ifNotEmpty
-import com.endeline.movielibrary.extensions.loadImage
-import com.endeline.movielibrary.extensions.px
+import com.endeline.movielibrary.ui.extensions.ifNotEmpty
+import com.endeline.movielibrary.ui.extensions.loadImage
+import com.endeline.movielibrary.ui.extensions.px
 import com.endeline.movielibrary.Constants.Size.WINDOW_HEIGHT
 import com.endeline.movielibrary.Constants.Size.WINDOW_WIDTH
+import dagger.android.support.DaggerDialogFragment
 
-class ReviewFragment : DialogFragment() {
+class ReviewFragment : DaggerDialogFragment() {
 
     private val args by navArgs<ReviewFragmentArgs>()
 

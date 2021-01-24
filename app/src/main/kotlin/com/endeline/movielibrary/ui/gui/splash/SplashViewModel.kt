@@ -3,10 +3,11 @@ package com.endeline.movielibrary.ui.gui.splash
 import android.os.Handler
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.endeline.domain.usecase.LoadAllDataUseCase
+import com.endeline.movielibrary.domain.usecase.LoadAllDataUseCase
 import com.endeline.movielibrary.ui.gui.base.BaseViewModel
+import javax.inject.Inject
 
-class SplashViewModel(private val loadAllDataUseCase: LoadAllDataUseCase) : BaseViewModel() {
+class SplashViewModel @Inject constructor(private val loadAllDataUseCase: LoadAllDataUseCase) : BaseViewModel() {
 
     private val _dataLoaded = MutableLiveData<Boolean>()
 

@@ -1,9 +1,9 @@
 package com.endeline.movielibrary.ui.common.poster
 
 import androidx.recyclerview.widget.RecyclerView
-import com.endeline.domain.uimodels.ImagesUiModel.ImageUiModel
+import com.endeline.movielibrary.domain.uimodels.ImagesUiModel.ImageUiModel
 import com.endeline.movielibrary.databinding.PosterImageBinding
-import com.endeline.movielibrary.extensions.loadPosterImage
+import com.endeline.movielibrary.ui.extensions.loadPosterImage
 
 class PosterImageViewHolder(val binding: PosterImageBinding, val listener: (String) -> Unit) :
     RecyclerView.ViewHolder(binding.root) {

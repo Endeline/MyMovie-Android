@@ -4,22 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
-import com.endeline.domain.uimodels.PersonUiModel
+import com.endeline.movielibrary.domain.uimodels.PersonUiModel
 import com.endeline.movielibrary.databinding.PersonFragmentBinding
-import com.endeline.movielibrary.di.ViewModelFactory
-import com.endeline.movielibrary.di.components.DaggerAppComponent
-import com.endeline.movielibrary.extensions.*
+import com.endeline.movielibrary.di.factory.ViewModelProviderFactory
+import com.endeline.movielibrary.ui.extensions.*
 import com.endeline.movielibrary.ui.common.poster.PosterImageAdapter
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class PersonFragment : Fragment() {
+class PersonFragment : DaggerFragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory.PersonViewModelFactory
+    lateinit var viewModelFactory: ViewModelProviderFactory
 
     @Inject
     lateinit var posterImageAdapter: PosterImageAdapter
@@ -44,8 +43,6 @@ class PersonFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        DaggerAppComponent.create().inject(this)
-
         _binding =
             PersonFragmentBinding.inflate(LayoutInflater.from(requireContext()), container, false)
 

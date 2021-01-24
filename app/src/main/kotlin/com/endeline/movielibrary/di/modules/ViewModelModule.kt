@@ -1,36 +1,70 @@
 package com.endeline.movielibrary.di.modules
 
-import com.endeline.movielibrary.di.ViewModelFactory
+import androidx.lifecycle.ViewModel
+import com.endeline.movielibrary.di.retention.ViewModelKey
+import com.endeline.movielibrary.ui.gui.collection.SectionViewModel
+import com.endeline.movielibrary.ui.gui.details.movie.MovieDetailsViewModel
+import com.endeline.movielibrary.ui.gui.details.tv.TvDetailsViewModel
+import com.endeline.movielibrary.ui.gui.main.MainActivityViewModel
+import com.endeline.movielibrary.ui.gui.person.PersonViewModel
+import com.endeline.movielibrary.ui.gui.search.SearchViewModel
+import com.endeline.movielibrary.ui.gui.splash.SplashViewModel
+import com.endeline.movielibrary.ui.gui.user.UserViewModel
+import com.endeline.movielibrary.ui.gui.user.forgotpassword.ForgotPasswordViewModel
+import com.endeline.movielibrary.ui.gui.user.register.RegisterViewModel
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
+import dagger.multibindings.IntoMap
 
 @Module
-class ViewModelModule {
+abstract class ViewModelModule {
+    @Binds
+    @IntoMap
+    @ViewModelKey(SectionViewModel::class)
+    abstract fun bindSectionViewModel(sectionViewModel: SectionViewModel): ViewModel
 
-    @Provides
-    fun provideSplashScreenViewModel() = ViewModelFactory.SplashScreenViewModelFactory()
+    @Binds
+    @IntoMap
+    @ViewModelKey(MovieDetailsViewModel::class)
+    abstract fun bindMovieDetailsViewModel(movieDetailsViewModel: MovieDetailsViewModel): ViewModel
 
-    @Provides
-    fun provideMovieDetailsViewModel() = ViewModelFactory.MovieDetailsViewModelFactory()
+    @Binds
+    @IntoMap
+    @ViewModelKey(TvDetailsViewModel::class)
+    abstract fun bindTvDetailsViewModel(tvDetailsViewModel: TvDetailsViewModel): ViewModel
 
-    @Provides
-    fun provideSectionViewModel() = ViewModelFactory.SectionViewModelFactory()
+    @Binds
+    @IntoMap
+    @ViewModelKey(MainActivityViewModel::class)
+    abstract fun bindMainActivityViewModel(mainActivityViewModel: MainActivityViewModel): ViewModel
 
-    @Provides
-    fun provideSearchViewModel() = ViewModelFactory.SearchViewModelFactory()
+    @Binds
+    @IntoMap
+    @ViewModelKey(PersonViewModel::class)
+    abstract fun bindPersonViewModel(personViewModel: PersonViewModel): ViewModel
 
-    @Provides
-    fun providesMainActivityViewModel() = ViewModelFactory.MainActivityViewModelFactory()
+    @Binds
+    @IntoMap
+    @ViewModelKey(SplashViewModel::class)
+    abstract fun bindSplashViewModel(splashViewModel: SplashViewModel): ViewModel
 
-    @Provides
-    fun providesUserViewModel() = ViewModelFactory.UserViewModelFactory()
+    @Binds
+    @IntoMap
+    @ViewModelKey(ForgotPasswordViewModel::class)
+    abstract fun bindForgotPasswordViewModel(forgotPasswordViewModel: ForgotPasswordViewModel): ViewModel
 
-    @Provides
-    fun providesRegisterViewModel() = ViewModelFactory.RegisterViewModelFactory()
+    @Binds
+    @IntoMap
+    @ViewModelKey(RegisterViewModel::class)
+    abstract fun bindRegisterViewModel(registerViewModel: RegisterViewModel): ViewModel
 
-    @Provides
-    fun providePersonViewModel() = ViewModelFactory.PersonViewModelFactory()
+    @Binds
+    @IntoMap
+    @ViewModelKey(UserViewModel::class)
+    abstract fun bindUserViewModel(userViewModel: UserViewModel): ViewModel
 
-    @Provides
-    fun provideTvDetailsViewModel() = ViewModelFactory.TvDetailsViewModelFactory()
+    @Binds
+    @IntoMap
+    @ViewModelKey(SearchViewModel::class)
+    abstract fun bindSearchViewModel(searchViewModel: SearchViewModel): ViewModel
 }

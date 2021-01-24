@@ -5,31 +5,30 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import androidx.recyclerview.widget.PagerSnapHelper
-import com.endeline.domain.uimodels.ImagesUiModel.ImageUiModel
+import com.endeline.movielibrary.domain.uimodels.ImagesUiModel.ImageUiModel
 import com.endeline.movielibrary.Constants.Collections.MINIMUM_COLLECTION_SIZE
 import com.endeline.movielibrary.databinding.TvFragmentBinding
-import com.endeline.movielibrary.di.ViewModelFactory
-import com.endeline.movielibrary.di.components.DaggerAppComponent
-import com.endeline.movielibrary.extensions.onDataLoaded
-import com.endeline.movielibrary.extensions.setViewsVisibility
-import com.endeline.movielibrary.extensions.setupWithAdapter
+import com.endeline.movielibrary.di.factory.ViewModelProviderFactory
+import com.endeline.movielibrary.ui.extensions.onDataLoaded
+import com.endeline.movielibrary.ui.extensions.setViewsVisibility
+import com.endeline.movielibrary.ui.extensions.setupWithAdapter
 import com.endeline.movielibrary.ui.common.carousel.ImagesCarouselAdapter
 import com.endeline.movielibrary.ui.common.carousel.RecyclerViewAutoScroll
 import com.endeline.movielibrary.ui.common.credits.CreditsAdapter
 import com.endeline.movielibrary.ui.common.video.VideoAdapter
 import com.endeline.movielibrary.ui.common.movie.MovieAdapter
 import com.endeline.movielibrary.ui.common.reviews.ReviewsAdapter
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
-class TvDetailsFragment : Fragment() {
+class TvDetailsFragment : DaggerFragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory.TvDetailsViewModelFactory
+    lateinit var viewModelFactory: ViewModelProviderFactory
 
     @Inject
     lateinit var imagesAdapter: ImagesCarouselAdapter
@@ -72,8 +71,6 @@ class TvDetailsFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        DaggerAppComponent.create().inject(this)
-
         _binding = TvFragmentBinding.inflate(inflater, container, false)
 
         return binding.root

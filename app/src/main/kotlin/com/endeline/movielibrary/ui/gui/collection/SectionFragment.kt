@@ -4,28 +4,27 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.endeline.common.types.ProductType
-import com.endeline.movielibrary.databinding.SectionFragmentBinding
-import com.endeline.movielibrary.di.ViewModelFactory
-import com.endeline.movielibrary.di.components.DaggerAppComponent
-import com.endeline.movielibrary.extensions.ifLet
 import com.endeline.movielibrary.Constants.Duration.RECYCLER_VIEW_ITEM_DURATION
 import com.endeline.movielibrary.Constants.Size.SMALL_POSTER_IMAGE_HEIGHT
 import com.endeline.movielibrary.Constants.Size.SMALL_POSTER_IMAGE_WIDTH
 import com.endeline.movielibrary.Constants.String.UNSUPPORTED_TYPE
+import com.endeline.movielibrary.common.types.ProductType
+import com.endeline.movielibrary.databinding.SectionFragmentBinding
+import com.endeline.movielibrary.di.factory.ViewModelProviderFactory
+import com.endeline.movielibrary.ui.extensions.ifLet
+import dagger.android.support.DaggerFragment
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
-import java.lang.RuntimeException
 import javax.inject.Inject
 
-class SectionFragment : Fragment() {
+
+class SectionFragment : DaggerFragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory.SectionViewModelFactory
+    lateinit var viewModelFactory: ViewModelProviderFactory
 
     private val viewModel by viewModels<SectionViewModel> {
         viewModelFactory
@@ -57,8 +56,6 @@ class SectionFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        DaggerAppComponent.create().inject(this)
-
         _binding = SectionFragmentBinding.inflate(inflater, container, false)
 
         return binding.root

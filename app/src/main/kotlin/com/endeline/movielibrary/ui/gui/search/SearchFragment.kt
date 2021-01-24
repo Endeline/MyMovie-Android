@@ -5,23 +5,21 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.widget.doOnTextChanged
-import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.endeline.movielibrary.databinding.SearchFragmentBinding
-import com.endeline.movielibrary.di.ViewModelFactory
-import com.endeline.movielibrary.di.components.DaggerAppComponent
-import com.endeline.movielibrary.extensions.setViewsVisibility
-import com.endeline.movielibrary.extensions.setupWithAdapterAndRemoveAnimation
+import com.endeline.movielibrary.ui.extensions.setupWithAdapterAndRemoveAnimation
 import com.endeline.movielibrary.Constants.String.MINIMUM_TEXT_SIZE_TO_SEARCH
-import com.endeline.movielibrary.extensions.onDataLoaded
+import com.endeline.movielibrary.di.factory.ViewModelProviderFactory
+import com.endeline.movielibrary.ui.extensions.onDataLoaded
+import dagger.android.support.DaggerFragment
 import javax.inject.Inject
 
 //todo feature create tabs ??
-class SearchFragment : Fragment() {
+class SearchFragment : DaggerFragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory.SearchViewModelFactory
+    lateinit var viewModelFactory: ViewModelProviderFactory
 
     private val viewModel by viewModels<SearchViewModel> {
         viewModelFactory
@@ -49,8 +47,6 @@ class SearchFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        DaggerAppComponent.create().inject(this)
-
         _binding = SearchFragmentBinding.inflate(inflater, container, false)
 
         return binding.root

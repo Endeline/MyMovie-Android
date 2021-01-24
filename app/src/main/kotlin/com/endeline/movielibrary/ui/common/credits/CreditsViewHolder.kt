@@ -1,9 +1,9 @@
 package com.endeline.movielibrary.ui.common.credits
 
 import androidx.recyclerview.widget.RecyclerView
-import com.endeline.domain.uimodels.PersonUiModel
+import com.endeline.movielibrary.domain.uimodels.PersonUiModel
 import com.endeline.movielibrary.databinding.CreditItemBinding
-import com.endeline.movielibrary.extensions.loadBackdropImage
+import com.endeline.movielibrary.ui.extensions.loadBackdropImage
 
 class CreditsViewHolder(val binding: CreditItemBinding, val listener: (Int) -> Unit) : RecyclerView.ViewHolder(binding.root) {
 

@@ -5,7 +5,6 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
-import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -13,19 +12,20 @@ import androidx.navigation.ui.setupWithNavController
 import com.endeline.movielibrary.BuildConfig
 import com.endeline.movielibrary.R
 import com.endeline.movielibrary.databinding.ActivityMainBinding
-import com.endeline.movielibrary.di.ViewModelFactory
-import com.endeline.movielibrary.di.components.DaggerAppComponent
+import com.endeline.movielibrary.di.factory.ViewModelProviderFactory
+import dagger.android.support.DaggerAppCompatActivity
 import timber.log.Timber
 import javax.inject.Inject
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : DaggerAppCompatActivity() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory.MainActivityViewModelFactory
+    lateinit var viewModelFactory: ViewModelProviderFactory
 
     private val viewModel by viewModels<MainActivityViewModel> {
         viewModelFactory
     }
+
     private lateinit var binding: ActivityMainBinding
 
     private lateinit var navigationController: NavController
@@ -40,8 +40,6 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        DaggerAppComponent.create().inject(this)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
 

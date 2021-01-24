@@ -4,10 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.endeline.domain.uimodels.VideoLinkCollectionUiModel.VideoLinkDetailsUiModel
+import com.endeline.movielibrary.domain.uimodels.VideoLinkCollectionUiModel.VideoLinkDetailsUiModel
 import com.endeline.movielibrary.databinding.VideoLinkBinding
+import javax.inject.Inject
 
-class VideoAdapter : ListAdapter<VideoLinkDetailsUiModel, VideoViewHolder>(VideoDiffer()) {
+class VideoAdapter @Inject constructor() : ListAdapter<VideoLinkDetailsUiModel, VideoViewHolder>(VideoDiffer()) {
 
     private class VideoDiffer : DiffUtil.ItemCallback<VideoLinkDetailsUiModel>() {
         override fun areItemsTheSame(

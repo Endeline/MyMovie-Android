@@ -1,7 +1,7 @@
 package com.endeline.movielibrary.ui.common.reviews
 
 import androidx.recyclerview.widget.RecyclerView
-import com.endeline.domain.uimodels.ReviewsUiModel.ReviewUiModel
+import com.endeline.movielibrary.domain.uimodels.ReviewsUiModel.ReviewUiModel
 import com.endeline.movielibrary.databinding.ReviewItemBinding
 
 class ReviewsViewHolder(val binding: ReviewItemBinding, val listener: (ReviewUiModel) -> Unit) : RecyclerView.ViewHolder(binding.root) {

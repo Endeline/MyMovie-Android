@@ -4,10 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.endeline.domain.uimodels.ImagesUiModel.ImageUiModel
+import com.endeline.movielibrary.domain.uimodels.ImagesUiModel.ImageUiModel
 import com.endeline.movielibrary.databinding.PosterImageBinding
+import javax.inject.Inject
 
-class PosterImageAdapter : ListAdapter<ImageUiModel, PosterImageViewHolder>(ImagePosterDiffer()) {
+class PosterImageAdapter @Inject constructor() : ListAdapter<ImageUiModel, PosterImageViewHolder>(ImagePosterDiffer()) {
 
     private class ImagePosterDiffer : DiffUtil.ItemCallback<ImageUiModel>() {
         override fun areItemsTheSame(oldItem: ImageUiModel, newItem: ImageUiModel) =

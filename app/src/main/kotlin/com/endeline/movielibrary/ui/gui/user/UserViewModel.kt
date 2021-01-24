@@ -2,12 +2,13 @@ package com.endeline.movielibrary.ui.gui.user
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.endeline.domain.usecase.CheckIsUserInAppUseCase
-import com.endeline.domain.usecase.GetUserIsLoggedInUseCase
+import com.endeline.movielibrary.domain.usecase.CheckIsUserInAppUseCase
+import com.endeline.movielibrary.domain.usecase.GetUserIsLoggedInUseCase
 import com.endeline.movielibrary.ui.gui.base.BaseViewModel
 import timber.log.Timber
+import javax.inject.Inject
 
-class UserViewModel(
+class UserViewModel @Inject constructor(
     private val getUserIsLoggedInUseCase: GetUserIsLoggedInUseCase,
     private val getUserInAppUseCase: CheckIsUserInAppUseCase
 ) : BaseViewModel() {
