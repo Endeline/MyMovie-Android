@@ -138,7 +138,7 @@
         <argument
             android:name="type"
             android:defaultValue="MOVIE"
-            app:argType="com.endeline.common.types.ProductType" />
+            app:argType="com.endeline.movielibrary.common.types.ProductType" />
         <action
             android:id="@+id/to_movie_details"
             app:destination="@id/movie_details_fragment"
@@ -163,7 +163,7 @@
         <argument
             android:name="type"
             android:defaultValue="TV"
-            app:argType="com.endeline.common.types.ProductType" />
+            app:argType="com.endeline.movielibrary.common.types.ProductType" />
         <action
             android:id="@+id/to_tv_details"
             app:destination="@id/tv_details_fragment"

@@ -8,6 +8,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.endeline.movielibrary.databinding.CollectionFragmentBinding
 import com.google.android.material.tabs.TabLayoutMediator
+import dagger.android.support.DaggerFragment
 
 class CollectionFragment : Fragment() {
 

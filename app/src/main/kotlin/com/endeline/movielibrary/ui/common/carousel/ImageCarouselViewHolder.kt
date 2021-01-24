@@ -1,9 +1,9 @@
 package com.endeline.movielibrary.ui.common.carousel
 
 import androidx.recyclerview.widget.RecyclerView
-import com.endeline.domain.uimodels.ImagesUiModel.ImageUiModel
+import com.endeline.movielibrary.domain.uimodels.ImagesUiModel.ImageUiModel
 import com.endeline.movielibrary.databinding.ImageCarouselItemBinding
-import com.endeline.movielibrary.extensions.loadBackdropImage
+import com.endeline.movielibrary.ui.extensions.loadBackdropImage
 
 class ImageCarouselViewHolder(val binding: ImageCarouselItemBinding) : RecyclerView.ViewHolder(binding.root) {
 

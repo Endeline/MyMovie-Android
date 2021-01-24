@@ -2,14 +2,15 @@ package com.endeline.movielibrary.ui.gui.collection
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.endeline.common.types.ProductType
-import com.endeline.common.types.SectionType
-import com.endeline.domain.uimodels.ProductUiModel
-import com.endeline.domain.usecase.GetProductsWithTypes
+import com.endeline.movielibrary.common.types.ProductType
+import com.endeline.movielibrary.common.types.SectionType
+import com.endeline.movielibrary.domain.uimodels.ProductUiModel
+import com.endeline.movielibrary.domain.usecase.GetProductsWithTypes
 import com.endeline.movielibrary.ui.gui.base.BaseViewModel
 import timber.log.Timber
+import javax.inject.Inject
 
-class SectionViewModel(
+class SectionViewModel @Inject constructor(
     private val getProductWithTypes: GetProductsWithTypes
 ) : BaseViewModel() {
 

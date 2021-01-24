@@ -4,10 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.endeline.domain.uimodels.ReviewsUiModel.ReviewUiModel
+import com.endeline.movielibrary.domain.uimodels.ReviewsUiModel.ReviewUiModel
 import com.endeline.movielibrary.databinding.ReviewItemBinding
+import javax.inject.Inject
 
-class ReviewsAdapter : ListAdapter<ReviewUiModel, ReviewsViewHolder>(ReviewDiffer()) {
+class ReviewsAdapter @Inject constructor() : ListAdapter<ReviewUiModel, ReviewsViewHolder>(ReviewDiffer()) {
 
     private class ReviewDiffer : DiffUtil.ItemCallback<ReviewUiModel>() {
         override fun areItemsTheSame(oldItem: ReviewUiModel, newItem: ReviewUiModel) =

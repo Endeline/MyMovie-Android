@@ -10,8 +10,9 @@ import android.webkit.WebChromeClient
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.navArgs
 import com.endeline.movielibrary.databinding.VideoFragmentBinding
+import dagger.android.support.DaggerFragment
 
-class VideoFragment : Fragment() {
+class VideoFragment : DaggerFragment() {
 
     private var _binding: VideoFragmentBinding? = null
     private val binding get() = _binding!!

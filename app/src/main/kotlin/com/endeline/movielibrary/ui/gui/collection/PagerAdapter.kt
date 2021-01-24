@@ -3,8 +3,8 @@ package com.endeline.movielibrary.ui.gui.collection
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import com.endeline.common.types.ProductType
-import com.endeline.common.types.SectionType
+import com.endeline.movielibrary.common.types.ProductType
+import com.endeline.movielibrary.common.types.SectionType
 import com.endeline.movielibrary.R
 import com.endeline.movielibrary.Constants.Position.FIRST
 import com.endeline.movielibrary.Constants.Position.FOURTH

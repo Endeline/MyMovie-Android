@@ -2,13 +2,15 @@ package com.endeline.movielibrary.ui.gui.search
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.endeline.common.types.ProductType
-import com.endeline.domain.uimodels.SearchUiModel.SearchItemUiModel
-import com.endeline.domain.usecase.SearchAllUseCase
+import com.endeline.movielibrary.common.types.ProductType
+import com.endeline.movielibrary.domain.uimodels.SearchUiModel.SearchItemUiModel
+import com.endeline.movielibrary.domain.usecase.SearchAllUseCase
 import com.endeline.movielibrary.ui.gui.base.BaseViewModel
 import timber.log.Timber
+import javax.inject.Inject
 
-class SearchViewModel(private val searchAllUseCase: SearchAllUseCase) : BaseViewModel() {
+class SearchViewModel @Inject constructor(private val searchAllUseCase: SearchAllUseCase) :
+    BaseViewModel() {
 
     private val _person = MutableLiveData<List<SearchItemUiModel>>()
 

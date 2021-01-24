@@ -2,12 +2,13 @@ package com.endeline.movielibrary.ui.gui.user.register
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.endeline.domain.usecase.CheckExistLoginUseCase
-import com.endeline.domain.usecase.RegisterUseCase
+import com.endeline.movielibrary.domain.usecase.CheckExistLoginUseCase
+import com.endeline.movielibrary.domain.usecase.RegisterUseCase
 import com.endeline.movielibrary.ui.gui.base.BaseViewModel
 import timber.log.Timber
+import javax.inject.Inject
 
-class RegisterViewModel(
+class RegisterViewModel @Inject constructor(
     private val checkExistLoginUseCase: CheckExistLoginUseCase,
     private val registerUseCase: RegisterUseCase
 ) : BaseViewModel() {

@@ -4,10 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.endeline.domain.uimodels.ImagesUiModel.ImageUiModel
+import com.endeline.movielibrary.domain.uimodels.ImagesUiModel.ImageUiModel
 import com.endeline.movielibrary.databinding.ImageCarouselItemBinding
+import javax.inject.Inject
 
-class ImagesCarouselAdapter : ListAdapter<ImageUiModel, ImageCarouselViewHolder>(ImageDiffer()) {
+class ImagesCarouselAdapter @Inject constructor() : ListAdapter<ImageUiModel, ImageCarouselViewHolder>(ImageDiffer()) {
 
     private class ImageDiffer : DiffUtil.ItemCallback<ImageUiModel>() {
         override fun areItemsTheSame(oldItem: ImageUiModel, newItem: ImageUiModel) =

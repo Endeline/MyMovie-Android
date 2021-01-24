@@ -2,11 +2,11 @@ package com.endeline.movielibrary.ui.gui.collection
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import com.endeline.domain.uimodels.ProductUiModel
+import com.endeline.movielibrary.domain.uimodels.ProductUiModel
 import com.endeline.movielibrary.databinding.SectionItemBinding
-import com.endeline.movielibrary.extensions.ifNotEmpty
-import com.endeline.movielibrary.extensions.loadPosterImage
-import com.endeline.movielibrary.extensions.px
+import com.endeline.movielibrary.ui.extensions.ifNotEmpty
+import com.endeline.movielibrary.ui.extensions.loadPosterImage
+import com.endeline.movielibrary.ui.extensions.px
 
 class SectionViewHolder(
     private val binding: SectionItemBinding,

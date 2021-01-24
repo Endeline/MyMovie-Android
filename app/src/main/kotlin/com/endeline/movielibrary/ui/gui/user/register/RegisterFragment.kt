@@ -4,22 +4,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.endeline.movielibrary.R
 import com.endeline.movielibrary.databinding.RegisterFragmentBinding
-import com.endeline.movielibrary.di.ViewModelFactory
-import com.endeline.movielibrary.di.components.DaggerAppComponent
-import com.endeline.movielibrary.extensions.isSameEditText
-import com.endeline.movielibrary.extensions.isValidInput
-import com.endeline.movielibrary.extensions.showOkDialog
+import com.endeline.movielibrary.di.factory.ViewModelProviderFactory
+import com.endeline.movielibrary.ui.extensions.isSameEditText
+import com.endeline.movielibrary.ui.extensions.isValidInput
+import com.endeline.movielibrary.ui.extensions.showOkDialog
+import dagger.android.support.DaggerDialogFragment
 import javax.inject.Inject
 
-class RegisterFragment : DialogFragment() {
+class RegisterFragment : DaggerDialogFragment() {
 
     @Inject
-    lateinit var viewModelFactory: ViewModelFactory.RegisterViewModelFactory
+    lateinit var viewModelFactory: ViewModelProviderFactory
 
     private val viewModel by viewModels<RegisterViewModel> {
         viewModelFactory
@@ -33,8 +32,6 @@ class RegisterFragment : DialogFragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        DaggerAppComponent.create().inject(this)
-
         _binding = RegisterFragmentBinding.inflate(inflater, container, false)
 
         return binding.root

@@ -3,12 +3,12 @@ package com.endeline.movielibrary.ui.gui.details.tv
 import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.recyclerview.widget.RecyclerView
-import com.endeline.domain.uimodels.ProductDetailsUiModel
+import com.endeline.movielibrary.domain.uimodels.ProductDetailsUiModel
 import com.endeline.movielibrary.Constants.Collections.MINIMUM_COLLECTION_SIZE
 import com.endeline.movielibrary.R
 import com.endeline.movielibrary.databinding.SeasonItemBinding
-import com.endeline.movielibrary.extensions.ifNotEmpty
-import com.endeline.movielibrary.extensions.loadPosterImage
+import com.endeline.movielibrary.ui.extensions.ifNotEmpty
+import com.endeline.movielibrary.ui.extensions.loadPosterImage
 
 class SeasonViewHolder(
     private val binding: SeasonItemBinding,

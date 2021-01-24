@@ -2,22 +2,23 @@ package com.endeline.movielibrary.ui.gui.details.tv
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.endeline.common.types.ProductType
-import com.endeline.common.types.SectionType
-import com.endeline.domain.uimodels.ImagesUiModel.ImageUiModel
-import com.endeline.domain.uimodels.PersonUiModel
-import com.endeline.domain.uimodels.ProductDetailsUiModel.SeasonUiModel
-import com.endeline.domain.uimodels.ProductDetailsUiModel
-import com.endeline.domain.uimodels.ProductUiModel
-import com.endeline.domain.uimodels.ReviewsUiModel
-import com.endeline.domain.uimodels.VideoLinkCollectionUiModel.VideoLinkDetailsUiModel
-import com.endeline.domain.usecase.*
+import com.endeline.movielibrary.common.types.ProductType
+import com.endeline.movielibrary.common.types.SectionType
+import com.endeline.movielibrary.domain.uimodels.ImagesUiModel.ImageUiModel
+import com.endeline.movielibrary.domain.uimodels.PersonUiModel
+import com.endeline.movielibrary.domain.uimodels.ProductDetailsUiModel.SeasonUiModel
+import com.endeline.movielibrary.domain.uimodels.ProductDetailsUiModel
+import com.endeline.movielibrary.domain.uimodels.ProductUiModel
+import com.endeline.movielibrary.domain.uimodels.ReviewsUiModel
+import com.endeline.movielibrary.domain.uimodels.VideoLinkCollectionUiModel.VideoLinkDetailsUiModel
 import com.endeline.movielibrary.Constants.Values.VALUE_ZERO
-import com.endeline.movielibrary.extensions.ifNotEmpty
+import com.endeline.movielibrary.domain.usecase.*
+import com.endeline.movielibrary.ui.extensions.ifNotEmpty
 import com.endeline.movielibrary.ui.gui.base.BaseViewModel
 import timber.log.Timber
+import javax.inject.Inject
 
-class TvDetailsViewModel(
+class TvDetailsViewModel @Inject constructor(
     private val getProductDetailsUseCase: GetProductDetailsUseCase,
     private val getImagesUseCase: GetImagesUseCase,
     private val getProductVideoLinksUseCase: GetProductVideoLinksUseCase,

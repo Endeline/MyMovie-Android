@@ -6,8 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.endeline.movielibrary.databinding.HomeFragmentBinding
+import dagger.android.support.DaggerFragment
 
-class HomeFragment : Fragment() {
+class HomeFragment : DaggerFragment() {
 
     private var _binding: HomeFragmentBinding? = null
     private val binding get() = _binding!!

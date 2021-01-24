@@ -4,10 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.endeline.domain.uimodels.ProductDetailsUiModel.SeasonUiModel
+import com.endeline.movielibrary.domain.uimodels.ProductDetailsUiModel.SeasonUiModel
 import com.endeline.movielibrary.databinding.SeasonItemBinding
+import javax.inject.Inject
 
-class SeasonAdapter : ListAdapter<SeasonUiModel, SeasonViewHolder>(SeasonDiffer()) {
+class SeasonAdapter @Inject constructor(): ListAdapter<SeasonUiModel, SeasonViewHolder>(SeasonDiffer()) {
 
     private class SeasonDiffer : DiffUtil.ItemCallback<SeasonUiModel>() {
         override fun areItemsTheSame(

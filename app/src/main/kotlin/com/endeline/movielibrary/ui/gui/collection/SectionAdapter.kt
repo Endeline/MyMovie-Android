@@ -4,7 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
-import com.endeline.domain.uimodels.ProductUiModel
+import com.endeline.movielibrary.domain.uimodels.ProductUiModel
 import com.endeline.movielibrary.databinding.SectionItemBinding
 import com.endeline.movielibrary.Constants.Size.DEFAULT_POSTER_IMAGE_HEIGHT
 import com.endeline.movielibrary.Constants.Size.DEFAULT_POSTER_IMAGE_WIDTH

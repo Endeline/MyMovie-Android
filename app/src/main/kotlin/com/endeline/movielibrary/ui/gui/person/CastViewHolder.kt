@@ -1,9 +1,9 @@
 package com.endeline.movielibrary.ui.gui.person
 
 import androidx.recyclerview.widget.RecyclerView
-import com.endeline.domain.uimodels.ProductUiModel
+import com.endeline.movielibrary.domain.uimodels.ProductUiModel
 import com.endeline.movielibrary.databinding.CastItemBinding
-import com.endeline.movielibrary.extensions.loadPosterImage
+import com.endeline.movielibrary.ui.extensions.loadPosterImage
 
 class CastViewHolder(val binding: CastItemBinding, val listener: (Int) -> Unit) :
     RecyclerView.ViewHolder(binding.root) {
